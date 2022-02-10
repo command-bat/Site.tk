@@ -18,13 +18,13 @@ setInterval(function() {
 
 function Mudarestado(el) {
     var display = document.getElementById(el).style.display;
-    var h2 = document.getElementById("btn");
+    var h5 = document.getElementById("btn");
 
       if (display == "none") {
         document.getElementById(el).style.display = 'block';
-        h2.innerHTML = "Esconder";
+        h5.innerHTML = "Esconder";
       } else {
         document.getElementById(el).style.display = 'none';
-        h2.innerHTML = "Mostrar";
+        h5.innerHTML = "Mostrar";
       }
  }
