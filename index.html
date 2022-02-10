@@ -44,18 +44,12 @@
 
             <!-- imagens com links -->
             
-            <b type="button" onclick="Mudarestado('minhaDiv')"><h5>Mostrar</h5><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
-
-            <b target="_blank " > <button type="button" onclick="copiarTexto('minhaDiv')"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
-
-            <b target="_blank " > <button type="button" onclick="copiarTexto('minhaDiv')"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
-        
-            <button type="button" onclick="copiarTexto('minhaDiv')"><b target="_blank "><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
+            <b type="button" onclick="Mudarestado('minhaDiv')"><h5></h5><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
 
             </button>
         </button>
                 <script>
-                    let copiarTexto = () => {
+                    let Mudarestado = () => {
                         //O texto que será copiado
                         const texto = "commandbat#7192";
                         //Cria um elemento input (pode ser um textarea)
@@ -70,9 +64,7 @@
                         document.execCommand('copy');
                         //remove o elemento
                         document.body.removeChild(inputTest);
-                        
-                        let copia = () =>{
-                            copia.texto = "0";
+    
                         }
                     };
                 </script><br>
@@ -98,7 +90,8 @@
 <body>
     <main>
         <b type="button" onclick="Mudarestado('minhaDiv')"><h5>Mostrar</h5><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
-        <b target="_blank " > <button type="button" onclick="copiarTexto('minhaDiv')"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
+        <b target="_blank " > <button type="button" onclick="
+            ('minhaDiv')"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></b>
 
     </main>
     <script type="button/javascript" src="/js/escrever.js"></script>
