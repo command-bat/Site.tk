@@ -41,7 +41,18 @@
             <div id="minhaDiv">(copiado para area de transferencia)</div>
 
             <button type="button" onclick="Mudarestado()"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white ">Esconder</button>
+    <script type="text/javascript">
+        function Mudarestado(el, btn) {
+    
+            var ele = document.getElementById(el);
+            var display = ele.style.display;
+    
+            ele.style.display = display == 'none' ? 'block' : 'none';
+            btn.innerHTML = display == 'none' ? 'Esconder' : 'Mostrar';
 
+}
+    </script>
+            
         <script>
             let Mudarestado = () => {
                 //O texto que será copiado
