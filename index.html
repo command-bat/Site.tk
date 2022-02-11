@@ -39,7 +39,7 @@
         <section class="redes">
     <div id="minhaDiv" style="display: block;">(copiado para area de transferencia)</div>
 
-<button type="button" onclick="Mudarestado('minhaDiv', this)"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></button>
+<button type="button" onclick="Mudarestado('minhaDiv', this)"></button>
     <script type="text/javascript">
         function Mudarestado(el, btn) {
     
@@ -47,7 +47,7 @@
     var display = ele.style.display;
     
     ele.style.display = display == 'none' ? 'block' : 'none';
-    btn.innerHTML = display == 'none' ? '' : '';
+    btn.innerHTML = display == 'none' ? '<img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white ">' : '<img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white ">';
 
 };
 
