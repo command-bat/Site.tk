@@ -32,7 +32,7 @@ function Mudarestado(el) {
     document.getElementById(el).style.display = 'block';
     botao.innerHTML = "Esconder";
         
-  }, 2000);
+  }, 20);
   }
 };
 
