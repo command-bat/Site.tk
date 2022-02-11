@@ -18,11 +18,10 @@ setInterval(function() {
 
 
       if (display == "none") {
-        setInterval(function() {
-            typeWriter(copia);
+
             document.getElementById(el).style.display = 'block';
             h5.innerHTML = "Esconder";
-        }, 7000);
+
   
       } else {
         setInterval(function() {
