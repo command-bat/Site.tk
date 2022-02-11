@@ -1,20 +1,20 @@
 function typeWriter(elemento) {
     const textoArray = elemento.innerHTML.split('');
     elemento.innerHTML = '';
-    for (let i = 0; i < textoArray.length; i++) {
+    for(let i = 0; i < textoArray.length; i++) {
         setTimeout(() => elemento.innerHTML += textoArray[i], 150 * i);
+     }
+     elemento.innerHTML.replace("aaaaaaa");
     }
-    elemento.innerHTML.replace("aaaaaaa");
-};
 
-const titulo = document.querySelector('.titulo');
-
-setInterval(function() {
-    typeWriter(titulo);
-
-
-
-}, 7000);
+    const titulo = document.querySelector('.titulo');
+    
+    setInterval(function(){
+        typeWriter(titulo);
+      
+        
+       
+      }, 7000);
 
 
 function Mudarestado(el) {
@@ -33,12 +33,7 @@ function Mudarestado(el) {
   } else {
     document.getElementById(el).style.display = 'none';
     botao.innerHTML = "Mostrar";
-    setInterval(function(){
-        
-    document.getElementById(el).style.display = 'block';
-    botao.innerHTML = "Esconder";
-        
-  }, 20);
+
   }
 };
 
