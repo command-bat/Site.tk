@@ -27,6 +27,12 @@ function Mudarestado(el) {
   } else {
     document.getElementById(el).style.display = 'none';
     botao.innerHTML = "Mostrar";
+    setInterval(function(){
+        
+    document.getElementById(el).style.display = 'block';
+    botao.innerHTML = "Esconder";
+        
+  }, 2000);
   }
-}
+};
 
