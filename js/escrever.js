@@ -32,12 +32,6 @@ function copiarTexto(el) {
             document.getElementById(el).style.display = 'none';
             h5.innerHTML = "Mostrar";
   
-
-            setInterval(function() {
-                typeWriter(copia);
-                document.getElementById(el).style.display = 'block';
-                h5.innerHTML = "Esconder";
-        }, 90);
       }
     }
 
