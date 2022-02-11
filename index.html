@@ -75,17 +75,9 @@
             };
         </script><br>
 
-                <div id="mostrador">00</div>
-<button>1 minuto</button>
-    <script type="text/javascript">
-        var button = document.querySelector('button');
-var mostrador = document.querySelector('#mostrador');
 
-button.addEventListener('click', function() {
-    new Timer(1, mostrador, function() {
-        alert('O tempo acabou!');
-    }).start();
-});
+    <script type="text/javascript">
+
 
 function Timer(mins, target, cb) {
     this.counter = mins * 60;
