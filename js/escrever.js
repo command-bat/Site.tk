@@ -19,14 +19,16 @@ setInterval(function() {
 
       if (display == "none") {
         setInterval(function() {
-            typeWriter(titulo);
+            typeWriter(copia);
             document.getElementById(el).style.display = 'block';
             h5.innerHTML = "Esconder";
         }, 7000);
   
       } else {
         setInterval(function() {
-            typeWriter(titulo);
+            typeWriter(copia);
             document.getElementById(el).style.display = 'none';
             h5.innerHTML = "Mostrar";
         }, 7000);
+
+      }
