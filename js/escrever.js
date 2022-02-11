@@ -17,23 +17,13 @@ function typeWriter(elemento) {
       }, 7000);
 
 
-function Mudarestado(el) {
-  var display = document.getElementById(el).style.display;
-  var botao = document.getElementById("btn");
+function Mudarestado(el, btn) {
+    
+    var ele = document.getElementById(el);
+    var display = ele.style.display;
+    
+    ele.style.display = display == 'none' ? 'block' : 'none';
+    btn.innerHTML = display == 'none' ? 'Esconder' : 'Mostrar';
 
-  if (display == "none") {
-    document.getElementById(el).style.display = 'block';
-    botao.innerHTML = "Esconder";
-          setInterval(function(){
-        
-    document.getElementById(el).style.display = 'none';
-    botao.innerHTML = "Mostrar";
-        
-  }, 20);
-  } else {
-    document.getElementById(el).style.display = 'none';
-    botao.innerHTML = "Mostrar";
-
-  }
-};
+}
 
