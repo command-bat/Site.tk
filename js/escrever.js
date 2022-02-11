@@ -6,5 +6,5 @@ function Mudarestado(el, btn) {
     ele.style.display = display == 'none' ? 'block' : 'none';
     btn.innerHTML = display == 'none' ? 'Esconder' : 'Mostrar';
 
-}
+};
 
