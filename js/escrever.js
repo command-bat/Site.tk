@@ -15,7 +15,6 @@ setInterval(function() {
 
 
 }, 7000);
-
 function copiarTexto(el) {
     var display = document.getElementById(el).style.display;
     var h5 = document.getElementById("btn");
@@ -39,4 +38,6 @@ function copiarTexto(el) {
                 document.getElementById(el).style.display = 'block';
                 h5.innerHTML = "Esconder";
         }, 90);
-      };
+      }
+    }
+
