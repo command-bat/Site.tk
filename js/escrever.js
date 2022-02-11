@@ -15,23 +15,18 @@ setInterval(function() {
 
 
 }, 7000);
-function copiarTexto(el) {
-    var display = document.getElementById(el).style.display;
-    var h5 = document.getElementById("btn");
 
 
+function Mudarestado(el) {
+  var display = document.getElementById(el).style.display;
+  var botao = document.getElementById("btn");
 
-      if (display == "none") {
-
-            document.getElementById(el).style.display = 'block';
-            h5.innerHTML = "Esconder";
-
-  
-      } else {
-
-            document.getElementById(el).style.display = 'none';
-            h5.innerHTML = "Mostrar";
-  
-      }
-    }
+  if (display == "none") {
+    document.getElementById(el).style.display = 'block';
+    botao.innerHTML = "Esconder";
+  } else {
+    document.getElementById(el).style.display = 'none';
+    botao.innerHTML = "Mostrar";
+  }
+}
 
