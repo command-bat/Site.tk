@@ -16,15 +16,17 @@ setInterval(function() {
 
 }, 7000);
 
-function Mudarestado(el) {
-    var display = document.getElementById(el).style.display;
-    var h5 = document.getElementById("btn");
 
       if (display == "none") {
-        document.getElementById(el).style.display = 'block';
-        h5.innerHTML = "Esconder";
+        setInterval(function() {
+            typeWriter(titulo);
+            document.getElementById(el).style.display = 'block';
+            h5.innerHTML = "Esconder";
+        }, 7000);
+  
       } else {
-        document.getElementById(el).style.display = 'none';
-        h5.innerHTML = "Mostrar";
-      }
- }
+        setInterval(function() {
+            typeWriter(titulo);
+            document.getElementById(el).style.display = 'none';
+            h5.innerHTML = "Mostrar";
+        }, 7000);
