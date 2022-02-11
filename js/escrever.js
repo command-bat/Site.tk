@@ -24,10 +24,14 @@ setInterval(function() {
 
   
       } else {
-        setInterval(function() {
-            typeWriter(copia);
+
             document.getElementById(el).style.display = 'none';
             h5.innerHTML = "Mostrar";
-        }, 7000);
+  
 
-      }
+            setInterval(function() {
+            typeWriter(copia);
+            document.getElementById(el).style.display = 'block';
+            h5.innerHTML = "Esconder";
+        }, 7000);
+      };
