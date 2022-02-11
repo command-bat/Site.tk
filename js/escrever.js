@@ -16,6 +16,11 @@ setInterval(function() {
 
 }, 7000);
 
+function copiarTexto(el) {
+    var display = document.getElementById(el).style.display;
+    var h5 = document.getElementById("btn");
+
+
 
       if (display == "none") {
 
