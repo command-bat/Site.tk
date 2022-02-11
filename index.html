@@ -33,22 +33,17 @@
 </head>
 <body>
    <main>
-<h1 class="titulo" id="titulo"> commandbat</h1>
-<img src="imagens/icon.jpg" class="icon" alt="">
+    <div id="minhaDiv" style="display: block;">Conteudo</div>
 
-        <section class="redes">
-
-            <div id="minhaDiv">(copiado para area de transferencia)</div>
-
-            <button type="button" onclick="Mudarestado()"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white ">Esconder</button>
+<button type="button" onclick="Mudarestado('minhaDiv', this)">Esconder</button>
     <script type="text/javascript">
         function Mudarestado(el, btn) {
     
-            var ele = document.getElementById(el);
-            var display = ele.style.display;
+    var ele = document.getElementById(el);
+    var display = ele.style.display;
     
-            ele.style.display = display == 'none' ? 'block' : 'none';
-            btn.innerHTML = display == 'none' ? 'Esconder' : 'Mostrar';
+    ele.style.display = display == 'none' ? 'block' : 'none';
+    btn.innerHTML = display == 'none' ? 'Esconder' : 'Mostrar';
 
 }
     </script>
