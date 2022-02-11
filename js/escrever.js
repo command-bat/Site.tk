@@ -5,7 +5,7 @@ function typeWriter(elemento) {
         setTimeout(() => elemento.innerHTML += textoArray[i], 150 * i);
     }
     elemento.innerHTML.replace("aaaaaaa");
-}
+};
 
 const titulo = document.querySelector('.titulo');
 
