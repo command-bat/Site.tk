@@ -1,5 +1,3 @@
-
-
 function Mudarestado(el, btn) {
     
     var ele = document.getElementById(el);
