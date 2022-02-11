@@ -24,6 +24,12 @@ function Mudarestado(el) {
   if (display == "none") {
     document.getElementById(el).style.display = 'block';
     botao.innerHTML = "Esconder";
+          setInterval(function(){
+        
+    document.getElementById(el).style.display = 'none';
+    botao.innerHTML = "Mostrar";
+        
+  }, 20);
   } else {
     document.getElementById(el).style.display = 'none';
     botao.innerHTML = "Mostrar";
