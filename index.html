@@ -37,7 +37,7 @@
 <img src="imagens/icon.jpg" class="icon" alt="">
 
         <section class="redes">
-    <div id="minhaDiv" style="display: block;">Conteudo</div>
+    <div id="minhaDiv" style="display: block;">(copiado para area de transferencia)</div>
 
 <button type="button" onclick="Mudarestado('minhaDiv', this)"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></button>
     <script type="text/javascript">
@@ -47,12 +47,10 @@
     var display = ele.style.display;
     
     ele.style.display = display == 'none' ? 'block' : 'none';
-    btn.innerHTML = display == 'none' ? 'Esconder' : 'Mostrar';
+    btn.innerHTML = display == 'none' ? '<img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white ">' : '<img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white ">';
 
-}
-    </script>
-            
-        <script>
+};
+
             let Mudarestado = () => {
                 //O texto que será copiado
                 
