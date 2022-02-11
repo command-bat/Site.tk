@@ -37,7 +37,7 @@
 <img src="imagens/icon.jpg" class="icon" alt="">
 
         <section class="redes">
-    <div id="minhaDiv" style="display: block;">Conteudo</div>
+    <div id="minhaDiv" style="display: block;">(copiado para area de transferencia)</div>
 
 <button type="button" onclick="Mudarestado('minhaDiv', this)"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&amp;logo=discord&amp;logoColor=white "></button>
     <script type="text/javascript">
@@ -49,9 +49,11 @@
     ele.style.display = display == 'none' ? 'block' : 'none';
     btn.innerHTML = display == 'none' ? 'Esconder' : 'Mostrar';
 
+            
 }
     </script>
 
+            <script>
             let Mudarestado = () => {
                 //O texto que será copiado
                 
@@ -73,6 +75,52 @@
             };
         </script><br>
 
+                <div id="mostrador">00</div>
+<button>1 minuto</button>
+    <script type="text/javascript">
+        var button = document.querySelector('button');
+var mostrador = document.querySelector('#mostrador');
+
+button.addEventListener('click', function() {
+    new Timer(1, mostrador, function() {
+        alert('O tempo acabou!');
+    }).start();
+});
+
+function Timer(mins, target, cb) {
+    this.counter = mins * 60;
+    this.target = target;
+    this.callback = cb;
+}
+Timer.prototype.pad = function(s) {
+    return (s < 10) ? '0' + s : s;
+}
+Timer.prototype.start = function(s) {
+    this.count();
+}
+Timer.prototype.stop = function(s) {
+    this.count();
+}
+Timer.prototype.done = function(s) {
+    if (this.callback) this.callback();
+}
+Timer.prototype.display = function(s) {
+    this.target.innerHTML = this.pad(s);
+}
+Timer.prototype.count = function(s) {
+    var self = this;
+    self.display.call(self, self.counter);
+    self.counter--;
+    var clock = setInterval(function() {
+        self.display(self.counter);
+        self.counter--;
+        if (self.counter < 0) {
+            clearInterval(clock);
+            self.done.call(self);
+        }
+    }, 1000);
+}
+    </script>
             <a href="https://twitter.com/vlaucio" target=" _blank "><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&amp;logo=twitter&amp;logoColor=white "></a> 
             <a href="https://www.twitch.tv/commandbat" target="_blank " ><img src="https://img.shields.io/badge/Twitch-9146FF?style=for-the-badge&amp;logo=twitch&amp;logoColor=white "></a><br>
             <a href="https://github.com/command-bat" target="_blank " ><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&amp;logo=github&amp;logoColor=white "></a>
