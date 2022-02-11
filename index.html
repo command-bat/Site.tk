@@ -49,26 +49,27 @@
 
             </button>
         </button>
-                <script>
-                    let Mudarestado = ('minhaDiv') => {
-                        //O texto que será copiado
-                        const texto = "commandbat#7192";
-                        //Cria um elemento input (pode ser um textarea)
-                        let inputTest = document.createElement("input");
-                        inputTest.value = texto;
-                        //Anexa o elemento ao body
-                        document.body.appendChild(inputTest);
-                        //seleciona todo o texto do elemento
-                        inputTest.select();
-                        //executa o comando copy
-                        //aqui é feito o ato de copiar para a area de trabalho com base na seleção
-                        document.execCommand('copy');
-                        //remove o elemento
-                        document.body.removeChild(inputTest);
-    
-                        }
-                    };
-                </script><br>
+        <script>
+            let Mudarestado = () => {
+                //O texto que será copiado
+                
+                const texto = "commandbat#7192";
+                //Cria um elemento input (pode ser um textarea)
+                let inputTest = document.createElement("input");
+                inputTest.value = texto;
+                //Anexa o elemento ao body
+                document.body.appendChild(inputTest);
+                //seleciona todo o texto do elemento
+                inputTest.select();
+                //executa o comando copy
+                //aqui é feito o ato de copiar para a area de trabalho com base na seleção
+                document.execCommand('copy');
+                //remove o elemento
+                document.body.removeChild(inputTest);
+                'minhaDiv'
+                
+            };
+        </script><br>
 
             <a href="https://twitter.com/vlaucio" target=" _blank "><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&amp;logo=twitter&amp;logoColor=white "></a> 
             <a href="https://www.twitch.tv/commandbat" target="_blank " ><img src="https://img.shields.io/badge/Twitch-9146FF?style=for-the-badge&amp;logo=twitch&amp;logoColor=white "></a><br>
