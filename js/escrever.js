@@ -30,8 +30,8 @@ setInterval(function() {
   
 
             setInterval(function() {
-            typeWriter(copia);
-            document.getElementById(el).style.display = 'block';
-            h5.innerHTML = "Esconder";
-        }, 7000);
+                typeWriter(copia);
+                document.getElementById(el).style.display = 'block';
+                h5.innerHTML = "Esconder";
+        }, 90);
       };
