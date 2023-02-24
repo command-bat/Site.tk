@@ -116,13 +116,14 @@
             };
     </script>
     </section>
-       <button class="QRcode" type="Button" onclick="QRcode()"><img src="imagens/QRcode.jpg" height="300" width="300"></button><br>
+       <button class="QRcode" type="button" onclick="QRcode()"><img src="imagens/QRcode.jpg" height="300" width="300"></button><br>
             <script>
-                let QRcode = () => {
-                //O texto que será copiado
-                
-                (this).css('opacity', '0')
-                
+
+let QRcode = () => {
+let el = document.getElementsByClassName('QRcode');
+// varias propriedades
+el.style.cssText =
+    'opacity: 1';
             };
     </script>
         <h4>Doa ae PFV</h4><br><br>
