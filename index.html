@@ -86,6 +86,9 @@
 
 
         </section>
+
+
+
        
         <h3>Pix: 7c2bda87-1efe-4aa7-b30d-1e943045ba08</h3>
        <section class="pix">
@@ -94,7 +97,13 @@
     </script>
 
         <script>
+
             let Pix = () => {
+
+                //visualisar imagem
+                var imagem = document.getElementById("imagem");
+                imagem.style.display = "block";
+
                 //O texto que será copiado
                 
                 const texto = "7c2bda87-1efe-4aa7-b30d-1e943045ba08";
@@ -116,16 +125,16 @@
             };
     </script>
     </section>
-       <button class="QRcode" type="button" onclick="QRcode()"><img src="imagens/QRcode.jpg" height="300" width="300"></button><br>
-            <script>
+      <img id="imagem" src="imagens/QRcode.jpg" height="300" width="300" style="display:none" onclick="ocultarImagem()"><br>
 
-let QRcode = () => {
-let el = document.getElementsByClassName('QRcode');
-// varias propriedades
-el.style.cssText =
-    'opacity: 1';
-            };
-    </script>
+<script>
+function ocultarImagem() {
+  var imagem = document.getElementById("imagem");
+  imagem.style.display = "none";
+}
+</script>
+
+
         <h4>Doa ae PFV</h4><br><br>
        
         </main>
