@@ -99,6 +99,6 @@ h4 {
     overflow: hidden;
 }
 
-.QRcode button{
-    opacity: 0;
+.QRcode{
+    margin: 0 auto;
 }
