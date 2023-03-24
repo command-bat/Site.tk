@@ -16,5 +16,23 @@
    <main>
       <img src="imagens/horariob.jpg" alt="">
    </main>
-</body>
+  <button onclick="baixarImagem()">Baixar Imagem</button>
 
+  <script>
+    function baixarImagem() {
+      // Caminho relativo da imagem
+      var imagemCaminho = 'imagens/imagem.jpg';
+
+      // Nome do arquivo que será salvo
+      var nomeArquivo = 'imagem.jpg';
+
+      // Cria um elemento <a> para baixar o arquivo
+      var link = document.createElement('a');
+      link.href = imagemCaminho;
+      link.download = nomeArquivo;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
