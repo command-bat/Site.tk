@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Baixar Horário de Ônibus</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    main {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+
+  <!-- Otimização de Imagens -->
+  <script>
+    function otimizarImagens() {
+      var imagens = document.getElementsByTagName('img');
+      for (var i = 0; i < imagens.length; i++) {
+        imagens[i].src = imagens[i].src.replace(/\.jpg|\.png|\.gif/gi, ".webp");
+        imagens[i].setAttribute('loading', 'lazy');
+        imagens[i].setAttribute('decoding', 'async');
+      }
+    }
+    otimizarImagens();
+  </script>
+
+  <!-- Compactação do código -->
+  <?php
+    ob_start("ob_gzhandler");
+  ?>
+
+  <!-- Utilização de Cache -->
+  <meta http-equiv="Cache-control" content="public">
+  <meta http-equiv="Expires" content="Sat, 01 Jan 2050 00:00:00 GMT">
+
+</head>
+<body>
+  <main>
+    <img src="imagens/horariob.webp" alt="Horário de Ônibus de Rio Preto">
+  </main>
+
+  <button onclick="baixarImagem()">Baixar Essa Merda De Horario</button>
+
+  <script>
+    function baixarImagem() {
+      // Caminho relativo da imagem
+      var imagemCaminho = 'imagens/horariob.jpg';
+
+      // Nome do arquivo que será salvo
+      var nomeArquivo = 'Horario Onibus Rio Preto.jpg';
+
+      // Cria um elemento <a> para baixar o arquivo
+      var link = document.createElement('a');
+      link.href = imagemCaminho;
+      link.download = nomeArquivo;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+
+  <!-- Melhorias na velocidade de carregamento -->
+  <script src="script.js"></script>
+
+  <!-- SEO -->
+  <meta name="keywords" content="horário de ônibus, rio preto, transporte público">
+  <meta name="description"
