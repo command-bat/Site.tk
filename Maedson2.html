@@ -19,11 +19,17 @@
       border-radius: 10px;
       box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
       padding: 20px;
+      text-align: center;
     }
 
     img {
       max-width: 100%;
       height: auto;
+      border-radius: 10px 10px 0 0;
+    }
+
+    h1 {
+      margin-top: 0;
     }
 
     button {
@@ -45,30 +51,18 @@
       background-color: #3e8e41;
     }
   </style>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-NZE94Z7E5W"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-NZE94Z7E5W')
-    </script>
-
 </head>
+
 <body>
   <main>
+    <h1>Horário de Ônibus\nRio Preto - Guapiaçu</h1>
     <img src="imagens/horariob.jpg" alt="Horário de Ônibus de Rio Preto">
   </main>
 
-  <button onclick="baixarImagem()">Baixar Horário de Ônibus</button>
+  <button id="btn-baixar">Baixar Essa Merda De Horario</button>
 
   <script>
-    function baixarImagem() {
+    document.getElementById('btn-baixar').addEventListener('click', function() {
       // Caminho relativo da imagem
       var imagemCaminho = 'imagens/horariob.jpg';
 
@@ -82,7 +76,7 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    }
+    });
   </script>
 </body>
 </html>
