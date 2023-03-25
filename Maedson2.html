@@ -46,27 +46,18 @@
     }
   </style>
 
-  <!-- Otimização de Imagens -->
-  <script>
-    function otimizarImagens() {
-      var imagens = document.getElementsByTagName('img');
-      for (var i = 0; i < imagens.length; i++) {
-        imagens[i].src = imagens[i].src.replace(/\.jpg|\.png|\.gif/gi, ".webp");
-        imagens[i].setAttribute('loading', 'lazy');
-        imagens[i].setAttribute('decoding', 'async');
-      }
-    }
-    otimizarImagens();
-  </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-NZE94Z7E5W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  <!-- Compactação do código -->
-  <?php
-    ob_start("ob_gzhandler");
-  ?>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-  <!-- Utilização de Cache -->
-  <meta http-equiv="Cache-control" content="public">
-  <meta http-equiv="Expires" content="Sat, 01 Jan 2050 00:00:00 GMT">
+        gtag('config', 'G-NZE94Z7E5W')
+    </script>
 
 </head>
 <body>
@@ -74,7 +65,7 @@
     <img src="imagens/horariob.jpg" alt="Horário de Ônibus de Rio Preto">
   </main>
 
-  <button onclick="baixarImagem()">Baixar Essa Merda De Horario</button>
+  <button onclick="baixarImagem()">Baixar Horário de Ônibus</button>
 
   <script>
     function baixarImagem() {
@@ -93,10 +84,5 @@
       document.body.removeChild(link);
     }
   </script>
-
-  <!-- Melhorias na velocidade de carregamento -->
-  <script src="script.js"></script>
-
-  <!-- SEO -->
-  <meta name="keywords" content="horário de ônibus, rio preto, transporte público">
-  <meta name="description"
+</body>
+</html>
