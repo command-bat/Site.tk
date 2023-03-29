@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="refresh" content="600"; URL=https://youtu.be/k1T1wYtXBGc" />
-  </head>
- </html>
-
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -57,41 +51,39 @@
       background-color: #3e8e41;
     }
 
-footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  margin-top: 20px;
-  padding: 10px;
-  text-align: center;
-  background-color: #f9f9f9;
-  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.3);
-  border-radius: 0 0 10px 10px;
-}
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      text-align: center;
+      background-color: #f9f9f9;
+      box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 0 0 10px 10px;
+    }
 
-footer p {
-  font-size: 14px;
-  margin: 0;
-}
+    footer p {
+      font-size: 14px;
+      margin: 0;
+    }
 
-footer span {
-  font-size: 24px;
-  font-weight: bold;
-  display: block;
-  margin-top: 10px;
-}
+    footer span {
+      font-size: 24px;
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
 
-footer i {
-  font-size: 24px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-
+    footer i {
+      font-size: 24px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
   </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-KGeBjKf+10PdJG/xrzB1hJaXss1vcB+huwrBZk/ZiZr3nMReaAg62RNcE/t1gVBOJalK9XzHJj+nxDhkrJfQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-KGeBjKf+10PdJG/xrzB1hJaXss1vcB+huwrBZk/ZiZr3nMReaAg62RNcE/t1gVBOJalK9XzHJj+nxDhkrJfQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -101,32 +93,9 @@ footer i {
     <img src="imagens/horariob.jpg" alt="Horário de Ônibus de Rio Preto">
   </main>
 
-  <button id="btn-baixar">Baixar Essa Merda De Horario</button>
+  <button id="btn-baixar">Baixar Horário</button>
 
   <footer>
-    Problemas com a página? Entre em contato conosco através do telefone +55 17 98143-5876.
-<p><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i><i class="fas fa-phone fa-stack-1x fa-inverse"></i></span> <span style="font-size: 1.5rem;">+55 17 98143-5876</span></p>
-
-
-
+  Problemas com a página? Entre em contato conosco através do telefone +55 17 98143-5876.
+  <p><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i><i class="fas fa-phone fa-stack-1x fa-inverse"></i></span> <span style="font-size: 1.5rem;">+55 17 98143-5876</span></p>
 </footer>
-
-  <script>
-    document.getElementById('btn-baixar').addEventListener('click', function() {
-      // Caminho relativo da imagem
-      var imagemCaminho = 'imagens/horariob.jpg';
-
-      // Nome do arquivo que será salvo
-      var nomeArquivo = 'Horario Onibus Rio Preto.jpg';
-
-      // Cria um elemento <a> para baixar o arquivo
-      var link = document.createElement('a');
-      link.href = imagemCaminho;
-      link.download = nomeArquivo;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
-  </script>
-</body>
-</html>
