@@ -79,18 +79,20 @@ footer p i {
   color: #4CAF50;
 }
 
-.footer-link {
+footer a.footer-link {
   color: #4CAF50;
+  font-weight: bold;
   text-decoration: none;
 }
 
-.footer-link:hover {
-  text-decoration: underline;
-}
-
-.footer-logo {
-  max-height: 50px;
-  margin-left: 20px;
+@media (max-width: 767px) {
+  footer p {
+    text-align: center;
+  }
+  
+  footer .text-right {
+    text-align: center;
+  }
 }
   </style>
 
@@ -109,8 +111,13 @@ footer p i {
   <footer>
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <p>Entre em contato conosco através do telefone +55 17 98143-5876 caso encontre algum problema na página.</p>
+      <div class="col-sm-12 col-md-6">
+        <p><i class="fas fa-phone"></i> +55 17 98143-5876 - Problemas com a página? Entre em contato conosco através do telefone:</p>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="text-right">
+          <a href="tel:+5517981435876" class="footer-link"><i class="fas fa-phone"></i> +55 17 98143-5876</a>
+        </div>
       </div>
     </div>
   </div>
