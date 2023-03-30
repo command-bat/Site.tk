@@ -1,3 +1,7 @@
+
+      
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -52,48 +56,48 @@
     }
 
     footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #f9f9f9;
-  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px 10px 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-}
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #f9f9f9;
+      box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
 
-footer p {
-  margin: 0;
-  font-size: 16px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-}
+    footer p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
 
-footer p i {
-  margin-right: 10px;
-  font-size: 24px;
-  color: #4CAF50;
-}
+    footer p i {
+      margin-right: 10px;
+      font-size: 24px;
+      color: #4CAF50;
+    }
 
-footer a.footer-link {
-  color: #4CAF50;
-  font-weight: bold;
-  text-decoration: none;
-}
+    footer a.footer-link {
+      color: #4CAF50;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-@media (max-width: 767px) {
-  footer p {
-    text-align: center;
-  }
-  
-  footer .text-right {
-    text-align: center;
-  }
-}
+    @media (max-width: 767px) {
+      footer p {
+        text-align: center;
+      }
+
+      footer .text-right {
+        text-align: center;
+      }
+    }
   </style>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-KGeBjKf+10PdJG/xrzB1hJaXss1vcB+huwrBZk/ZiZr3nMReaAg62RNcE/t1gVBOJalK9XzHJj+nxDhkrJfQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -122,3 +126,15 @@ footer a.footer-link {
     </div>
   </div>
 </footer>
+
+<script>
+  const btnBaixar = document.getElementById("btn-baixar");
+  btnBaixar.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = "pdf/horario_rio_preto_guapiacu.pdf";
+    link.download = "Horário de Ônibus - Rio Preto Guapiaçu.pdf";
+    link.click();
+  });
+</script>
+</body>
+</html>
