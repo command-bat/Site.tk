@@ -9,7 +9,7 @@
    .background-image {
 	height: 100vh;
 	width: 100vw;
-	background-image: url('images/maedson-1.jpg');
+	background-image: url('imagens/maedson-1.jpg');
 	background-size: cover;
 	background-position: center;
     }
@@ -119,10 +119,10 @@
 
 	<div class="background-image"></div>
 	<script>
-		const numImages = 3;
+		const numImages = 4;
 		const images = [];
-		for (let i = 1; i <= 4; i++) {
-			images.push(`images/maedson-${i}.jpg`);
+		for (let i = 1; i <= numImages; i++) {
+			images.push(`imagens/maedson-${i}.jpg`);
 		}
 
 		const background = document.querySelector('.background-image');
