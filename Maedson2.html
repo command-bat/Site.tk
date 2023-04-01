@@ -152,10 +152,15 @@
 
 
   <main>
-    <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>  <button id="esconder">X</button>
+    <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
+    <button id="esconder">X</button>
     <img src="imagens/Horario.png" alt="Horário de Ônibus de Rio Preto">
     </main>
+
+
 <button id="btn-baixar">Baixar Essa Merda De Horário</button>
+
+
 <script>
   const btnBaixar = document.getElementById("btn-baixar");
   btnBaixar.addEventListener("click", () => {
@@ -190,11 +195,14 @@
       // Código JavaScript para esconder o elemento main e o botão
       const botaoEsconder = document.getElementById('esconder');
       const elementoMain = document.querySelector('main');
+      const botaoBaixar = document.querySelector('btn-baixar');
       
       botaoEsconder.addEventListener('click', () => {
         botaoEsconder.style.display = 'none';
         elementoMain.style.display = 'none';
+        botaoBaixar.style.display = 'none';
       });
+
     </script>
 
   <footer>
