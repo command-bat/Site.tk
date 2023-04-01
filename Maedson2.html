@@ -1,50 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Baixar Horário de Ônibus</title>
+
+  <style>
+
+
+    .background-image {
+      margin: 0;
+      padding: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-image: url('imagens/maedson-1.jpg');
+      background-size: contain;
+      background-position: center top;
+      z-index: -1
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    main {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px 10px 0 0;
+    
+    }
+
+    h1 {
+      margin-top: 0;
+
+    }
+
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #3e8e41;
+  
+    }
+
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #f9f9f9;
+      box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    footer p i {
+      margin-right: 10px;
+      font-size: 24px;
+      color: #4CAF50;
+    }
+
+    footer a.footer-link {
+      color: #4CAF50;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    @media (max-width: 767px) {
+      footer p {
+        text-align: center;
+      }
+
+      footer .text-right {
+        text-align: center;
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-KGeBjKf+10PdJG/xrzB1hJaXss1vcB+huwrBZk/ZiZr3nMReaAg62RNcE/t1gVBOJalK9XzHJj+nxDhkrJfQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
 <body>
   <main>
     <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
     <img src="imagens/horariob.jpg" alt="Horário de Ônibus de Rio Preto">
   </main>
 
-  <div class="background-image"></div>
+
+	<div class="background-image"></div>
+	<script>
+		const numImages = 4;
+		const images = [];
+		for (let i = 1; i <= numImages; i++) {
+			images.push(`imagens/maedson-${i}.jpg`);
+		}
+
+		const background = document.querySelector('.background-image');
+
+		function changeBackground() {
+			const randomIndex = Math.floor(Math.random() * images.length);
+			background.style.backgroundImage = `url('${images[randomIndex]}')`;
+		}
+
+		changeBackground();
+		setInterval(changeBackground, 5000);
+	</script>
+
 
   <button id="btn-baixar">Baixar Essa Merda De Horário</button>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
+  <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <p><i class="fa-thin fa-phone"></i> Problemas com a página? Entre em contato conosco através do telefone: <a href="tel:+5517981435876" class="footer-link"> +55 17 98143-5876</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
 
- .background-image {
-  margin: 0;
-  padding: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-image: url('imagens/maedson-1.jpg');
-  background-size: contain;
-  background-position: center top;
-  z-index: -1
-}
-
-  </style>
-
-  <script>
-    const numImages = 4;
-    const images = [];
-    for (let i = 1; i <= numImages; i++) {
-      images.push(`imagens/maedson-${i}.jpg`);
-    }
-
-    const background = document.querySelector('.background-image');
-
-    function changeBackground() {
-      const randomIndex = Math.floor(Math.random() * images.length);
-      background.style.backgroundImage = `url('${images[randomIndex]}')`;
-    }
-
-    changeBackground();
-    setInterval(changeBackground, 5000);
-  </script>
+<script>
+  const btnBaixar = document.getElementById("btn-baixar");
+  btnBaixar.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = "imagens/horariob.jpg";
+    link.download = "Horário de Ônibus - Rio Preto Guapiaçu.jpg";
+    link.click();
+  });
+</script>
 </body>
+</html>
