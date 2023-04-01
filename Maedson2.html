@@ -1,13 +1,19 @@
 
-      
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <title>Baixar Horário de Ônibus</title>
+
   <style>
+   .background-image {
+	height: 100vh;
+	width: 100vw;
+	background-image: url('images/maedson-1.jpg');
+	background-size: cover;
+	background-position: center;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -109,6 +115,27 @@
     <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
     <img src="imagens/horariob.jpg" alt="Horário de Ônibus de Rio Preto">
   </main>
+
+
+	<div class="background-image"></div>
+	<script>
+		const numImages = 3;
+		const images = [];
+		for (let i = 1; i <= numImages; i++) {
+			images.push(`images/maedson-${i}.jpg`);
+		}
+
+		const background = document.querySelector('.background-image');
+
+		function changeBackground() {
+			const randomIndex = Math.floor(Math.random() * images.length);
+			background.style.backgroundImage = `url('${images[randomIndex]}')`;
+		}
+
+		changeBackground();
+		setInterval(changeBackground, 5000);
+	</script>
+
 
   <button id="btn-baixar">Baixar Essa Merda De Horário</button>
 
