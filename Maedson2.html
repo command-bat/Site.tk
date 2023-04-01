@@ -1,11 +1,4 @@
 
-
-#esconder {
-  
-}
-
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -48,15 +41,16 @@
       text-align: center;
     }
 
-   .container {
-      display: flex; /* Define um container flexível */
-      justify-content: space-between; /* Alinha os elementos com espaço entre eles */
-      align-items: center; /* Centraliza os elementos verticalmente */
-      margin-bottom: 20px; /* Adiciona margem na parte inferior para separar do elemento <main> */
-    }
+      .container {
+        display: flex; /* Ativa o flexbox */
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: center; /* Centraliza horizontalmente */
+        margin-bottom: 20px; /* Adiciona margem na parte inferior para separar do elemento <main> */
+      }
 
    .container h1 {
       margin: 0; /* Remove a margem padrão do elemento h1 */
+      margin-right: 10px;
     }
 
       /* Define estilos para o botão esconder */
@@ -72,6 +66,7 @@
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        margin-left: 10px;
       }
 
       #esconder:hover {
