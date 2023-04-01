@@ -2,24 +2,18 @@
 <html>
 <head>
 	<title>Exemplo de mudança de imagem de background</title>
-<style>
-	.background-image {
-		position: fixed;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: auto;
-		background-image: url('imagens/maedson-1.jpg');
-		background-size: contain;
-		background-position: center top;
-	}
-</style>
-
-
-
-</head>
-<body>
-	<div class="background-image"></div>
+	<style>
+		.background-image {
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: auto;
+			background-image: url('imagens/maedson-1.jpg');
+			background-size: contain;
+			background-position: center top;
+		}
+	</style>
 	<script>
 		const numImages = 3;
 		const images = [];
@@ -37,5 +31,8 @@
 		changeBackground();
 		setInterval(changeBackground, 5000);
 	</script>
+</head>
+<body>
+	<div class="background-image"></div>
 </body>
 </html>
