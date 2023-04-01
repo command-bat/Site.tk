@@ -1,5 +1,11 @@
 
 
+#esconder {
+  
+}
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -42,6 +48,16 @@
       text-align: center;
     }
 
+   .container {
+      display: flex; /* Define um container flexível */
+      justify-content: space-between; /* Alinha os elementos com espaço entre eles */
+      align-items: center; /* Centraliza os elementos verticalmente */
+      margin-bottom: 20px; /* Adiciona margem na parte inferior para separar do elemento <main> */
+    }
+
+   .container h1 {
+      margin: 0; /* Remove a margem padrão do elemento h1 */
+    }
 
       /* Define estilos para o botão esconder */
       #esconder {
@@ -152,8 +168,10 @@
 
 
   <main>
-    <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
-    <button id="esconder">XY</button>
+    <div class="container">
+        <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
+        <button id="esconder">X</button>
+    </div>
     <img src="imagens/Horario.png" alt="Horário de Ônibus de Rio Preto">
     </main>
 
