@@ -153,7 +153,7 @@
 
   <main>
     <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
-    <button id="esconder">X</button>
+    <button id="esconder">XY</button>
     <img src="imagens/Horario.png" alt="Horário de Ônibus de Rio Preto">
     </main>
 
@@ -195,7 +195,7 @@
       // Código JavaScript para esconder o elemento main e o botão
       const botaoEsconder = document.getElementById('esconder');
       const elementoMain = document.querySelector('main');
-      const botaoBaixar = document.querySelector('btn-baixar');
+      const botaoBaixar = document.getElementById('btn-baixar');
       
       botaoEsconder.addEventListener('click', () => {
         botaoEsconder.style.display = 'none';
