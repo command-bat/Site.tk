@@ -126,7 +126,18 @@
   <main>
     <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
     <img src="imagens/Horario.png" alt="Horário de Ônibus de Rio Preto">
-  </main>
+    <button id="btn-baixar">Baixar Essa Merda De Horário</button>
+</main>
+
+<script>
+  const btnBaixar = document.getElementById("btn-baixar");
+  btnBaixar.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = "imagens/horariob.jpg";
+    link.download = "Horário de Ônibus - Rio Preto Guapiaçu.jpg";
+    link.click();
+  });
+</script>
 
 
 	<div class="background-image"></div>
@@ -148,9 +159,6 @@
 		setInterval(changeBackground, 5000);
 	</script>
 
-
-  <button id="btn-baixar">Baixar Essa Merda De Horário</button>
-
   <footer>
   <div class="container">
     <div class="row">
@@ -160,15 +168,5 @@
     </div>
   </div>
 </footer>
-
-<script>
-  const btnBaixar = document.getElementById("btn-baixar");
-  btnBaixar.addEventListener("click", () => {
-    const link = document.createElement("a");
-    link.href = "imagens/horariob.jpg";
-    link.download = "Horário de Ônibus - Rio Preto Guapiaçu.jpg";
-    link.click();
-  });
-</script>
 </body>
 </html>
