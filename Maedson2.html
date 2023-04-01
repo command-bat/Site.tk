@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -39,6 +41,26 @@
       padding: 20px;
       text-align: center;
     }
+
+
+      /* Define estilos para o botão esconder */
+      #esconder {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #1abc9c;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #esconder:hover {
+        background-color: #16a085;
+      }
 
     img {
       max-width: 100%;
@@ -123,6 +145,21 @@
 </head>
 
 <body>
+
+
+<button id="esconder">X</button>
+    <script>
+      // Código JavaScript para esconder o elemento main e o botão
+      const botaoEsconder = document.getElementById('esconder');
+      const elementoMain = document.querySelector('main');
+      
+      botaoEsconder.addEventListener('click', () => {
+        botaoEsconder.style.display = 'none';
+        elementoMain.style.display = 'none';
+      });
+    </script>
+
+
   <main>
     <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
     <img src="imagens/Horario.png" alt="Horário de Ônibus de Rio Preto">
