@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pontuação Truco Paulista</title>
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+
+		table, th, td {
+			border: 1px solid black;
+		}
+
+		th, td {
+			padding: 10px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>Pontuação Truco Paulista</h1>
+
+	<table>
+		<tr>
+			<th>Time A</th>
+			<th>Time B</th>
+		</tr>
+		<tr>
+			<td id="pontosA">0</td>
+			<td id="pontosB">0</td>
+		</tr>
+	</table>
+
+	<p>
+		<button onclick="pontuar(1)">+1 Time A</button>
+		<button onclick="pontuar(0)">+1 Time B</button>
+	</p>
+
+	<p>
+		<button onclick="pedirTruco()">Pedir Truco</button>
+		<button onclick="pedirSeis()">+6</button>
+		<button onclick="pedirNove()">+9</button>
+		<button onclick="pedirDoze()">+12</button>
+	</p>
+
+	<h2>Resetar Placar</h2>
+	<p>
+		<button onclick="resetar()">Resetar Placar</button>
+	</p>
+
+	<p id="mensagem-vitoria"></p>
+
+	<script>
+		let pontosA = 0;
+		let pontosB = 0;
+		let valorRodada = 1;
+
+		function pontuar(time) {
+			if (time === 1) {
+				pontosA += valorRodada;
+				document.getElementById("pontosA").innerHTML = pontosA;
+			} else {
+				pontosB += valorRodada;
+				document.getElementById("pontosB").innerHTML = pontosB;
+			}
+
+			if (valorRodada != 1) {
+				valorRodada = 1;
+			}
+
+			if (pontosA >= 12) {
+				document.getElementById("mensagem-vitoria").innerHTML = "Time A venceu!";
+				resetar();
+			} else if (pontosB >= 12) {
+				document.getElementById("mensagem-vitoria").innerHTML = "Time B venceu!";
+				resetar();
+			}
+		}
+
+		function pedirTruco() {
+			valorRodada = 3;
+		}
+
+		function pedirSeis() {
+			valorRodada = 6;
+		}
+
+		function pedirNove() {
+			valorRodada = 9;
+		}
+
+		function pedirDoze() {
+			valorRodada = 12;
+		}
+
+		function resetar() {
+			pontosA = 0;
+			pontosB = 0;
+			valorRodada = 1;
+			document.getElementById("pontosA").innerHTML = 0;
+			document.getElementById("pontosB").innerHTML = 0;
+			document.getElementById("mensagem-vitoria").innerHTML = "";
+		}
+	</script>
+</body>
+</html>
