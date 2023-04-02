@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de músicas</title>
+</head>
+<body>
+
+	<h1>Lista de músicas</h1>
+
+	<ul id="lista-de-musicas">
+		<li data-src="musica/musica1.mp3">Música 1</li>
+		<li data-src="musica/musica2.mp3">Música 2</li>
+		<li data-src="musica/musica3.mp3">Música 3</li>
+		<li data-src="musica/musica4.mp3">Música 4</li>
+	</ul>
+
+	<script>
+		var listaDeMusicas = document.getElementById('lista-de-musicas');
+		var player = new Audio();
+
+		listaDeMusicas.addEventListener('click', function(event) {
+			if (event.target && event.target.nodeName == 'LI') {
+				var musicaSelecionada = event.target;
+				var src = musicaSelecionada.getAttribute('data-src');
+
+				player.src = src;
+				player.play();
+			}
+		});
+	</script>
+
+</body>
+</html>
