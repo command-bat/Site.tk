@@ -8,7 +8,7 @@
 <html lang="pt-BR">
 <head>
 
-<meta http-equiv="refresh" content="120; URL=https://youtu.be/k1T1wYtXBGc" />
+<meta http-equiv="refresh" content="300; URL=https://youtu.be/k1T1wYtXBGc" />
 
   <meta charset="UTF-8">
   <title>Baixar Horário de Ônibus</title>
@@ -23,6 +23,21 @@
         height: 0;
         opacity: 0;
         overflow: hidden;
+      }
+      #play-button {
+        border-radius: 50%;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
       }
 
 
@@ -172,6 +187,7 @@
     }
   </style>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-KGeBjKf+10PdJG/xrzB1hJaXss1vcB+huwrBZk/ZiZr3nMReaAg62RNcE/t1gVBOJalK9XzHJj+nxDhkrJfQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
@@ -180,7 +196,8 @@
 
 
 
-	<audio id="bg-music" autoplay loop></audio>
+    <div id="play-button"><i class="material-icons">music_note</i></div>
+    <audio id="bg-music" loop></audio>
 
 
   <main>
@@ -210,8 +227,7 @@
         "https://commandbat.netlify.app/musica/musica1.mp3",
         "https://commandbat.netlify.app/musica/musica2.mp3",
         "https://commandbat.netlify.app/musica/musica3.mp3",
-        "https://commandbat.netlify.app/musica/musica4.mp3",
-        "https://commandbat.netlify.app/musica/musica5.mp3"
+        "https://commandbat.netlify.app/musica/musica4.mp3"
       ];
 
       function getMusicaAleatoria() {
@@ -220,8 +236,12 @@
       }
 
       var bgMusic = document.getElementById('bg-music');
-      bgMusic.src = getMusicaAleatoria();
-      bgMusic.play();
+      var playButton = document.getElementById('play-button');
+      playButton.addEventListener('click', function() {
+        bgMusic.src = getMusicaAleatoria();
+        bgMusic.play();
+        playButton.style.display = 'none';
+      });
     </script>
 
 
