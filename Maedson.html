@@ -1,9 +1,61 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
+<meta http-equiv="refresh" content="300; URL=https://youtu.be/k1T1wYtXBGc" />
+
   <meta charset="UTF-8">
   <title>Baixar Horário de Ônibus</title>
+
   <style>
+
+      audio::-webkit-media-controls {
+        display:none !important;
+      }
+      audio {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+      }
+      #play-button {
+        border-radius: 50%;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+
+    .background-image {
+      margin: 0;
+      padding: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-image: url('imagens/maedson-1.jpg');
+      background-position: center top;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      z-index: -1
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -15,16 +67,59 @@
     }
 
     main {
-      background-color: white;
+      background-color: rgba(244, 244, 244, 0.675);
       border-radius: 10px;
       box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
       padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 5%;
+      bottom: 5%;
+      right: 5%;
+      left: 5%;
     }
+
+      .container {
+        display: flex; /* Ativa o flexbox */
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: center; /* Centraliza horizontalmente */
+        margin-bottom: 20px; /* Adiciona margem na parte inferior para separar do elemento <main> */
+      }
+
+   .container h1 {
+      /* margin: 0;  Remove a margem padrão do elemento h1 */
+      margin-right: auto;
+      margin-left: 30%;
+    }
+
+      /* Define estilos para o botão esconder */
+      #esconder {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #4CAF50;;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: auto;
+
+      }
+
+      #esconder:hover {
+        background-color: #16a085;
+      }
 
     img {
       max-width: 100%;
       height: auto;
+      border-radius: 10px 10px 0 0;
+    
     }
+
 
     button {
       background-color: #4CAF50;
@@ -43,48 +138,158 @@
 
     button:hover {
       background-color: #3e8e41;
+  
+    }
+
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #f9f9f9;
+      box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    footer p i {
+      margin-right: 10px;
+      font-size: 24px;
+      color: #4CAF50;
+    }
+
+    footer a.footer-link {
+      color: #4CAF50;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    @media (max-width: 767px) {
+      footer p {
+        text-align: center;
+      }
+
+      footer .text-right {
+        text-align: center;
+      }
     }
   </style>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-KGeBjKf+10PdJG/xrzB1hJaXss1vcB+huwrBZk/ZiZr3nMReaAg62RNcE/t1gVBOJalK9XzHJj+nxDhkrJfQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-NZE94Z7E5W"></script>
+</head>
+
+<body>
+
+
+
+    <div id="play-button"><i class="material-icons">music_note</i></div>
+    <audio id="bg-music" loop></audio>
+
+
+  <main>
+    <div class="container">
+        <h1>Horário de Ônibus<br>Rio Preto - Guapiaçu</h1>
+        <button id="esconder">X</button>
+    </div>
+    <img src="imagens/Horario.png" alt="Horário de Ônibus de Rio Preto">
+    </main>
+
+
+<button id="btn-baixar">Baixar Essa Merda De Horário</button>
+
+
+<script>
+  const btnBaixar = document.getElementById("btn-baixar");
+  btnBaixar.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = "imagens/horariob.jpg";
+    link.download = "Horário de Ônibus - Rio Preto Guapiaçu.jpg";
+    link.click();
+  });
+</script>
+
     <script>
-        window.dataLayer = window.dataLayer || [];
+      var musicas = [
+        "https://commandbat.netlify.app/musica/musica1.mp3",
+        "https://commandbat.netlify.app/musica/musica2.mp3",
+        "https://commandbat.netlify.app/musica/musica3.mp3",
+        "https://commandbat.netlify.app/musica/musica4.mp3",
+        "https://commandbat.netlify.app/musica/musica5.mp3",
+        "https://commandbat.netlify.app/musica/musica6.mp3"
+      ];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+      function getMusicaAleatoria() {
+        var index = Math.floor(Math.random() * musicas.length);
+        return musicas[index];
+      }
 
-        gtag('config', 'G-NZE94Z7E5W')
+      var bgMusic = document.getElementById('bg-music');
+      var playButton = document.getElementById('play-button');
+      playButton.addEventListener('click', function() {
+        bgMusic.src = getMusicaAleatoria();
+        bgMusic.play();
+        playButton.style.display = 'none';
+      });
     </script>
 
 
-</head>
-<body>
-  <main>
-    <img src="imagens/horariob.jpg" alt="Horário de Ônibus de Rio Preto">
-  </main>
 
-  <button onclick="baixarImagem()">Baixar Essa Merda De Horario</button>
 
-  <script>
-    function baixarImagem() {
-      // Caminho relativo da imagem
-      var imagemCaminho = 'imagens/horariob.jpg';
+	<div class="background-image"></div>
+	<script>
+		const numImages = 13;
+		const images = [];
+		for (let i = 1; i <= numImages; i++) {
+			images.push(`imagens/maedson-${i}.jpg`);
+		}
 
-      // Nome do arquivo que será salvo
-      var nomeArquivo = 'Horario Onibus Rio Preto.jpg';
+		const background = document.querySelector('.background-image');
 
-      // Cria um elemento <a> para baixar o arquivo
-      var link = document.createElement('a');
-      link.href = imagemCaminho;
-      link.download = nomeArquivo;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  </script>
+		function changeBackground() {
+			const randomIndex = Math.floor(Math.random() * images.length);
+			background.style.backgroundImage = `url('${images[randomIndex]}')`;
+		}
+
+		changeBackground();
+		setInterval(changeBackground, 5000);
+	</script>
+
+    <script>
+      // Código JavaScript para esconder o elemento main e o botão
+      const botaoEsconder = document.getElementById('esconder');
+      const elementoMain = document.querySelector('main');
+      const botaoBaixar = document.getElementById('btn-baixar');
+      
+      botaoEsconder.addEventListener('click', () => {
+        botaoEsconder.style.display = 'none';
+        elementoMain.style.display = 'none';
+        botaoBaixar.style.display = 'none';
+      });
+
+    </script>
+
+  <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <p><i class="fa-thin fa-phone"></i> Problemas com a página? Entre em contato conosco através do telefone: <a href="tel:+5517981435876" class="footer-link"> +55 17 98143-5876</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
