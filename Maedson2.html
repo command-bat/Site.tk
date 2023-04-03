@@ -169,7 +169,7 @@
 
 
 
-	<audio id="player" controls autoplay controlslist="nodownload"></audio>
+	<audio id="bg-music" autoplay controls controlslist="nodownload"></audio>
 
 
 
@@ -196,40 +196,24 @@
   });
 
 
-	<script>
-		var musicas = [
-		  'musica/musica1..mp3',
-		  'musica/musica2.mp3',
-		  'musica/musica3.mp3',
-		  'musica/musica4.mp3'
-		];
+    <script>
+      var musicas = [
+        "musica/musica1.mp3",
+        "musica/musica2.mp3",
+        "musica/subpasta/musica3.mp3",
+        "musica/subpasta/musica4.mp3"
+      ];
 
-		function getMusicasAleatorias() {
-		  var index1 = Math.floor(Math.random() * musicas.length);
-		  var index2 = Math.floor(Math.random() * musicas.length);
+      function getMusicaAleatoria() {
+        var index = Math.floor(Math.random() * musicas.length);
+        return musicas[index];
+      }
 
-		  while (index2 == index1) {
-		    index2 = Math.floor(Math.random() * musicas.length);
-		  }
-
-		  return [musicas[index1], musicas[index2]];
-		}
-
-		function reproduzirMusicas() {
-		  var player = document.getElementById('player');
-		  var musicasAleatorias = getMusicasAleatorias();
-
-		  player.src = musicasAleatorias[0];
-		  player.play();
-
-		  player.addEventListener('ended', function() {
-		    player.src = musicasAleatorias[1];
-		    player.play();
-		  });
-		}
-
-		window.onload = reproduzirMusicas;
-	</script>
+      var bgMusic = document.getElementById('bg-music');
+      bgMusic.src = getMusicaAleatoria();
+      bgMusic.loop = true;
+      bgMusic.play();
+    </script>
 
 
 
