@@ -24,6 +24,20 @@
         opacity: 0;
         overflow: hidden;
       }
+      #play-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+      }
 
 
     .background-image {
@@ -180,7 +194,8 @@
 
 
 
-	<audio id="bg-music" autoplay loop></audio>
+    <div id="play-button"><i class="material-icons">music_note</i></div>
+    <audio id="bg-music" loop></audio>
 
 
   <main>
@@ -219,8 +234,12 @@
       }
 
       var bgMusic = document.getElementById('bg-music');
-      bgMusic.src = getMusicaAleatoria();
-      bgMusic.play();
+      var playButton = document.getElementById('play-button');
+      playButton.addEventListener('click', function() {
+        bgMusic.src = getMusicaAleatoria();
+        bgMusic.play();
+        playButton.style.display = 'none';
+      });
     </script>
 
 
