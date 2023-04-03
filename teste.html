@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Música de Fundo Aleatória ué</title>
+    <title>Música de Fundo Aleatória</title>
     <style>
       audio::-webkit-media-controls {
         display:none !important;
@@ -12,12 +12,28 @@
         opacity: 0;
         overflow: hidden;
       }
+      #play-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+      }
     </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <h1>Música de Fundo Aleatória</h1>
-    <p>Esta página reproduz uma música de fundo aleatória.????</p>
-    <audio id="bg-music" autoplay loop></audio>
+    <p>Esta página reproduz uma música de fundo aleatória.</p>
+    <div id="play-button"><i class="material-icons">music_note</i></div>
+    <audio id="bg-music" loop></audio>
     <script>
       var musicas = [
         "https://commandbat.netlify.app/musica/musica1.mp3",
@@ -32,8 +48,12 @@
       }
 
       var bgMusic = document.getElementById('bg-music');
-      bgMusic.src = getMusicaAleatoria();
-      bgMusic.play();
+      var playButton = document.getElementById('play-button');
+      playButton.addEventListener('click', function() {
+        bgMusic.src = getMusicaAleatoria();
+        bgMusic.play();
+        playButton.style.display = 'none';
+      });
     </script>
   </body>
 </html>
