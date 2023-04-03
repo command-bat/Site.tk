@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Música de Fundo Aleatória</title>
+  </head>
+  <body>
+    <h1>Música de Fundo Aleatória</h1>
+    <p>Esta página reproduz uma música de fundo aleatória.</p>
+    <audio id="bg-music" autoplay controls controlslist="nodownload"></audio>
+    <script>
+      var musicas = [
+        "musica/musica1.mp3",
+        "musica/musica2.mp3",
+        "https://commandbat.netlify.app/musica/musica3.mp3",
+        "https://commandbat.netlify.app/musica/musica4.mp3"
+      ];
+
+      function getMusicaAleatoria() {
+        var index = Math.floor(Math.random() * musicas.length);
+        return musicas[index];
+      }
+
+      var bgMusic = document.getElementById('bg-music');
+      bgMusic.src = getMusicaAleatoria();
+      bgMusic.loop = true;
+      bgMusic.play();
+    </script>
+  </body>
+</html>
