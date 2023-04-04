@@ -1,42 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Registro de Usuário</title>
+  <title>Meu site com registro de usuário</title>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
+      authDomain: "agiotagemonline-801f1.firebaseapp.com",
+      projectId: "agiotagemonline-801f1",
+      storageBucket: "agiotagemonline-801f1.appspot.com",
+      messagingSenderId: "618466370845",
+      appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
+      measurementId: "G-R5WXM67TL3"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 </head>
 <body>
-	<h1>Registro de Usuário</h1>
-	<form>
-		<label for="nome">Nome:</label>
-		<input type="text" id="nome" name="nome" required><br><br>
-		<label for="email">E-mail:</label>
-		<input type="email" id="email" name="email" required><br><br>
-		<label for="senha">Senha:</label>
-		<input type="password" id="senha" name="senha" required><br><br>
-		<input type="submit" value="Registrar">
-	</form>
-	<script>
-		// Seleciona o formulário e adiciona um ouvinte de eventos para o envio
-		document.querySelector('form').addEventListener('submit', function(event) {
-			event.preventDefault(); // Previne o envio padrão do formulário
-			registrarUsuario();
-		});
+  <h1>Meu site com registro de usuário</h1>
+  <form>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome"><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" name="senha"><br><br>
+    <button type="button" onclick="adicionarUsuario()">Registrar</button>
+  </form>
 
-		function registrarUsuario() {
-			// Obtém os valores dos campos de entrada
-			var nome = document.getElementById('nome').value;
-			var email = document.getElementById('email').value;
-			var senha = document.getElementById('senha').value;
+  <script type="module">
+    // Importa o pacote Firestore
+    import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js';
 
-			// Envia uma requisição POST para o servidor
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'registrar.php');
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onload = function() {
-				// Redireciona para a página de login
-				window.location.href = 'login.php';
-			};
-			xhr.send('nome=' + encodeURIComponent(nome) + '&email=' + encodeURIComponent(email) + '&senha=' + encodeURIComponent(senha));
-		}
-	</script>
+    // Obtém uma referência para o banco de dados Firestore
+    const db = getFirestore();
+
+    // Adiciona um usuário ao banco de dados
+    function adicionarUsuario() {
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      addDoc(collection(db, "usuarios"), {
+        nome: nome,
+        email: email,
+        senha: senha
+      })
+      .then(function(docRef) {
+        console.log("Usuário adicionado com ID: ", docRef.id);
+      })
+      .catch(function(error) {
+        console.error("Erro ao adicionar usuário: ", error);
+      });
+    }
+  </script>
 </body>
 </html>
