@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Registro de Usuário</title>
-</head>
-<body>
-  <h1>Registro de Usuário</h1>
-  <form>
-    <label for="name">Nome:</label>
-    <input type="text" id="name" name="name"><br><br>
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password"><br><br>
-    <button type="button" onclick="registerUser()">Registrar</button>
-  </form>
-  
-  <div id="message"></div>
+  <head>
+    <title>Cadastro de Usuário</title>
+  </head>
+  <body>
+    <h1>Cadastro de Usuáriooo</h1>
+    <form>
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name"><br><br>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <button type="button" onclick="registerUser()">Cadastrar</button>
+    </form>
 
-  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
+    <div id="message"></div>
 
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
 
-  <!-- Initialize Firebase -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
-      authDomain: "agiotagemonline-801f1.firebaseapp.com",
-      projectId: "agiotagemonline-801f1",
-      storageBucket: "agiotagemonline-801f1.appspot.com",
-      messagingSenderId: "618466370845",
-      appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
-      measurementId: "G-R5WXM67TL3"
-    };
-    firebase.initializeApp(firebaseConfig);
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js"></script>
 
-    const auth = firebase.auth();
-  </script>
+    <script>
+      const firebaseConfig = {
+    apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
+    authDomain: "agiotagemonline-801f1.firebaseapp.com",
+    projectId: "agiotagemonline-801f1",
+    storageBucket: "agiotagemonline-801f1.appspot.com",
+    messagingSenderId: "618466370845",
+    appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
+    measurementId: "G-R5WXM67TL3"
+  };
 
-  <script>
-    function registerUser() {
-      const name = document.getElementById('name').value;
-      const password = document.getElementById('password').value;
+      firebase.initializeApp(firebaseConfig);
 
-      auth.createUserWithEmailAndPassword(name + '@example.com', password)
-        .then((userCredential) => {
-          document.getElementById('message').innerHTML = 'Usuário registrado com sucesso!';
-        })
-        .catch((error) => {
-          document.getElementById('message').innerHTML = error.message;
-        });
-    }
-  </script>
-</body>
+      const db = firebase.firestore();
+      
+      function registerUser() {
+        const name = document.getElementById('name').value;
+        const password = document.getElementById('password').value;
+
+        db.collection("users").add({
+            name: name
+          })
+          .then(() => {
+            document.getElementById('message').innerHTML = 'Usuário cadastrado com sucesso!';
+          })
+          .catch((error) => {
+            document.getElementById('message').innerHTML = error.message;
+          });
+      }
+    </script>
+  </body>
 </html>
