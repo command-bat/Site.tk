@@ -16,7 +16,8 @@
     <div id="message"></div>
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
 
     <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
@@ -36,6 +37,8 @@
       firebase.initializeApp(firebaseConfig);
 
       const db = firebase.firestore();
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
       
       function registerUser() {
         const name = document.getElementById('name').value;
