@@ -4,7 +4,7 @@
   <title>Registro de Usuário</title>
 </head>
 <body>
-  <h1>Registro de Usuárioou</h1>
+  <h1>Registro de Usuário</h1>
   <form>
     <label for="name">Nome:</label>
     <input type="text" id="name" name="name"><br><br>
@@ -15,12 +15,14 @@
   
   <div id="message"></div>
 
-  <!-- Import and initialize Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
 
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
+
+  <!-- Initialize Firebase -->
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
       authDomain: "agiotagemonline-801f1.firebaseapp.com",
@@ -30,10 +32,9 @@
       appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
       measurementId: "G-R5WXM67TL3"
     };
+    firebase.initializeApp(firebaseConfig);
 
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth();
+    const auth = firebase.auth();
   </script>
 
   <script>
@@ -41,7 +42,7 @@
       const name = document.getElementById('name').value;
       const password = document.getElementById('password').value;
 
-      createUserWithEmailAndPassword(auth, name + '@example.com', password)
+      auth.createUserWithEmailAndPassword(name + '@example.com', password)
         .then((userCredential) => {
           document.getElementById('message').innerHTML = 'Usuário registrado com sucesso!';
         })
