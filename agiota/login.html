@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-  </head>
-  <body>
-    <h1>Login</h1>
-    <form id="login-form">
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit">Login</button>
-    </form>
-
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
-    <script>
-      // Initialize Firebase
-      var firebaseConfig = {
-        apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script>
+    // Configuração do Firebase
+    var firebaseConfig = {
+    apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
     authDomain: "agiotagemonline-801f1.firebaseapp.com",
     databaseURL: "https://agiotagemonline-801f1-default-rtdb.firebaseio.com",
     projectId: "agiotagemonline-801f1",
@@ -31,25 +16,50 @@
     messagingSenderId: "618466370845",
     appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
     measurementId: "G-R5WXM67TL3"
-      };
-      firebase.initializeApp(firebaseConfig);
+    };
 
-      // Handle login form submission
-      var loginForm = document.getElementById('login-form');
-      loginForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        var email = loginForm.email.value;
-        var password = loginForm.password.value;
-        firebase.auth().signInWithEmailAndPassword(email, password)
-          .then(function(userCredential) {
-            // Login successful, redirect to destination page
-            window.location.href = "DESTINATION_PAGE_URL";
-          })
-          .catch(function(error) {
-            // Handle login error
-            alert(error.message);
-          });
-      });
-    </script>
-  </body>
+    // Inicializar o Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  <h1>Registro</h1>
+  <form id="register-form">
+    <label for="username">Nome de usuário:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="submit">Registrar</button>
+  </form>
+
+  <script>
+    // Processar o formulário de registro
+    var registerForm = document.querySelector('#register-form');
+    registerForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var username = registerForm.username.value;
+      var email = registerForm.email.value;
+      var password = registerForm.password.value;
+
+      // Criar a conta de usuário no Firebase
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(function(user) {
+          // Registro bem-sucedido
+          console.log('Registro bem-sucedido!');
+        })
+        .catch(function(error) {
+          // Lidar com erros de registro
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.error(errorCode + ': ' + errorMessage);
+        });
+    });
+  </script>
+</body>
 </html>
+``
