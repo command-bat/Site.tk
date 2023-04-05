@@ -6,6 +6,7 @@
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js';
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
@@ -21,6 +22,7 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
+    const db = getFirestore();
   </script>
 </head>
 <body>
@@ -28,36 +30,29 @@
   <form>
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome"><br><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email"><br><br>
     <label for="senha">Senha:</label>
     <input type="password" id="senha" name="senha"><br><br>
     <button type="button" onclick="adicionarUsuario()">Registrar</button>
+    <div id="mensagem"></div>
   </form>
 
   <script type="module">
-    // Importa o pacote Firestore
-    import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js';
-
-    // Obtém uma referência para o banco de dados Firestore
-    const db = getFirestore();
-
     // Adiciona um usuário ao banco de dados
     function adicionarUsuario() {
       const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
       const senha = document.getElementById("senha").value;
 
       addDoc(collection(db, "usuarios"), {
         nome: nome,
-        email: email,
         senha: senha
       })
       .then(function(docRef) {
         console.log("Usuário adicionado com ID: ", docRef.id);
+        document.getElementById("mensagem").textContent = "Usuário registrado com sucesso!";
       })
       .catch(function(error) {
         console.error("Erro ao adicionar usuário: ", error);
+        document.getElementById("mensagem").textContent = "Erro ao registrar usuário!";
       });
     }
   </script>
