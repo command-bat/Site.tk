@@ -23,7 +23,7 @@
   </script>
 </head>
 <body>
-  <h1>Registro</h1>
+  <h1>Registrooo</h1>
   <form id="register-form">
     <label for="username">Nome de usuário:</label>
     <input type="text" id="username" name="username" required><br>
@@ -50,16 +50,15 @@
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function(user) {
           // Registro bem-sucedido
-          console.log('Registro bem-sucedido!');
+          alert('Registro bem-sucedido!');
         })
         .catch(function(error) {
           // Lidar com erros de registro
           var errorCode = error.code;
           var errorMessage = error.message;
-          console.error(errorCode + ': ' + errorMessage);
+          alert(errorCode + ': ' + errorMessage);
         });
     });
   </script>
 </body>
 </html>
-``
