@@ -154,8 +154,12 @@
 // Redirecionar para a página após o login bem-sucedido
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // Redirecionar para a página após o login bem-sucedido
-        window.location.href = 'https://commandbat.netlify.app/agiota';
+        // login bem-sucedido
+        const FazerLogin = document.getElementById('Fazer-login');
+	const logado = document.getElementById('logado');
+	      
+	        FazerRegistro.style.display = 'none';
+        	logado.style.display = 'block';
       }
     });
   </script>
