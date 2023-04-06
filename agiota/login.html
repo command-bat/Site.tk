@@ -55,6 +55,15 @@
           alert(errorCode + ': ' + errorMessage);
         });
     });
+
+
+// Redirecionar para a página após o login bem-sucedido
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // Redirecionar para a página após o login bem-sucedido
+        window.location.href = 'https://commandbat.netlify.app/agiota';
+      }
+    });
   </script>
 </body>
 </html>
