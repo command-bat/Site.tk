@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Formulário de Pagamento</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Formulário de Pagamento</h1>
-      <form>
-        <label for="valor">Valor:</label>
-        <input type="text" id="valor" name="valor" placeholder="Insira o valor">
-        <button type="submit">Enviar</button>
-      </form>
+<head>
+	<title>Formulário</title>
+	<!-- Inclua o SDK do Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js"></script>
+	<!-- Inclua o jQuery (opcional) -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h1>Formulário</h1>
 
-      <div id="auth-buttons">
-        <button id="register-button">Registrar</button>
-        <button id="login-button">Login</button>
-      </div>
-    </div>
+	<!-- Campo de entrada de valor -->
+	<input type="number" id="valor" placeholder="Digite o valor">
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
-    <script>
-      // Configure seu projeto Firebase
+	<!-- Botão de enviar -->
+	<button id="enviar">Enviar</button>
+
+	<!-- Div que será mostrada somente se o usuário estiver logado -->
+	<div id="logado" style="display: none;">
+		<p>Você está logado!</p>
+	</div>
+
+	<!-- Script para verificar se o usuário está logado e mostrar/ocultar o formulário e a mensagem -->
+	<script>
+		// Inicialize o Firebase
      var firebaseConfig = {
     apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
     authDomain: "agiotagemonline-801f1.firebaseapp.com",
@@ -32,26 +35,29 @@
     appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
     measurementId: "G-R5WXM67TL3"
     };
-      firebase.initializeApp(firebaseConfig);
+    
+		firebase.initializeApp(firebaseConfig);
 
-      // Verifique se a pessoa está logada
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // A pessoa está logada, esconda os botões de registro e login
-          document.getElementById("auth-buttons").style.display = "none";
-        } else {
-          // A pessoa não está logada, mostre os botões de registro e login
-          document.getElementById("auth-buttons").style.display = "block";
+		// Verifique se o usuário está logado
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// Usuário está logado, mostrar o formulário e a mensagem
+				$('#logado').show();
+				$('#valor').show();
+				$('#enviar').show();
+			} else {
+				// Usuário não está logado, ocultar o formulário e a mensagem
+				$('#logado').hide();
+				$('#valor').hide();
+				$('#enviar').hide();
+			}
+		});
 
-          // Adicione os listeners de clique para os botões de registro e login
-          document.getElementById("register-button").addEventListener("click", function() {
-            window.location.href = "https://commandbat.netlify.app/agiota/registro";
-          });
-          document.getElementById("login-button").addEventListener("click", function() {
-            window.location.href = "https://commandbat.netlify.app/agiota/login";
-          });
-        }
-      });
-    </script>
-  </body>
+		// Quando o usuário clicar no botão de enviar, faça alguma ação (por exemplo, enviar o valor para o Firebase)
+		$('#enviar').click(function() {
+			// Aqui você pode adicionar o código para enviar o valor para o Firebase
+			console.log('Valor enviado: ' + $('#valor').val());
+		});
+	</script>
+</body>
 </html>
