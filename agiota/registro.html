@@ -5,7 +5,7 @@
   <title>Registro</title>
 </head>
 <body>
-  <h1>Registro</h1>
+  <h1>Registrouo</h1>
 
   <form id="register-form">
     <label for="username">Nome de usuário:</label>
@@ -25,17 +25,17 @@
   <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script>
-    // Configurar o Firebase
-    var firebaseConfig = {
-     apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
-    authDomain: "agiotagemonline-801f1.firebaseapp.com",
-    databaseURL: "https://agiotagemonline-801f1-default-rtdb.firebaseio.com",
-    projectId: "agiotagemonline-801f1",
-    storageBucket: "agiotagemonline-801f1.appspot.com",
-    messagingSenderId: "618466370845",
-    appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
-    measurementId: "G-R5WXM67TL3"
-    };
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
+  authDomain: "agiotagemonline-801f1.firebaseapp.com",
+  databaseURL: "https://agiotagemonline-801f1-default-rtdb.firebaseio.com",
+  projectId: "agiotagemonline-801f1",
+  storageBucket: "agiotagemonline-801f1.appspot.com",
+  messagingSenderId: "618466370845",
+  appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
+  measurementId: "G-R5WXM67TL3"
+};
     firebase.initializeApp(firebaseConfig);
 
     // Registrar com o Google
