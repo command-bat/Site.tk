@@ -3,27 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro</title>
-</head>
-<body>
-  <h1>Registrouo</h1>
-
-  <form id="register-form">
-    <label for="username">Nome de usuário:</label>
-    <input type="text" id="username" name="username" required><br>
-
-    <label for="email">E-mail:</label>
-    <input type="email" id="email" name="email" required>
-    <br>
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <button type="submit" id="register-btn">Registrar</button>
-    <button type="button" id="google-register-btn">Registrar com o Google</button>
-  </form>
-
   <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script>
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -54,27 +35,13 @@ const firebaseConfig = {
           alert(errorCode + ': ' + errorMessage);
         });
     });
-
-    // Processar o formulário de registro
-    var registerForm = document.querySelector('#register-form');
-    registerForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var username = registerForm.username.value;
-      var email = registerForm.email.value;
-      var password = registerForm.password.value;
-
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(result) {
-          // Registro bem-sucedido
-          alert('Registro bem-sucedido com email e senha!');
-        })
-        .catch(function(error) {
-          // Lidar com erros de registro
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
-        });
-    });
   </script>
+</head>
+<body>
+  <h1>Registro</h1>
+
+  <form id="register-form">
+    <button type="button" id="google-register-btn">Registrar com o Google</button>
+  </form>
 </body>
 </html>
