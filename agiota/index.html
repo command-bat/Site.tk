@@ -5,6 +5,7 @@
 	<!-- Inclua o SDK do Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js"></script>
+	<script src=""https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js""></script>
 	<!-- Inclua o jQuery (opcional) -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -50,17 +51,19 @@
 				// Usuário está logado, mostrar a div do formulário
 				$('#logado').show();
 				$('#deslogado').hide();
+				alert('Esta logado');
 			} else {
 				// Usuário não está logado, mostrar a div de mensagem
 				$('#logado').hide();
 				$('#deslogado').show();
+				alert('Nao esta logado');
 			}
 		});
 
 		// Quando o usuário clicar no botão de enviar, faça alguma ação (por exemplo, enviar o valor para o Firebase)
 		$('#enviar').click(function() {
 			// Aqui você pode adicionar o código para enviar o valor para o Firebase
-			console.log('Valor enviado: ' + $('#valor').val());
+			alert('Valor enviado: ' + $('#valor').val());
 		});
 	</script>
 </body>
