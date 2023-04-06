@@ -3,12 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro</title>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+</head>
+<body>
+  <h1>Registro</h1>
+
+  <form id="register-form">
+    <label for="username">Nome de usuário:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required>
+    <br>
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit" id="register-btn">Registrar</button>
+    <button type="button" id="google-register-btn">Registrar com o Google</button>
+  </form>
+
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
   <script>
-    // Configuração do Firebase
+    // Configurar o Firebase
     var firebaseConfig = {
-    apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
+     apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
     authDomain: "agiotagemonline-801f1.firebaseapp.com",
     databaseURL: "https://agiotagemonline-801f1-default-rtdb.firebaseio.com",
     projectId: "agiotagemonline-801f1",
@@ -17,27 +35,25 @@
     appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
     measurementId: "G-R5WXM67TL3"
     };
-
-    // Inicializar o Firebase
     firebase.initializeApp(firebaseConfig);
-  </script>
-</head>
-<body>
-  <h1>Registrooo</h1>
-  <form id="register-form">
-    <label for="username">Nome de usuário:</label>
-    <input type="text" id="username" name="username" required><br>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
+    // Registrar com o Google
+    var googleRegisterBtn = document.querySelector('#google-register-btn');
+    googleRegisterBtn.addEventListener('click', function() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then(function(result) {
+          // Registro bem-sucedido
+          Alert('Registro bem-sucedido com o Google!');
+        })
+        .catch(function(error) {
+          // Lidar com erros de registro
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          Alert(errorCode + ': ' + errorMessage);
+        });
+    });
 
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" required><br>
-
-    <button type="submit">Registrar</button>
-  </form>
-
-  <script>
     // Processar o formulário de registro
     var registerForm = document.querySelector('#register-form');
     registerForm.addEventListener('submit', function(event) {
@@ -46,17 +62,16 @@
       var email = registerForm.email.value;
       var password = registerForm.password.value;
 
-      // Criar a conta de usuário no Firebase
       firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(user) {
+        .then(function(result) {
           // Registro bem-sucedido
-          alert('Registro bem-sucedido!');
+          Alert('Registro bem-sucedido com email e senha!');
         })
         .catch(function(error) {
           // Lidar com erros de registro
           var errorCode = error.code;
           var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
+          Alert(errorCode + ': ' + errorMessage);
         });
     });
   </script>
