@@ -11,18 +11,25 @@
 <body>
 	<h1>Formulário</h1>
 
-	<!-- Campo de entrada de valor -->
-	<input type="number" id="valor" placeholder="Digite o valor">
-
-	<!-- Botão de enviar -->
-	<button id="enviar">Enviar</button>
-
 	<!-- Div que será mostrada somente se o usuário estiver logado -->
 	<div id="logado" style="display: none;">
-		<p>Você está logado!</p>
+		<!-- Campo de entrada de valor -->
+		<input type="number" id="valor" placeholder="Digite o valor">
+
+		<!-- Botão de enviar -->
+		<button id="enviar">Enviar</button>
 	</div>
 
-	<!-- Script para verificar se o usuário está logado e mostrar/ocultar o formulário e a mensagem -->
+	<!-- Div que será mostrada somente se o usuário não estiver logado -->
+	<div id="deslogado">
+		<p>Para enviar o valor, você precisa estar logado.</p>
+		<!-- Botão de registro -->
+		<a href="https://commandbat.netlify.app/agiota/registro">Registrar</a>
+		<!-- Botão de login -->
+		<a href="https://commandbat.netlify.app/agiota/login">Login</a>
+	</div>
+
+	<!-- Script para verificar se o usuário está logado e mostrar/ocultar as divs -->
 	<script>
 		// Inicialize o Firebase
      var firebaseConfig = {
@@ -35,21 +42,18 @@
     appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
     measurementId: "G-R5WXM67TL3"
     };
-    
 		firebase.initializeApp(firebaseConfig);
 
 		// Verifique se o usuário está logado
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
-				// Usuário está logado, mostrar o formulário e a mensagem
+				// Usuário está logado, mostrar a div do formulário
 				$('#logado').show();
-				$('#valor').show();
-				$('#enviar').show();
+				$('#deslogado').hide();
 			} else {
-				// Usuário não está logado, ocultar o formulário e a mensagem
+				// Usuário não está logado, mostrar a div de mensagem
 				$('#logado').hide();
-				$('#valor').hide();
-				$('#enviar').hide();
+				$('#deslogado').show();
 			}
 		});
 
