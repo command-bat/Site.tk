@@ -6,6 +6,24 @@
 	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js"></script>
+	
+	<script>
+    // Configuração do Firebase
+    var firebaseConfig = {
+    apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
+    authDomain: "agiotagemonline-801f1.firebaseapp.com",
+    databaseURL: "https://agiotagemonline-801f1-default-rtdb.firebaseio.com",
+    projectId: "agiotagemonline-801f1",
+    storageBucket: "agiotagemonline-801f1.appspot.com",
+    messagingSenderId: "618466370845",
+    appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
+    measurementId: "G-R5WXM67TL3"
+    };
+
+    // Inicializar o Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+	
 	<!-- Inclua o jQuery (opcional) -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -63,18 +81,7 @@
 
 	<!-- Script para verificar se o usuário está logado e mostrar/ocultar as divs -->
 	<script>
-		// Inicialize o Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
-    authDomain: "agiotagemonline-801f1.firebaseapp.com",
-    databaseURL: "https://agiotagemonline-801f1-default-rtdb.firebaseio.com",
-    projectId: "agiotagemonline-801f1",
-    storageBucket: "agiotagemonline-801f1.appspot.com",
-    messagingSenderId: "618466370845",
-    appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
-    measurementId: "G-R5WXM67TL3"
-  };
-		firebase.initializeApp(firebaseConfig);
+
 
 		// Verifique se o usuário está logado
 		firebase.auth().onAuthStateChanged(function(user) {
