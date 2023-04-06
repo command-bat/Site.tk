@@ -44,13 +44,11 @@
 		<p>Para enviar o valor, você precisa estar logado.</p>
 		<!-- Botão de registro -->
 		<button id="Registrar">Registrar</button>
-		<a href="https://commandbat.netlify.app/agiota/registro">Registrar</a>
 		<!-- Botão de login -->
 		<button id="login">login</button>
-		<a href="https://commandbat.netlify.app/agiota/login">Login</a>
 	</div>
 
-	<div id="Fazer-login">
+	<div id="Fazer-login"  style="display: none;">
 	        <h1>Login pog</h1>
   		<form id="login-form">
     		<label for="email">Email:</label>
@@ -63,7 +61,7 @@
   		</form>
 	 </div>    
 
-	<div id="Fazer-registro">
+	<div id="Fazer-registro"  style="display: none;">
 		<h1>Registro</h1>
 		<form id="register-form">
 		<label for="username">Nome de usuário:</label>
@@ -135,12 +133,16 @@
       event.preventDefault();
       var email = loginForm.email.value;
       var password = loginForm.password.value;
+      const FazerLogin = document.getElementById('Fazer-login');
+      const logado = document.getElementById('logado');
 
       // Autenticar o usuário com o Firebase
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function(user) {
-          // Login bem-sucedido
-          alert('Login bem-sucedido!');
+        // login bem-sucedido
+        
+	        FazerLogin.style.display = 'none';
+        	logado.style.display = 'block';
         })
         .catch(function(error) {
           // Lidar com erros de login
@@ -150,18 +152,6 @@
         });
     });
 
-
-// Redirecionar para a página após o login bem-sucedido
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // login bem-sucedido
-        const FazerLogin = document.getElementById('Fazer-login');
-	const logado = document.getElementById('logado');
-	      
-	        FazerRegistro.style.display = 'none';
-        	logado.style.display = 'block';
-      }
-    });
   </script>
 	
 	 <script>
