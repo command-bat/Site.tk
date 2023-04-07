@@ -55,7 +55,7 @@
     		<label for="password">Senha:</label>
     		<input type="password" id="password" name="password" required><br>
 
-    		<button type="submit">Entrar</button>
+    		<button type="button">Entrar</button>
   		</form>
 	 </div>    
 
@@ -71,7 +71,7 @@
 		<label for="password">Senha:</label>
 		<input type="password" id="password" name="password" required><br>
 
-		<button type="Rsubmit">Registrar</button>
+		<button type="button">Registrar</button>
   		</form>
 	</div>
 	
@@ -100,7 +100,7 @@
 <script>
     // Processar o formulário de login
     var loginForm = document.querySelector('#login-form');
-    loginForm.addEventListener('submit', function(event) {
+    loginForm.addEventListener('click', () => {
       event.preventDefault();
       var email = loginForm.email.value;
       var password = loginForm.password.value;
@@ -128,7 +128,7 @@
 	 <script>
     // Processar o formulário de registro
     var registerForm = document.querySelector('#register-form');
-    registerForm.addEventListener('Rsubmit', function(event) {
+    registerForm.addEventListener('click', () => {
       event.preventDefault();
       var username = registerForm.username.value;
       var email = registerForm.email.value;
