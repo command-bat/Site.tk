@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Formulário</title>
-	<!-- Inclua o SDK do Firebase -->
-	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js"></script>
-	
-	<script>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script>
     // Configuração do Firebase
     var firebaseConfig = {
     apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
@@ -23,126 +21,32 @@
     // Inicializar o Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-	
-	<!-- Inclua o jQuery (opcional) -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<h1>Formulário</h1>
+  <h1>Login pog</h1>
+  <form id="login-form">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
 
-	<!-- Div que será mostrada somente se o usuário estiver logado -->
-	<div id="logado" style="display: none;">
-		<!-- Campo de entrada de valor -->
-		<input type="number" id="valor" placeholder="Digite o valor">
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required><br>
 
-		<!-- Botão de enviar -->
-		<button id="enviar">Enviar</button>
-	</div>
+    <button type="submit">Entrar</button>
+  </form>
 
-	<!-- Div que será mostrada somente se o usuário não estiver logado -->
-	<div id="deslogado">
-		<p>Para enviar o valor, você precisa estar logado.</p>
-		<!-- Botão de registro -->
-		<button id="registro">Registrar</button>
-		<!-- Botão de login -->
-		<button id="login">login</button>
-	</div>
-
-	<div id="Fazer-login"  style="display: none;">
-	        <h1>Login pog</h1>
-  		<form id="login-form">
-    		<label for="email">Email:</label>
-    		<input type="email" id="email" name="email" required><br>
-
-    		<label for="password">Senha:</label>
-    		<input type="password" id="password" name="password" required><br>
-
-    		<button type="Lsubmit">Entrar</button>
-  		</form>
-	 </div>    
-
-	<div id="Fazer-registro"  style="display: none;">
-		<h1>Registro</h1>
-		<form id="register-form">
-		<label for="username">Nome de usuário:</label>
-		<input type="text" id="username" name="username" required><br>
-
-		<label for="email">Email:</label>
-		<input type="email" id="email" name="email" required><br>
-
-		<label for="password">Senha:</label>
-		<input type="password" id="password" name="password" required><br>
-
-		<button type="Rsubmit">Registrar</button>
-  		</form>
-	</div>
-
-	<!-- Script para verificar se o usuário está logado e mostrar/ocultar as divs -->
-	<script>
-
-
-		// Verifique se o usuário está logado
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				// Usuário está logado, mostrar a div do formulário
-				$('#logado').show();
-				$('#deslogado').hide();
-				alert('Esta logado');
-			} else {
-				// Usuário não está logado, mostrar a div de mensagem
-				$('#logado').hide();
-				$('#deslogado').show();
-				alert('Nao esta logado');
-			}
-			alert('FUNF');
-		});
-
-		// Quando o usuário clicar no botão de enviar, faça alguma ação (por exemplo, enviar o valor para o Firebase)
-		$('#enviar').click(function() {
-			// Aqui você pode adicionar o código para enviar o valor para o Firebase
-			alert('Valor enviado: ' + $('#valor').val());
-		});
-	</script>
-	
-	<script>
-      // Código JavaScript para esconder o elemento main e o botão
-      const login = document.getElementById('login');
-      const registro = document.getElementById('registro');
-      const DivDeslogado = document.getElementById('deslogado');
-      const FazerLogin = document.getElementById('Fazer-login');
-      const FazerRegistro = document.getElementById('Fazer-registro');
-      
-      login.addEventListener('click', () => {
-        FazerLogin.style.display = 'block';
-        FazerRegistro.style.display = 'none';
-        DivDeslogado.style.display = 'none';
-      });
-
-      registro.addEventListener('click', () => {
-        FazerLogin.style.display = 'none';
-        FazerRegistro.style.display = 'block';
-        DivDeslogado.style.display = 'none';
-      });		
-
-    </script>
-
-<script>
+  <script>
     // Processar o formulário de login
     var loginForm = document.querySelector('#login-form');
-    loginForm.addEventListener('Lsubmit', function(event) {
+    loginForm.addEventListener('submit', function(event) {
       event.preventDefault();
       var email = loginForm.email.value;
       var password = loginForm.password.value;
-      const FazerLogin = document.getElementById('Fazer-login');
-      const logado = document.getElementById('logado');
 
       // Autenticar o usuário com o Firebase
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function(user) {
-        // login bem-sucedido
-        
-	        FazerLogin.style.display = 'none';
-        	logado.style.display = 'block';
+          // Login bem-sucedido
+          alert('Login bem-sucedido!');
         })
         .catch(function(error) {
           // Lidar com erros de login
@@ -152,31 +56,14 @@
         });
     });
 
-  </script>
-	
-	 <script>
-    // Processar o formulário de registro
-    var registerForm = document.querySelector('#register-form');
-    registerForm.addEventListener('Rsubmit', function(event) {
-      event.preventDefault();
-      var username = registerForm.username.value;
-      var email = registerForm.email.value;
-      var password = registerForm.password.value;
 
-      // Criar a conta de usuário no Firebase
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(user) {
-          // Registro bem-sucedido
-          alert('Registro bem-sucedido!');
-        })
-        .catch(function(error) {
-          // Lidar com erros de registro
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
-        });
+// Redirecionar para a página após o login bem-sucedido
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // Redirecionar para a página após o login bem-sucedido
+        window.location.href = 'https://commandbat.netlify.app/agiota';
+      }
     });
   </script>
-	
 </body>
 </html>
