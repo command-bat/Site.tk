@@ -83,7 +83,7 @@
       const FazerLogin = document.getElementById('Fazer-login');
       const FazerRegistro = document.getElementById('Fazer-registro');
       
-      login.addEventListener('click', () => {
+      login.addEventListener('click, () => {
         FazerLogin.style.display = 'block';
         FazerRegistro.style.display = 'none';
         DivDeslogado.style.display = 'none';
@@ -128,7 +128,7 @@
 	 <script>
     // Processar o formulário de registro
     var registerForm = document.querySelector('#register-form');
-    registerForm.addEventListener('click', () => {
+    registerForm.addEventListener('submit', () => {
       event.preventDefault();
       var username = registerForm.username.value;
       var email = registerForm.email.value;
