@@ -128,7 +128,7 @@
 	 <script>
     // Processar o formulário de registro
     var registerForm = document.querySelector('#register-form');
-    registerForm.addEventListener('submit', () => {
+    registerForm.addEventListener('submit', (event) => {
       event.preventDefault();
       var username = registerForm.username.value;
       var email = registerForm.email.value;
