@@ -71,7 +71,7 @@
 		<label for="password">Senha:</label>
 		<input type="password" id="password" name="password" required><br>
 
-		<button type="button">Registrar</button>
+		<button type="submit">Registrar</button>
   		</form>
 	</div>
 	
@@ -100,7 +100,7 @@
 <script>
     // Processar o formulário de login
     var loginForm = document.querySelector('#login-form');
-    loginForm.addEventListener('submit, (event) => {
+    loginForm.addEventListener('submit', (event) => {
       event.preventDefault();
       var email = loginForm.email.value;
       var password = loginForm.password.value;
