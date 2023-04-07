@@ -78,31 +78,7 @@
 	</div>
 
 	<!-- Script para verificar se o usuário está logado e mostrar/ocultar as divs -->
-	<script>
-
-
-		// Verifique se o usuário está logado
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				// Usuário está logado, mostrar a div do formulário
-				$('#logado').show();
-				$('#deslogado').hide();
-				alert('Esta logado');
-			} else {
-				// Usuário não está logado, mostrar a div de mensagem
-				$('#logado').hide();
-				$('#deslogado').show();
-				alert('Nao esta logado');
-			}
-			alert('FUNF');
-		});
-
-		// Quando o usuário clicar no botão de enviar, faça alguma ação (por exemplo, enviar o valor para o Firebase)
-		$('#enviar').click(function() {
-			// Aqui você pode adicionar o código para enviar o valor para o Firebase
-			alert('Valor enviado: ' + $('#valor').val());
-		});
-	</script>
+	<scri
 	
 	<script>
       // Código JavaScript para esconder o elemento main e o botão
