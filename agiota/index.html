@@ -148,6 +148,15 @@
         });
     });
   </script>
+
+<script>
+firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // Redirecionar para a página após o login bem-sucedido
+        alert('teste');
+      }
+    });
+  </script>
 	
 </body>
 </html>
