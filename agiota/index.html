@@ -99,29 +99,30 @@
 
 <script>
     // Processar o formulário de login
-    var loginForm = document.querySelector('#login-form');
-    loginForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      var email = loginForm.email.value;
-      var password = loginForm.password.value;
-      const FazerLogin = document.getElementById('Fazer-login');
-      const logado = document.getElementById('logado');
+    var l// Processar o formulário de login
+var loginForm = document.querySelector('#login-form');
+loginForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  var email = loginForm.email.value;
+  var password = loginForm.password.value;
+  const FazerLogin = document.getElementById('Fazer-login');
+  const logado = document.getElementById('logado');
 
-      // Autenticar o usuário com o Firebase
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function(user) {
-        // login bem-sucedido
-        
-	        FazerLogin.style.display = 'none';
-        	logado.style.display = 'block';
-        })
-        .catch(function(error) {
-          // Lidar com erros de login
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
-        });
+  // Autenticar o usuário com o Firebase
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(function(user) {
+      // login bem-sucedido
+      FazerLogin.style.display = 'none';
+      logado.style.display = 'block';
+    })
+    .catch(function(error) {
+      // Lidar com erros de login
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert(errorCode + ': ' + errorMessage);
     });
+});
+
 
   </script>
 	
