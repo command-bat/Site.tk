@@ -100,7 +100,7 @@
 <script>
     // Processar o formulário de login
     var loginForm = document.querySelector('#login-form');
-    loginForm.addEventListener('click', () => {
+    loginForm.addEventListener('submit, (event) => {
       event.preventDefault();
       var email = loginForm.email.value;
       var password = loginForm.password.value;
