@@ -66,20 +66,20 @@
       // Código JavaScript para esconder o elemento main e o botão
       const login = document.getElementById('login');
       const registro = document.getElementById('registro');
-      const DivDeslogado = document.getElementById('deslogado');
-      const FazerLogin = document.getElementById('Fazer-login');
+      const divDeslogado = document.getElementById('deslogado');
+      const fazerLogin = document.getElementById('Fazer-login');
       // const FazerRegistro = document.getElementById('Fazer-registro');
       
       login.addEventListener('click', () => {
-        FazerLogin.style.display = 'block';
+        fazerLogin.style.display = 'block';
         // FazerRegistro.style.display = 'none';
-        DivDeslogado.style.display = 'none';
+        divDeslogado.style.display = 'none';
       });
 
       registro.addEventListener('click', () => {
-        FazerLogin.style.display = 'none';
+        fazerLogin.style.display = 'none';
         // FazerRegistro.style.display = 'block';
-        DivDeslogado.style.display = 'none';
+        divDeslogado.style.display = 'none';
       });		
 
     </script>
@@ -91,8 +91,8 @@ loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
   var email = loginForm.email.value;
   var password = loginForm.password.value;
-  const FazerLogin = document.getElementById('Fazer-login');
-  const logado = document.getElementById('logado');
+  var fazerLogin = document.getElementById('Fazer-login');
+  var logado = document.getElementById('logado');
 
   // Autenticar o usuário com o Firebase
   firebase.auth().signInWithEmailAndPassword(email, password)
