@@ -24,70 +24,69 @@ const firebaseConfig = {
 
 <style>
 
-    body {
-  background-color: #e5e5e5;
+    /* Estilo para o body */
+body {
   font-family: Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
   margin: 0;
   padding: 0;
+  background-color: #f7f7f7;
 }
 
-.container {
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 50px auto;
-  max-width: 400px;
-  padding: 40px;
-}
-
+/* Estilo para o cabeçalho h1 */
 h1 {
-  color: #333;
-  font-size: 24px;
-  margin: 0 0 20px;
+  font-size: 2em;
   text-align: center;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  color: #0077cc;
 }
 
+/* Estilo para o formulário */
 form {
-  margin-top: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo para os rótulos */
 label {
-  color: #666;
   display: block;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 0.5em;
+  color: #333;
 }
 
-input[type="text"],
+/* Estilo para os campos de entrada */
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 3px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  display: block;
-  font-size: 16px;
-  padding: 10px;
-  width: 100%;
+  margin-bottom: 1em;
 }
 
+/* Estilo para o botão de envio */
 button[type="submit"] {
-  background-color: #333;
+  display: block;
+  background-color: #0077cc;
+  color: #fff;
+  padding: 0.5em;
   border: none;
   border-radius: 3px;
-  color: #fff;
   cursor: pointer;
-  display: block;
-  font-size: 16px;
-  margin-top: 20px;
-  padding: 10px;
-  width: 100%;
+  margin-top: 1em;
 }
 
-button[type="submit"]:hover {
-  background-color: #222;
+/* Estilo para a mensagem de erro */
+.error {
+  color: #ff0000;
+  margin-top: 0.5em;
+  text-align: center;
 }
 
   </style>
