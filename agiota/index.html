@@ -40,13 +40,43 @@
 		<button id="login">login</button>
 	</div>
 
+	<script>
+      // Código JavaScript para esconder o elemento main e o botão
+      const login = document.getElementById('login');
+      const registro = document.getElementById('registro');
+      const divDeslogado = document.getElementById('deslogado');
+      const divLogado = document.getElementById('logado');
+      
+      login.addEventListener('click', () => {
+        fazerLogin.style.display = 'block';
+        // FazerRegistro.style.display = 'none';
+        divDeslogado.style.display = 'none';
+      });
+
+      registro.addEventListener('click', () => {
+        fazerLogin.style.display = 'none';
+        // FazerRegistro.style.display = 'block';
+        divDeslogado.style.display = 'none';
+      });		
+
+    </script>
+	
   <script>
 
 // Redirecionar para a página após o login bem-sucedido
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // Redirecionar para a página após o login bem-sucedido
-        alert('teste');
+      const divDeslogado = document.getElementById('deslogado');
+      const divLogado = document.getElementById('logado');
+	      
+	 divDeslogado.style.display = 'none';
+         divLogado.style.display = 'block';
+      }else{
+      const divDeslogado = document.getElementById('deslogado');
+      const divLogado = document.getElementById('logado');
+	      
+	 divDeslogado.style.display = 'block';
+         divLogado.style.display = 'none';      
       }
     });
   </script>
