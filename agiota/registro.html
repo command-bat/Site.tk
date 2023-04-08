@@ -48,10 +48,6 @@ const firebaseConfig = {
       var username = registerForm.username.value;
       var email = registerForm.email.value;
       var password = registerForm.password.value;
-      firebase.database().ref('users/' + user.user.uid).set({
-           username: username,
-           email: email
-       });
 
 
 
@@ -61,6 +57,10 @@ const firebaseConfig = {
           // Registro bem-sucedido
           alert('Registro bem-sucedido!');
           // Salvar o username no banco de dados
+          firebase.database().ref('users/' + user.user.uid).set({
+              username: username,
+              email: email
+          });
           window.location.href = '/agiota';
         })
         .catch(function(error) {
