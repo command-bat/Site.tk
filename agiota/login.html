@@ -61,7 +61,7 @@
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // Redirecionar para a página após o login bem-sucedido
-        alert('teste');
+        window.location.href = 'https://commandbat.netlify.app/agiota';
       }
     });
   </script>
