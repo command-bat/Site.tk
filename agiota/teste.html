@@ -12,16 +12,27 @@
 	<div id="username-container"></div>
 
 	<script>
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				// Se o usuário estiver logado, pega o username e exibe na página
-				var username = user.displayName;
-				document.getElementById('username-container').innerHTML = "Olá, " + username;
-			} else {
-				// Se o usuário não estiver logado, redireciona para a página de login
-				window.location.href = "login.html";
-			}
-		});
+
+// Recuperar o uid do usuário atual
+var userId = firebase.auth().currentUser.uid;
+
+// Criar uma referência para o nó do usuário no banco de dados
+var userRef = firebase.database().ref('users/' + userId);
+
+// Ler os dados do nó do usuário no banco de dados uma vez
+userRef.once('value')
+  .then(function(snapshot) {
+    // Recuperar o valor do nó "username"
+    var username = snapshot.val().username;
+
+    // Exibir o username na página
+    document.getElementById('username-container').innerHTML = "Olá, " + username;
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+
 	</script>
 </body>
 </html>
