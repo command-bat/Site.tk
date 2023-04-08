@@ -14,18 +14,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
-// Add Firebase scripts
-const firebaseAuthScript = document.createElement('script');
-firebaseAuthScript.src = "https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js";
-document.head.appendChild(firebaseAuthScript);
-
-const firebaseDatabaseScript = document.createElement('script');
-firebaseDatabaseScript.src = "https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js";
-document.head.appendChild(firebaseDatabaseScript);
-
-const firebaseAppScript = document.createElement('script');
-firebaseAppScript.src = "https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js";
-document.head.appendChild(firebaseAppScript);
-
+L
 })();
