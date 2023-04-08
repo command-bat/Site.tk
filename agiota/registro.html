@@ -48,10 +48,11 @@ const firebaseConfig = {
       var username = registerForm.username.value;
       var email = registerForm.email.value;
       var password = registerForm.password.value;
-      var userRef = firebase.database().ref('users/' + user.user.uid);
-      userRef.set({
-          username: username
-      });
+      firebase.database().ref('users/' + user.user.uid).set({
+           username: username,
+           email: email
+       });
+
 
 
       // Criar a conta de usuário no Firebase
