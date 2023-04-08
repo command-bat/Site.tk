@@ -148,7 +148,10 @@
 
 	 // Exibir o username na página
 	 document.getElementById('username-container').innerHTML = "Olá, " + username + "\n digite o valor que quer receber";
-
+         })
+	 .catch(function(error) {
+	 console.log(error);
+	 });
 
       }else{
      
