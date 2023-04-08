@@ -44,19 +44,13 @@
       // Código JavaScript para esconder o elemento main e o botão
       const login = document.getElementById('login');
       const registro = document.getElementById('registro');
-      const divDeslogado = document.getElementById('deslogado');
-      const divLogado = document.getElementById('logado');
       
       login.addEventListener('click', () => {
-        fazerLogin.style.display = 'block';
-        // FazerRegistro.style.display = 'none';
-        divDeslogado.style.display = 'none';
+        window.location.href = '/login';
       });
 
       registro.addEventListener('click', () => {
-        fazerLogin.style.display = 'none';
-        // FazerRegistro.style.display = 'block';
-        divDeslogado.style.display = 'none';
+        window.location.href = '/registro';
       });		
 
     </script>
@@ -65,16 +59,16 @@
 
 // Redirecionar para a página após o login bem-sucedido
     firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
+
       const divDeslogado = document.getElementById('deslogado');
       const divLogado = document.getElementById('logado');
+
+      if (user) {
 	      
 	 divDeslogado.style.display = 'none';
          divLogado.style.display = 'block';
       }else{
-      const divDeslogado = document.getElementById('deslogado');
-      const divLogado = document.getElementById('logado');
-	      
+     
 	 divDeslogado.style.display = 'block';
          divLogado.style.display = 'none';      
       }
