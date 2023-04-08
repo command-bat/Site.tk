@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Formulário</title>
-	
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-  import { }
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script>
+    // Configuração do Firebase
+    var firebaseConfig = {
     apiKey: "AIzaSyDKliuSLXG-hyzg7oR3LeLj5UTS-fmafh0",
     authDomain: "agiotagemonline-801f1.firebaseapp.com",
     databaseURL: "https://agiotagemonline-801f1-default-rtdb.firebaseio.com",
@@ -22,70 +16,54 @@
     messagingSenderId: "618466370845",
     appId: "1:618466370845:web:23b041dff4e3eab52a6df4",
     measurementId: "G-R5WXM67TL3"
-  };
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-
-	
+    // Inicializar o Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
-	<h1>Formulário</h1>
+  <h1>Login pog</h1>
+  <form id="login-form">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
 
-	<!-- Div que será mostrada somente se o usuário estiver logado -->
-	<div id="logado" style="display: none;">
-		<!-- Campo de entrada de valor -->
-		<input type="number" id="valor" placeholder="Digite o valor">
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required><br>
 
-		<!-- Botão de enviar -->
-		<!-- <button id="enviar">Enviar</button> -->
-	</div>
+    <button type="submit">Entrar</button>
+  </form>
 
-	<!-- Div que será mostrada somente se o usuário não estiver logado -->
-	<div id="deslogado">
-		<p>Para enviar o valor, você precisa estar logado.</p>
-		<!-- Botão de registro -->
-		<button id="registro">Registrar</button>
-		<!-- Botão de login -->
-		<button id="login">login</button>
-	</div>
+  <script>
+    // Processar o formulário de login
+    var loginForm = document.querySelector('#login-form');
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var email = loginForm.email.value;
+      var password = loginForm.password.value;
 
-
-
-	
-	<script>
-      // Código JavaScript para esconder o elemento main e o botão
-      const login = document.getElementById('login');
-      const registro = document.getElementById('registro');
-      const divDeslogado = document.getElementById('deslogado');
-      
-      login.addEventListener('click', () => {
-        fazerLogin.style.display = 'block';
-        // FazerRegistro.style.display = 'none';
-        divDeslogado.style.display = 'none';
-      });
-
-      registro.addEventListener('click', () => {
-        fazerLogin.style.display = 'none';
-        // FazerRegistro.style.display = 'block';
-        divDeslogado.style.display = 'none';
-      });		
-
-    </script>
+      // Autenticar o usuário com o Firebase
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(function(user) {
+          // Login bem-sucedido
+          alert('Login bem-sucedido!');
+        })
+        .catch(function(error) {
+          // Lidar com erros de login
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorCode + ': ' + errorMessage);
+        });
+    });
 
 
-<script>
-firebase.auth().onAuthStateChanged(function(user) {
+// Redirecionar para a página após o login bem-sucedido
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // Redirecionar para a página após o login bem-sucedido
-        alert('teste');
-      }else{
-alert('nun foi');
-}
+        window.location.href = 'https://commandbat.netlify.app/agiota';
+      }
     });
   </script>
-	
 </body>
 </html>
