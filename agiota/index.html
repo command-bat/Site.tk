@@ -23,39 +23,24 @@
   </script>
 </head>
 <body>
-  <h1>Login pog</h1>
-  <form id="login-form">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
+<div id="logado" style="display: none;">
+		<!-- Campo de entrada de valor -->
+		<input type="number" id="valor" placeholder="Digite o valor">
 
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" required><br>
+		<!-- Botão de enviar -->
+		<!-- <button id="enviar">Enviar</button> -->
+	</div>
 
-    <button type="submit">Entrar</button>
-  </form>
+	<!-- Div que será mostrada somente se o usuário não estiver logado -->
+	<div id="deslogado">
+		<p>Para enviar o valor, você precisa estar logado.</p>
+		<!-- Botão de registro -->
+		<button id="registro">Registrar</button>
+		<!-- Botão de login -->
+		<button id="login">login</button>
+	</div>
 
   <script>
-    // Processar o formulário de login
-    var loginForm = document.querySelector('#login-form');
-    loginForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var email = loginForm.email.value;
-      var password = loginForm.password.value;
-
-      // Autenticar o usuário com o Firebase
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function(user) {
-          // Login bem-sucedido
-          alert('Login bem-sucedido!');
-        })
-        .catch(function(error) {
-          // Lidar com erros de login
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
-        });
-    });
-
 
 // Redirecionar para a página após o login bem-sucedido
     firebase.auth().onAuthStateChanged(function(user) {
