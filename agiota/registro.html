@@ -22,74 +22,6 @@ const firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
   </script>
 
-<style>
-
-    /* Estilo para o body */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f7f7f7;
-}
-
-/* Estilo para o cabeçalho h1 */
-h1 {
-  font-size: 2em;
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
-  color: #0077cc;
-}
-
-/* Estilo para o formulário */
-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 1em;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para os rótulos */
-label {
-  display: block;
-  margin-bottom: 0.5em;
-  color: #333;
-}
-
-/* Estilo para os campos de entrada */
-input[type="email"],
-input[type="password"],
-input[type="text"] {
-  display: block;
-  width: 100%;
-  padding: 0.5em;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  margin-bottom: 1em;
-}
-
-/* Estilo para o botão de envio */
-button[type="submit"] {
-  display: block;
-  background-color: #0077cc;
-  color: #fff;
-  padding: 0.5em;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-top: 1em;
-}
-
-/* Estilo para a mensagem de erro */
-.error {
-  color: #ff0000;
-  margin-top: 0.5em;
-  text-align: center;
-}
-
-  </style>
 
 </head>
 <body>
@@ -121,6 +53,10 @@ button[type="submit"] {
         .then(function(user) {
           // Registro bem-sucedido
           alert('Registro bem-sucedido!');
+          // Salvar o username no banco de dados
+          firebase.database().ref('users/' + user.user.uid).set({
+            username: username
+          });
           window.location.href = '/agiota';
         })
         .catch(function(error) {
@@ -133,4 +69,3 @@ button[type="submit"] {
   </script>
 </body>
 </html>
-
