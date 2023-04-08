@@ -89,6 +89,7 @@
 		<div class="container">
       <h1>Formulário de Pagamento</h1>
       <form>
+        <div id="username-container"></div>
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor">
         <button type="submit">Enviar</button>
@@ -122,7 +123,7 @@
 	
   <script>
 
-// Redirecionar para a página após o login bem-sucedido
+// login bem-sucedido
     firebase.auth().onAuthStateChanged(function(user) {
 
       const divDeslogado = document.getElementById('deslogado');
@@ -132,6 +133,23 @@
 	      
 	 divDeslogado.style.display = 'none';
          divLogado.style.display = 'block';
+
+         // Recuperar o uid do usuário atual
+	 var userId = user.uid;
+
+	 // Criar uma referência para o nó do usuário no banco de dados
+	 var userRef = firebase.database().ref('users/' + userId);
+
+	 // Ler os dados do nó do usuário no banco de dados uma vez
+	 userRef.once('value')
+	 .then(function(snapshot) {
+	 // Recuperar o valor do nó "username"
+	 var username = snapshot.val().username;
+
+	 // Exibir o username na página
+	 document.getElementById('username-container').innerHTML = "Olá, " + username + "\n digite o valor que quer receber";
+
+
       }else{
      
 	 divDeslogado.style.display = 'block';
