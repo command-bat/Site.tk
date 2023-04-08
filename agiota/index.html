@@ -6,6 +6,7 @@
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+  import { }
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -51,19 +52,6 @@
 		<button id="login">login</button>
 	</div>
 
-	<div id="Fazer-login"  style="display: none;">
-	        <h1>Login pog</h1>
-  		<form id="login-form">
-    		<label for="email">Email:</label>
-    		<input type="email" id="email" name="email" required><br>
-
-    		<label for="password">Senha:</label>
-    		<input type="password" id="password" name="password" required><br>
-
-    		<button type="submit">Entrar</button>
-  		</form>
-	 </div>    
-
 
 
 	
@@ -72,8 +60,6 @@
       const login = document.getElementById('login');
       const registro = document.getElementById('registro');
       const divDeslogado = document.getElementById('deslogado');
-      const fazerLogin = document.getElementById('Fazer-login');
-      // const FazerRegistro = document.getElementById('Fazer-registro');
       
       login.addEventListener('click', () => {
         fazerLogin.style.display = 'block';
@@ -89,57 +75,6 @@
 
     </script>
 
-<script>
-    // Processar o formulário de login
-var loginForm = document.querySelector('#login-form');
-loginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  var email = loginForm.email.value;
-  var password = loginForm.password.value;
-  var fazerLogin = document.getElementById('Fazer-login');
-  var logado = document.getElementById('logado');
-
-  // Autenticar o usuário com o Firebase
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(function(user) {
-      // login bem-sucedido
-      FazerLogin.style.display = 'none';
-      logado.style.display = 'block';
-    })
-    .catch(function(error) {
-      // Lidar com erros de login
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      alert(errorCode + ': ' + errorMessage);
-    });
-});
-
-
-  </script>
-	
-	 <script>
-    // Processar o formulário de registro
-    var registerForm = document.querySelector('#register-form');
-    registerForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      var username = registerForm.username.value;
-      var email = registerForm.email.value;
-      var password = registerForm.password.value;
-
-      // Criar a conta de usuário no Firebase
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(user) {
-          // Registro bem-sucedido
-          alert('Registro bem-sucedido!');
-        })
-        .catch(function(error) {
-          // Lidar com erros de registro
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
-        });
-    });
-  </script>
 
 <script>
 firebase.auth().onAuthStateChanged(function(user) {
