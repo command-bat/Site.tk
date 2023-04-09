@@ -35,11 +35,6 @@
       var email = registerForm.email.value;
       var password = registerForm.password.value;
 
-          // Salvar o username no banco de dados
-          firebase.database().ref('users/' + user.user.uid).set({
-              username: username,
-              email: email
-          });
 
 
       // Criar a conta de usuário no Firebase
@@ -47,7 +42,11 @@
         .then(function(user) {
           // Registro bem-sucedido
           alert('Registro bem-sucedido!');
-          
+          // Salvar o username no banco de dados
+          firebase.database().ref('users/' + user.user.uid).set({
+              username: username,
+              email: email
+          });
           
           window.location.href = '/agiota';
          
