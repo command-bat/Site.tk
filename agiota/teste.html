@@ -1,69 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Registro</title>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-  <script src="js/firebase.js"></script>
+	<meta charset="UTF-8">
+	<title>Exemplo Firebase</title>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+	<script src="js/firebase.js"></script>
 </head>
 <body>
-  <h1>Registro</h1>
-  <form id="register-form">
-    <label for="username">Nome de usuário:</label>
-    <input type="text" id="username" name="username" required><br>
+	<h1>Exemplo Firebase</h1>
+	<div id="username-container"></div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
+	<script>
+		// Verificar se o usuário está autenticado
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// Recuperar o uid do usuário atual
+				var userId = user.uid;
 
-    <label for="password">Senha:</label>
-    <input type="password" id="password" name="password" required><br>
+				// Criar uma referência para o nó do usuário no banco de dados
+				var userRef = firebase.database().ref('users/' + userId);
 
-    <button type="submit">Registrar</button>
-  </form>
+				// Ler os dados do nó do usuário no banco de dados uma vez
+				userRef.once('value')
+				  .then(function(snapshot) {
+				    // Recuperar o valor do nó "username"
+				    var username = snapshot.val().username;
 
-  <script>
-    // Processar o formulário de registro
-    var registerForm = document.querySelector('#register-form');
-    registerForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var username = registerForm.username.value;
-      var email = registerForm.email.value;
-      var password = registerForm.password.value;
-
-      // Criar a conta de usuário no Firebase
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(user) {
-          // Registro bem-sucedido
-          alert('Registro bem-sucedido!');
-          // Salvar o username no banco de dados
-          firebase.database().ref('users/' + user.user.uid).set({
-              username: username,
-              email: email
-          });
-          // Consultar o username no banco de dados
-          firebase.database().ref('users/' + user.user.uid).once('value')
-            .then(function(snapshot) {
-              var username2 = snapshot.val().username;
-              if (username === username2) {
-                // Redirecionar para a página index.html
-                window.location.href = '/index.html';
-              } else {
-                alert('Erro: username não confere');
-              }
-            })
-            .catch(function(error) {
-              alert('Erro: ' + error.message);
-            });
-        })
-        .catch(function(error) {
-          // Lidar com erros de registro
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
-        });
-    });
-  </script>
+				    // Exibir o username na página
+				    document.getElementById('username-container').innerHTML = "Olá, " + username;
+				  })
+				  .catch(function(error) {
+				    console.log(error);
+				  });
+			}
+		});
+	</script>
 </body>
 </html>
