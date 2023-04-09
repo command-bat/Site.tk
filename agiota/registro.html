@@ -47,6 +47,7 @@
             .then(function(snapshot) {
               var username2 = snapshot.val().username;
               if (username === username2) {
+alert('Erro: ' + username + '\n' + username2);
                 // Redirecionar para a página index.html
                 window.location.href = '/agiota';
               } else {
