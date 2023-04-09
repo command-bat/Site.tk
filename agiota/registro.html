@@ -7,9 +7,11 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
   <script src="js/firebase.js"></script>
+
+
 </head>
 <body>
-  <h1>Registro</h1>
+  <h1>Registro1</h1>
   <form id="register-form">
     <label for="username">Nome de usuário:</label>
     <input type="text" id="username" name="username" required><br>
@@ -42,20 +44,19 @@
               username: username,
               email: email
           });
-          // Consultar o username no banco de dados
+          // Verificar se o username no banco de dados é o mesmo que o do registro
           firebase.database().ref('users/' + user.user.uid).once('value')
             .then(function(snapshot) {
               var username2 = snapshot.val().username;
               if (username === username2) {
-alert('Erro: ' + username + '\n' + username2);
-                // Redirecionar para a página index.html
-                window.location.href = '/agiota';
+                // Redirecionar para a página principal
+                window.location.href = '/index.html';
               } else {
-                alert('Erro: username não confere');
+                alert("Erro: O nome de usuário não corresponde ao registrado!");
               }
             })
             .catch(function(error) {
-              alert('Erro: ' + error.message);
+              alert("Erro ao acessar o banco de dados: " + error.message);
             });
         })
         .catch(function(error) {
