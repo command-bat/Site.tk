@@ -32,16 +32,19 @@
 		}
 	</style>
 </head>
-<body onload="startCountdown()">
-	<p id="countdown" class="loading">Carregando</p>
+<body>
+	<button onclick="startCountdown()">Iniciar</button>
+	<p id="countdown" class="loading"></p>
 
 	<script>
 		function startCountdown() {
-			var count = 2;
+			var count = 10;
 			var countdownElem = document.getElementById("countdown");
+			countdownElem.classList.add("loading");
 
 			var countdownInterval = setInterval(function() {
 				count--;
+				countdownElem.innerHTML = count;
 				
 				if (count == 0) {
 					clearInterval(countdownInterval);
