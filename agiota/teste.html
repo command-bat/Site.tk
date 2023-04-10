@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Contagem Regressiva</title>
+	<title>Countdown</title>
 	<style>
-		.loading {
-			animation: loading-animation 1s infinite;
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			font-size: 24px;
+			text-align: center;
+			margin-top: 50px;
 		}
 		
-		@keyframes loading-animation {
+		.loading::after {
+			content: "...";
+			animation: dots 1s infinite;
+		}
+		
+		@keyframes dots {
 			0% {
-				content: ".";
+				content: "";
 			}
 			33% {
-				content: "..";
+				content: ".";
 			}
 			66% {
-				content: "...";
+				content: "..";
 			}
 			100% {
-				content: ".";
+				content: "...";
 			}
 		}
 	</style>
 </head>
-<body onload="countdown()">
-	<p id="countdown">Carregando<span class="loading"></span></p>
-	
+<body onload="startCountdown()">
+	<p id="countdown" class="loading">Carregando</p>
+
 	<script>
-		function countdown() {
-			var timeleft = 1;
-			var downloadTimer = setInterval(function(){
-			  document.getElementById("countdown").innerHTML = "Carregando<span class='loading'></span> em " + timeleft + " segundos";
-			  timeleft -= 1;
-			  if(timeleft <= 0){
-			    clearInterval(downloadTimer);
-			    document.getElementById("countdown").innerHTML = "Carregado!";
-			  }
+		function startCountdown() {
+			var count = 10;
+			var countdownElem = document.getElementById("countdown");
+
+			var countdownInterval = setInterval(function() {
+				count--;
+				countdownElem.innerHTML = count;
+				
+				if (count == 0) {
+					clearInterval(countdownInterval);
+					countdownElem.classList.remove("loading");
+					countdownElem.innerHTML = "Pronto!";
+				}
 			}, 1000);
 		}
 	</script>
