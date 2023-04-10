@@ -50,7 +50,7 @@ input[type="text"] {
 }
 
 button[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #2196F3;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -59,9 +59,6 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
-  background-color: #3e8e41;
-}
 
 #registro, #login {
   background-color: #2196F3;
@@ -74,7 +71,7 @@ button[type="submit"]:hover {
   margin-right: 10px;
 }
 
-#registro:hover, #login:hover {
+#registro:hover, #login:hover, button[type="submit"]:hover {
   background-color: #0b7dda;
 }
 
