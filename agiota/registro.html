@@ -91,7 +91,7 @@ button[type="submit"] {
     <p id="countdown" class="loading"></p>
   </form>
 
-  <script>
+<script>
     // Processar o formulário de registro
     var registerForm = document.querySelector('#register-form');
     registerForm.addEventListener('submit', function(event) {
@@ -101,58 +101,56 @@ button[type="submit"] {
       var email = registerForm.email.value;
       var password = registerForm.password.value;
 
-      // Criar a conta de usuário no Firebase
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(user) {
-          // Salvar o username no banco de dados
-          firebase.database().ref('users/' + user.user.uid).set({
-              username: username,
-              pix: pix,
-              email: email
-          });
-          // Registro bem-sucedido
-          // Verificar se o username no banco de dados é o mesmo que o do registro
-          firebase.database().ref('users/' + user.user.uid).once('value')
-            .then(function(snapshot) {
-              var username2 = snapshot.val().username;
-              if (username === username2) {
+      // Verificar se o username já está em uso
+      firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
+        .then(function(snapshot) {
+          if (snapshot.exists()) {
+            alert("Erro: Este nome de usuário já está em uso. Por favor, escolha outro nome.");
+            return;
+          }
 
-                var count = 3;
-		var countdownElem = document.getElementById("countdown");
+          // Criar a conta de usuário no Firebase
+          firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function(user) {
+              // Salvar o username no banco de dados
+              firebase.database().ref('users/' + user.user.uid).set({
+                  username: username,
+                  pix: pix,
+                  email: email
+              });
+              // Registro bem-sucedido
+              var count = 3;
+              var countdownElem = document.getElementById("countdown");
 
-		var countdownInterval = setInterval(function() {
-			count--;
-			countdownElem.innerHTML = "Caregando";
-				
-			if (count == 1) {
-				countdownElem.innerHTML = "Registro Feito!";
-			}
-                        if (count == 0) {
-                        clearInterval(countdownInterval);
-		        countdownElem.innerHTML = "Redirecionando";
-                        // Redirecionar para a página principal
-                        window.location.href = '/agiota';
-                        }
+              var countdownInterval = setInterval(function() {
+                count--;
+                countdownElem.innerHTML = "Caregando";
+                  
+                if (count == 1) {
+                  countdownElem.innerHTML = "Registro Feito!";
+                }
+                if (count == 0) {
+                  clearInterval(countdownInterval);
+                  countdownElem.innerHTML = "Redirecionando";
+                  // Redirecionar para a página principal
+                  window.location.href = '/agiota';
+                }
 
-		}, 1000);
+              }, 1000);
 
-
-                
-              } else {
-                alert("Erro: O nome de usuário não corresponde ao registrado!");
-              }
             })
             .catch(function(error) {
-              alert("Erro ao acessar o banco de dados: " + error.message);
+              // Lidar com erros de registro
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              alert(errorCode + ': ' + errorMessage);
             });
         })
         .catch(function(error) {
-          // Lidar com erros de registro
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
+          alert("Erro ao acessar o banco de dados: " + error.message);
         });
     });
-  </script>
+</script>
+
 </body>
 </html>
