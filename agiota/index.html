@@ -14,9 +14,9 @@
 <body>
   <div id="logado" style="display: none;">
     <div class="container">
-      <h2>bruh</h2>
+      <h2></h2>
       <br> <!-- Adiciona a quebra de linha para separar o texto do campo de entrada -->
-      <h1>Formulário de Pagamento1</h1>
+      <h1>Formulário de Pagamento</h1>
       <form>
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor">
@@ -41,7 +41,7 @@
 
     registro.addEventListener('click', () => {
       window.location.href = '/agiota/registro';
-    });		
+    });    
 
     firebase.auth().onAuthStateChanged(function(user) {
       const divDeslogado = document.getElementById('deslogado');
@@ -71,5 +71,3 @@
   </script>
 </body>
 </html>
-
-
