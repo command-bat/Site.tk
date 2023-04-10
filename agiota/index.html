@@ -14,7 +14,7 @@
 <body>
   <div id="logado" style="display: none;">
     <div class="container">
-      <user> teste </user>
+      <user></user>
       <br> <!-- Adiciona a quebra de linha para separar o texto do campo de entrada -->
       <h1>Formulário de Pagamento1</h1>
       <form>
@@ -57,10 +57,7 @@
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
 
-          // Move o elemento "username-container" para dentro do div "logado"
-          document.getElementById('logado').appendChild(document.getElementById('username-container'));
-
-          document.getElementById('username-container').innerHTML = "Olá, " + username;
+          document.querySelector('user').innerHTML = username;
 
         }).catch(function(error) {
           console.log(error);
