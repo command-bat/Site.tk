@@ -29,6 +29,10 @@ h2 {
   margin-bottom: 10px;
 }
 
+p {
+ text-align: center;
+}
+
 label {
   display: block;
   margin-bottom: 5px;
