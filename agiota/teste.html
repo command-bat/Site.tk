@@ -23,7 +23,7 @@
         var valorTransacao = "***";
 
         // Identificador único da transação
-        var idTransacao = "1D3D";
+        var idTransacao = generateTransactionId();
 
         // Constrói a string com os dados do Pix
         var pixData = "000201" +
@@ -71,6 +71,25 @@ alert(pixData);
         }
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
+
+function generateTransactionId() {
+  // Gera um número randômico entre 0 e 99999
+  var randomNumber = Math.floor(Math.random() * 100000);
+
+  // Obtém a data e hora atual
+  var date = new Date();
+  var year = date.getFullYear().toString();
+  var month = (date.getMonth() + 1).toString().padStart(2, "0");
+  var day = date.getDate().toString().padStart(2, "0");
+  var hours = date.getHours().toString().padStart(2, "0");
+  var minutes = date.getMinutes().toString().padStart(2, "0");
+  var seconds = date.getSeconds().toString().padStart(2, "0");
+
+  // Concatena as informações para gerar o identificador único
+  var transactionId = year + month + day + hours + minutes + seconds + randomNumber.toString().padStart(5, "0");
+
+  return transactionId;
+}
 
       // Gera o QR Code quando a página carrega
       window.onload = generatePixQRCode;
