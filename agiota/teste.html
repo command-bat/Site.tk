@@ -30,17 +30,22 @@
 				content: "...";
 			}
 		}
+
+		.started::after {
+			animation-play-state: running;
+		}
 	</style>
 </head>
 <body>
-	<button onclick="startCountdown()">Iniciar</button>
-	<p id="countdown" class="loading"></p>
+	<button onclick="startCountdown()">IniciarT</button>
+	<p id="countdown"></p>
 
 	<script>
 		function startCountdown() {
 			var count = 10;
 			var countdownElem = document.getElementById("countdown");
-			countdownElem.classList.add("loading");
+			countdownElem.classList.remove("loading");
+			countdownElem.classList.add("started");
 
 			var countdownInterval = setInterval(function() {
 				count--;
@@ -48,7 +53,6 @@
 				
 				if (count == 0) {
 					clearInterval(countdownInterval);
-					countdownElem.classList.remove("loading");
 					countdownElem.innerHTML = "Pronto!";
 				}
 			}, 1000);
