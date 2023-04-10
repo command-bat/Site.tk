@@ -74,14 +74,10 @@ button[type="submit"]:hover {
   margin-right: 10px;
 }
 
-#registro:hover {
+#registro:hover, #login:hover {
   background-color: #0b7dda;
 }
 
-
-#login:hover {
-  background-color: #0b7dda;
-}
 
 #deslogado, #logado {
   text-align: center;
