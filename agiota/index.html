@@ -53,7 +53,8 @@
         divLogado.style.display = 'block';
 
         
-        var userRef = firebase.database().ref('users/jSml6PgEm4SBDQZcKqXjBMOXAhz1');
+        var userId = user.uid;
+        var userRef = firebase.database().ref('users/' + userId);
 
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
