@@ -38,7 +38,7 @@
 </head>
 <body>
 	<button onclick="startCountdown()">Iniciar</button>
-	<p id="countdown"></p>
+	<p id="countdown" class="loading"></p>
 
 	<script>
 		function startCountdown() {
@@ -46,6 +46,10 @@
 			var countdownElem = document.getElementById("countdown");
 			countdownElem.classList.remove("loading");
 			countdownElem.classList.add("started");
+
+			setTimeout(function() {
+				countdownElem.classList.add("loading");
+			}, 100);
 
 			var countdownInterval = setInterval(function() {
 				count--;
