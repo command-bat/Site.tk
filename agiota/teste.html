@@ -39,7 +39,7 @@
 
         // Adiciona o CRC16 aos dados do Pix
         pixData += crc16;
-
+alert(pixData);
         // Gera o QR Code a partir dos dados do Pix
         var qrCode = new QRCode(document.getElementById("qrcode"), {
           text: pixData,
