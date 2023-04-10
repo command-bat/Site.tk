@@ -10,32 +10,34 @@
 <p id="code"></p>
     <script>
       function generatePixQRCode() {
-        // Chave Pix
         var chavePix = "44395052878";
 
-        // Nome do titular da conta
-        var nomeTitular = "TIAGO N LAUREANO";
+// Nome do titular da conta
+var nomeTitular = "TIAGO N LAUREANO";
 
-        // Cidade do titular da conta
-        var cidadeTitular = "GUAPIACU";
+// Cidade do titular da conta
+var cidadeTitular = "GUAPIACU";
 
-        // Valor da transação em centavos
-        var valorTransacao = "1200";
+// Valor da transação em centavos
+var valorTransacao = "1200";
 
-        // Identificador único da transação
-        var idTransacao = generateTransactionId();
+// Identificador único da transação
+var idTransacao = generateTransactionId();
 
-        // Constrói a string com os dados do Pix
-        var pixData = "000201" +
-                      "2658" + "0014br.gov.bcb.pix" +
-                               "0136" + chavePix.length.toString().padStart(4, "0") + chavePix +
-                      "52040000" +
-                      "5303986" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
-                      "5802" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
-                      "5913" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
-                      "6207" +
-                               "0503" + "***" +
-                      "6304" + idTransacao;
+// Constrói a string com os dados do Pix
+var pixData = "000201" +
+              "2658" + "0014br.gov.bcb.pix" +
+                       "0136" + chavePix.length.toString().padStart(4, "0") + chavePix +
+              "52040000" +
+              "5303986" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
+              "5802" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
+              "5913" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
+              "6207" +
+                       "0503" + "***" +
+              "6304" + idTransacao +
+                       "6304" + idTransacao;
+
+alert(pixData);
 
         // Calcula o CRC16 dos dados do Pix
         var crc16 = crc16ccitt(pixData);
