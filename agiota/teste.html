@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Exemplo Firebase</title>
-	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-	<script src="js/firebase.js"></script>
-</head>
-<body>
-	<h1>Exemplo Firebase</h1>
-	<div id="username-container"></div>
-
-	<script>
-		// Verificar se o usuário está autenticado
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				// Recuperar o uid do usuário atual
-				var userId = user.uid;
-
-				// Criar uma referência para o nó do usuário no banco de dados
-				var userRef = firebase.database().ref('users/' + userId);
-
-				// Ler os dados do nó do usuário no banco de dados uma vez
-				userRef.once('value')
-				  .then(function(snapshot) {
-				    // Recuperar o valor do nó "username"
-				    var username = snapshot.val().username;
-
-				    // Exibir o username na página
-				    document.getElementById('username-container').innerHTML = "Olá, " + username;
-				  })
-				  .catch(function(error) {
-				    console.log(error);
-				  });
+	<title>Contagem Regressiva</title>
+	<style>
+		.loading {
+			animation: loading-animation 1s infinite;
+		}
+		
+		@keyframes loading-animation {
+			0% {
+				content: ".";
 			}
-		});
+			33% {
+				content: "..";
+			}
+			66% {
+				content: "...";
+			}
+			100% {
+				content: ".";
+			}
+		}
+	</style>
+</head>
+<body onload="countdown()">
+	<p id="countdown">Carregando<span class="loading"></span></p>
+	
+	<script>
+		function countdown() {
+			var timeleft = 1;
+			var downloadTimer = setInterval(function(){
+			  document.getElementById("countdown").innerHTML = "Carregando<span class='loading'></span> em " + timeleft + " segundos";
+			  timeleft -= 1;
+			  if(timeleft <= 0){
+			    clearInterval(downloadTimer);
+			    document.getElementById("countdown").innerHTML = "Carregado!";
+			  }
+			}, 1000);
+		}
 	</script>
 </body>
 </html>
