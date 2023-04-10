@@ -1,95 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Exemplo de Payload Pix em JavaScript</title>
-  </head>
-  <body>
-    <h1>Exemplo de Payload Pix em JavaScript</h1>
+<head>
+  <meta charset="UTF-8">
+  <title>Gerar Código PIX</title>
+</head>
+<body>
 
-    <script>
-      class Payload {
-    constructor() {
-        this.pixKey = "";
-        this.description = "";
-        this.merchantName = "";
-        this.merchantCity = "";
-        this.txid = "";
-        this.amount = "";
-        this.uniquePayment = false;
-        this.url = "";
-    }
+  <button id="gerar-pix">Gerar código PIX</button>
 
-    static get ID_PAYLOAD_FORMAT_INDICATOR() { return "00"; }
-    static get ID_POINT_OF_INITIATION_METHOD() { return "01"; }
-    static get ID_MERCHANT_ACCOUNT_INFORMATION() { return "26"; }
-    static get ID_MERCHANT_ACCOUNT_INFORMATION_GUI() { return "00"; }
-    static get ID_MERCHANT_ACCOUNT_INFORMATION_KEY() { return "01"; }
-    static get ID_MERCHANT_ACCOUNT_INFORMATION_DESCRIPTION() { return "02"; }
-    static get ID_MERCHANT_ACCOUNT_INFORMATION_URL() { return "25"; }
-    static get ID_MERCHANT_CATEGORY_CODE() { return "52"; }
-    static get ID_TRANSACTION_CURRENCY() { return "53"; }
-    static get ID_TRANSACTION_AMOUNT() { return "54"; }
-    static get ID_COUNTRY_CODE() { return "58"; }
-    static get ID_MERCHANT_NAME() { return "59"; }
-    static get ID_MERCHANT_CITY() { return "60"; }
-    static get ID_ADDITIONAL_DATA_FIELD_TEMPLATE() { return "62"; }
-    static get ID_ADDITIONAL_DATA_FIELD_TEMPLATE_TXID() { return "05"; }
-    static get ID_CRC16() { return "63"; }
+  <script src="gerador-pix.min.js"></script>
+  <script>
+    // Adicione um evento de clique ao botão "gerar-pix"
+    document.getElementById("gerar-pix").addEventListener("click", function() {
 
-    setPixKey(pixKey) {
-        this.pixKey = pixKey;
-        return this;
-    }
+      // Defina as informações que deseja utilizar para gerar o código PIX
+      var chavePix = "12345678900"; // Substitua pela sua chave PIX (CPF, CNPJ, telefone ou e-mail)
+      var valor = 100.00; // Substitua pelo valor que deseja utilizar na transação PIX
+      var descricao = "Pagamento de Serviço"; // Substitua pela descrição da transação
 
-    setUniquePayment(uniquePayment) {
-        this.uniquePayment = uniquePayment;
-        return this;
-    }
+      // Gere o código PIX utilizando a biblioteca "gerador-pix"
+      var codigoPix = GeradorPix(pixConfig = {
+        chave: chavePix,
+        valor: valor,
+        descricao: descricao
+      });
 
-    setUrl(url) {
-        this.url = url;
-        return this;
-    }
+      // Exiba o código PIX gerado
+      alert(codigoPix);
+    });
+  </script>
 
-    setDescription(description) {
-        this.description = description;
-        return this;
-    }
-
-    setMerchantName(merchantName) {
-        this.merchantName = merchantName;
-        return this;
-    }
-
-    setMerchantCity(merchantCity) {
-        this.merchantCity = merchantCity;
-        return this;
-    }
-
-    setTxid(txid) {
-        this.txid = txid;
-        return this;
-    }
-
-    setAmount(amount) {
-        this.amount = Number.parseFloat(amount).toFixed(2);
-        return this;
-    }
-
-    getValue(id, value) {
-        let size = value.toString().length.toString().padStart(2, "0");
-        return id + size + value;
-    }
-
-    getMerchantAccountInformation() {
-        let gui = this.getValue(Payload.ID_MERCHANT_ACCOUNT_INFORMATION_GUI, "br.gov.bcb.pix");
-        let key = (this.pixKey.length > 0) ? this.getValue(Payload.ID_MERCHANT_ACCOUNT_INFORMATION_KEY, this.pixKey) : "";
-        let description = (this.description.length > 0) ? this.getValue(Payload.ID_MERCHANT_ACCOUNT_INFORMATION_DESCRIPTION, this.description) : "";
-        let url = (this.url.length > 0) ? this.getValue(Payload.ID_MERCHANT_ACCOUNT_INFORMATION_URL, this.url.replace(/^https?:\/\//, "")) : "";
-        return this.getValue(Payload.ID_MERCHANT_ACCOUNT_INFORMATION, gui + key + description + url);
-    }
-}
-
-    </script>
-  </body>
+</body>
 </html>
