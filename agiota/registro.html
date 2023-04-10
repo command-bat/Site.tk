@@ -65,26 +65,6 @@ button[type="submit"] {
   margin-top: 1em;
 }
 
-.loading::after {
-			content: "...";
-			animation: dots 1s infinite;
-		}
-		
-		@keyframes dots {
-			0% {
-				content: "";
-			}
-			33% {
-				content: ".";
-			}
-			66% {
-				content: "..";
-			}
-			100% {
-				content: "...";
-			}
-		}
-
 </style>
 
 </head>
@@ -103,25 +83,6 @@ button[type="submit"] {
     <button type="submit" onclick="startCountdown()">Registrar</button>
     <p id="countdown" class="loading"></p>
   </form>
-
-<script>
-		function startCountdown() {
-			var count = 10;
-			var countdownElem = document.getElementById("countdown");
-			countdownElem.classList.add("loading");
-
-			var countdownInterval = setInterval(function() {
-				count--;
-				countdownElem.innerHTML = Carregando;
-				
-				if (count == 0) {
-					clearInterval(countdownInterval);
-					countdownElem.classList.remove("loading");
-					countdownElem.innerHTML = "Pronto!";
-				}
-			}, 1000);
-		}
-	</script>
 
   <script>
     // Processar o formulário de registro
@@ -148,6 +109,21 @@ button[type="submit"] {
               var username2 = snapshot.val().username;
               if (username === username2) {
                 alert(username + "\n" + username2)
+
+                var count = 3;
+		var countdownElem = document.getElementById("countdown");
+
+		var countdownInterval = setInterval(function() {
+			count--;
+			countdownElem.innerHTML = "Caregando";
+				
+			if (count == 0) {
+				clearInterval(countdownInterval);
+				countdownElem.innerHTML = "Pronto!";
+			}
+		}, 1000);
+
+
                 // Redirecionar para a página principal
                 window.location.href = '/agiota';
               } else {
