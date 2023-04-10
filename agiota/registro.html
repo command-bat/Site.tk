@@ -1,74 +1,163 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>QR Code Pix</title>
-    <script src="https://cdn.rawgit.com/LazarSoft/jsqrcode/master/src/qr_packed.js"></script>
-  </head>
-  <body>
-    <div id="qrcode"></div>
-    <script>
-      function generatePixQRCode() {
-        // Chave Pix
-        var chavePix = "sua_chave_pix";
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="js/firebase.js"></script>
 
-        // Nome do titular da conta
-        var nomeTitular = "Nome do Titular";
+<style>
+/* Estilo para o body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+}
 
-        // Cidade do titular da conta
-        var cidadeTitular = "Cidade do Titular";
+/* Estilo para o cabeçalho h1 */
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
 
-        // Valor da transação em centavos
-        var valorTransacao = "100";
+p {
+  text-align: center;
+}
 
-        // Identificador único da transação
-        var idTransacao = "123456";
+/* Estilo para o formulário */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
 
-        // Constrói a string com os dados do Pix
-        var pixData = "000201" +
-                      "26370014" + "br.gov.bcb.pix" + chavePix.length.toString().padStart(2, "0") + chavePix +
-                      "52040000" + "001" +
-                      "5303986" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
-                      "5802" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
-                      "5405100" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
-                      "58012" + idTransacao.length.toString().padStart(2, "0") + idTransacao +
-                      "6304";
+/* Estilo para os rótulos */
+label {
+  display: block;
+  margin-bottom: 0.5em;
+}
 
-        // Calcula o CRC16 dos dados do Pix
-        var crc16 = crc16ccitt(pixData);
+/* Estilo para os campos de entrada */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
 
-        // Adiciona o CRC16 aos dados do Pix
-        pixData += crc16;
+/* Estilo para o botão de envio */
+button[type="submit"] {
+  display: block;
+  background-color: #0077cc;
+  color: #fff;
+  padding: 0.5em;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 1em;
+}
 
-        // Gera o QR Code a partir dos dados do Pix
-        var qrCode = new QRCode(document.getElementById("qrcode"), {
-          text: pixData,
-          width: 256,
-          height: 256,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H
-        });
-      }
+</style>
 
-      // Função para calcular o CRC16 dos dados do Pix
-      function crc16ccitt(data) {
-        var crc = 0xFFFF;
-        for (var i = 0; i < data.length; i++) {
-          crc ^= data.charCodeAt(i) << 8;
-          for (var j = 0; j < 8; j++) {
-            if ((crc & 0x8000) != 0) {
-              crc = (crc << 1) ^ 0x1021;
+</head>
+<body>
+  <h1>Registro</h1>
+  <form id="register-form">
+    <label for="username">Nome de usuário:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="pix">Seu pix:</label>
+    <input type="text" id="pix" name="pix" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="submit" onclick="startCountdown()">Registrar</button>
+    <p id="countdown" class="loading"></p>
+  </form>
+
+<script>
+    var registerForm = document.querySelector('#register-form');
+registerForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  var username = registerForm.username.value;
+  var pix = registerForm.pix.value;
+  var email = registerForm.email.value;
+  var password = registerForm.password.value;
+
+  // Verificar se o username ou pix já existe no banco de dados
+  firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
+    .then(function(snapshot) {
+      if (snapshot.exists()) {
+        alert("Erro: O nome de usuário já está sendo usado!");
+      } else {
+        firebase.database().ref('users').orderByChild('pix').equalTo(pix).once('value')
+          .then(function(snapshot) {
+            if (snapshot.exists()) {
+              alert("Erro: O número Pix já está sendo usado!");
             } else {
-              crc <<= 1;
+              // Criar a conta de usuário no Firebase
+              firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(function(user) {
+                  // Salvar o username no banco de dados
+                  firebase.database().ref('users/' + user.user.uid).set({
+                      username: username,
+                      pix: pix,
+                      email: email
+                  }).then(function() {
+                    // Registro bem-sucedido
+                    var count = 3;
+                    var countdownElem = document.getElementById("countdown");
+                    var countdownInterval = setInterval(function() {
+                      count--;
+                      countdownElem.innerHTML = "Caregando";
+                      if (count == 1) {
+                        countdownElem.innerHTML = "Registro Feito!";
+                      }
+                      if (count == 0) {
+                        clearInterval(countdownInterval);
+                        countdownElem.innerHTML = "Redirecionando";
+                        // Redirecionar para a página principal
+                        window.location.href = '/agiota';
+                      }
+                    }, 1000);
+                  }).catch(function(error) {
+                    alert("Erro ao salvar os dados no banco de dados: " + error.message);
+                  });
+                })
+                .catch(function(error) {
+                  // Lidar com erros de registro
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  alert(errorCode + ': ' + errorMessage);
+                });
             }
-          }
-        }
-        return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
+          })
+          .catch(function(error) {
+            alert("Erro ao acessar o banco de dados: " + error.message);
+          });
       }
+    })
+    .catch(function(error) {
+      alert("Erro ao acessar o banco de dados: " + error.message);
+    });
+});
+</script>
 
-      // Gera o QR Code quando a página carrega
-      window.onload = generatePixQRCode;
-    </script>
-  </body>
+</body>
 </html>
