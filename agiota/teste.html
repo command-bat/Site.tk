@@ -11,29 +11,31 @@
     <script>
       function generatePixQRCode() {
         // Chave Pix
-        var chavePix = "44395052878";
+        var chavePix = "123e4567-e12b-12d1-a456-426655440000";
 
         // Nome do titular da conta
-        var nomeTitular = "TIAGO N LAUREANO";
+        var nomeTitular = "Fulano de Tal";
 
         // Cidade do titular da conta
-        var cidadeTitular = "GUAPIACU";
+        var cidadeTitular = "BRASILIA";
 
         // Valor da transação em centavos
-        var valorTransacao = "0.01";
+        var valorTransacao = "***";
 
         // Identificador único da transação
-        var idTransacao = generateTransactionId();
+        var idTransacao = "1D3D";
 
         // Constrói a string com os dados do Pix
         var pixData = "000201" +
-                      "26370014" + "br.gov.bcb.pix" + chavePix.length.toString().padStart(2, "0") + chavePix +
-                      "52040000" + "001" +
+                      "2658" + "0014br.gov.bcb.pix" +
+                               "0136" + chavePix.length.toString().padStart(4, "0") + chavePix +
+                      "52040000" +
                       "5303986" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
                       "5802" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
-                      "5405100" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
-                      "58012" + idTransacao.length.toString().padStart(2, "0") + idTransacao +
-                      "6304";
+                      "5913" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
+                      "6207" +
+                               "0503" + "***" +
+                      "6304" + idTransacao;
 
         // Calcula o CRC16 dos dados do Pix
         var crc16 = crc16ccitt(pixData);
@@ -43,7 +45,6 @@
 var codeid = document.getElementById("code");
 codeid.innerHTML = pixData;
 alert(pixData);
-
         // Gera o QR Code a partir dos dados do Pix
         var qrCode = new QRCode(document.getElementById("qrcode"), {
           text: pixData,
@@ -70,26 +71,6 @@ alert(pixData);
         }
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
-
-function generateTransactionId() {
-  // Gera um número randômico entre 0 e 99999
-  var randomNumber = Math.floor(Math.random() * 100000);
-
-  // Obtém a data e hora atual
-  var date = new Date();
-  var year = date.getFullYear().toString();
-  var month = (date.getMonth() + 1).toString().padStart(2, "0");
-  var day = date.getDate().toString().padStart(2, "0");
-  var hours = date.getHours().toString().padStart(2, "0");
-  var minutes = date.getMinutes().toString().padStart(2, "0");
-  var seconds = date.getSeconds().toString().padStart(2, "0");
-
-  // Concatena as informações para gerar o identificador único
-  var transactionId = year + month + day + hours + minutes + seconds + randomNumber.toString().padStart(5, "0");
-
-  return transactionId;
-}
-
 
       // Gera o QR Code quando a página carrega
       window.onload = generatePixQRCode;
