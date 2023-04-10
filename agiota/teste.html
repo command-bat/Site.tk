@@ -10,7 +10,7 @@
 
   <canvas id="qrcode"></canvas>
 
-  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script src="https://kazuhikoarase.github.io/qrcode-generator/js/qrcode.js"></script>
   <script src="gerador-pix.min.js"></script>
   <script>
     // Adicione um evento de clique ao botão "gerar-pix"
@@ -35,15 +35,15 @@
       var tamanhoQRCode = 256;
 
       // Crie o QR Code utilizando a biblioteca "qrcode-generator"
-      var qr = qrcode(canvas, {
-        width: tamanhoQRCode,
-        height: tamanhoQRCode
-      });
+      var qr = qrcode(0, "M");
+      qr.addData(codigoPix);
+      qr.make();
 
-      // Adicione o código PIX ao QR Code
-      qr.makeCode(codigoPix);
+      // Adicione o QR Code ao elemento <canvas>
+      var qrCanvas = qr.createCanvas(tamanhoQRCode, tamanhoQRCode);
+      canvas.getContext("2d").drawImage(qrCanvas, 0, 0);
 
-      alert(codigoPix);
+      console.log(codigoPix);
     });
   </script>
 
