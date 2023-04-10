@@ -1,39 +1,74 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Gerar Código PIX</title>
-  <script src="https://cdn.rawgit.com/kazuhikoarase/qrcode-generator/66714cf9/qrcode.min.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>QR Code Pix</title>
+    <script src="https://cdn.rawgit.com/LazarSoft/jsqrcode/master/src/qr_packed.js"></script>
+  </head>
+  <body>
+    <div id="qrcode"></div>
+    <script>
+      function generatePixQRCode() {
+        // Chave Pix
+        var chavePix = "sua_chave_pix";
 
-  <button id="gerar-pix">Gerar código PIX</button>
+        // Nome do titular da conta
+        var nomeTitular = "Nome do Titular";
 
-  <div id="qrcode"></div>
+        // Cidade do titular da conta
+        var cidadeTitular = "Cidade do Titular";
 
-  <script>
-    // Adicione um evento de clique ao botão "gerar-pix"
-    document.getElementById("gerar-pix").addEventListener("click", function() {
+        // Valor da transação em centavos
+        var valorTransacao = "100";
 
-      // Defina as informações que deseja utilizar para gerar o código PIX
-      var chavePix = "12345678900"; // Substitua pela sua chave PIX (CPF, CNPJ, telefone ou e-mail)
-      var valor = 100.00; // Substitua pelo valor que deseja utilizar na transação PIX
-      var descricao = "Pagamento de Serviço"; // Substitua pela descrição da transação
-alert("teste");
-      // Gere o código PIX
-      var codigoPix = "00020126370014BR.GOV.BCB.PIX0123"+chavePix+"5204000053039865406"+descricao+"5802BR5912Nome do Recebedor6012br.com.recebedor0105****6304A1AB";
+        // Identificador único da transação
+        var idTransacao = "123456";
 
-      // Crie o QR Code a partir do código PIX gerado
-      var qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: codigoPix,
-        width: 256,
-        height: 256,
-        colorDark : "#000000",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
-      });
-    });
-  </script>
+        // Constrói a string com os dados do Pix
+        var pixData = "000201" +
+                      "26370014" + "br.gov.bcb.pix" + chavePix.length.toString().padStart(2, "0") + chavePix +
+                      "52040000" + "001" +
+                      "5303986" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
+                      "5802" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
+                      "5405100" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
+                      "58012" + idTransacao.length.toString().padStart(2, "0") + idTransacao +
+                      "6304";
 
-</body>
+        // Calcula o CRC16 dos dados do Pix
+        var crc16 = crc16ccitt(pixData);
+
+        // Adiciona o CRC16 aos dados do Pix
+        pixData += crc16;
+
+        // Gera o QR Code a partir dos dados do Pix
+        var qrCode = new QRCode(document.getElementById("qrcode"), {
+          text: pixData,
+          width: 256,
+          height: 256,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }
+
+      // Função para calcular o CRC16 dos dados do Pix
+      function crc16ccitt(data) {
+        var crc = 0xFFFF;
+        for (var i = 0; i < data.length; i++) {
+          crc ^= data.charCodeAt(i) << 8;
+          for (var j = 0; j < 8; j++) {
+            if ((crc & 0x8000) != 0) {
+              crc = (crc << 1) ^ 0x1021;
+            } else {
+              crc <<= 1;
+            }
+          }
+        }
+        return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
+      }
+
+      // Gera o QR Code quando a página carrega
+      window.onload = generatePixQRCode;
+    </script>
+  </body>
 </html>
