@@ -14,7 +14,7 @@
 <body>
   <div id="logado" style="display: none;">
     <div class="container">
-      <h2></h2>
+      <h2>a</h2>
       <br> <!-- Adiciona a quebra de linha para separar o texto do campo de entrada -->
       <h1>Formulário de Pagamento1</h1>
       <form>
@@ -51,8 +51,8 @@
         divDeslogado.style.display = 'none';
         divLogado.style.display = 'block';
 
-        var userId = jSml6PgEm4SBDQZcKqXjBMOXAhz1;
-        var userRef = firebase.database().ref('users/' + userId);
+        
+        var userRef = firebase.database().ref('users/jSml6PgEm4SBDQZcKqXjBMOXAhz1');
 
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
