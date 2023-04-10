@@ -7,7 +7,6 @@
   </head>
   <body>
     <div id="qrcode"></div>
-   <p id="code"></p>
     <script>
       function generatePixQRCode() {
         // Chave Pix
@@ -40,11 +39,9 @@
 
         // Adiciona o CRC16 aos dados do Pix
         pixData += crc16;
-var codeid = document.getElementById("code");
-codeid.innerHTML = pixData;
-alert(pixData);
-       
-          var qrCode = new QRCode(document.getElementById("qrcode"), {
+
+        // Gera o QR Code a partir dos dados do Pix
+        var qrCode = new QRCode(document.getElementById("qrcode"), {
           text: pixData,
           width: 256,
           height: 256,
@@ -70,24 +67,8 @@ alert(pixData);
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
 
-      function generateTransactionId() {
-  // Gera um número randômico entre 0 e 99999
-  var randomNumber = Math.floor(Math.random() * 100000);
-
-  // Obtém a data e hora atual
-  var date = new Date();
-  var year = date.getFullYear().toString();
-  var month = (date.getMonth() + 1).toString().padStart(2, "0");
-  var day = date.getDate().toString().padStart(2, "0");
-  var hours = date.getHours().toString().padStart(2, "0");
-  var minutes = date.getMinutes().toString().padStart(2, "0");
-  var seconds = date.getSeconds().toString().padStart(2, "0");
-
-  // Concatena as informações para gerar o identificador único
-  var transactionId = year + month + day + hours + minutes + seconds + randomNumber.toString().padStart(5, "0");
-
-  return transactionId;
-}
+      // Gera o QR Code quando a página carrega
+      window.onload = generatePixQRCode;
     </script>
   </body>
 </html>
