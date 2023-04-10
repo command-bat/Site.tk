@@ -120,12 +120,13 @@ button[type="submit"] {
 			if (count == 0) {
 				clearInterval(countdownInterval);
 				countdownElem.innerHTML = "Pronto!";
+// Redirecionar para a página principal
+                window.location.href = '/agiota';
 			}
 		}, 1000);
 
 
-                // Redirecionar para a página principal
-                window.location.href = '/agiota';
+                
               } else {
                 alert("Erro: O nome de usuário não corresponde ao registrado!");
               }
