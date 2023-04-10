@@ -95,13 +95,13 @@ button[type="submit"] {
       // Criar a conta de usuário no Firebase
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function(user) {
-          // Registro bem-sucedido
-          alert('Registro bem-sucedido!');
           // Salvar o username no banco de dados
           firebase.database().ref('users/' + user.user.uid).set({
               username: username,
               email: email
           });
+          // Registro bem-sucedido
+          alert('Registro bem-sucedido!');
           // Verificar se o username no banco de dados é o mesmo que o do registro
           firebase.database().ref('users/' + user.user.uid).once('value')
             .then(function(snapshot) {
