@@ -8,86 +8,68 @@
   <script src="js/firebase.js"></script>
 
   <style>
-      /* escrever o CSS aqui */
+    /* Escrever o CSS depois */
   </style>
-
 </head>
 <body>
-<div id="username-container"></div>
-<div id="logado" style="display: none;">
-  <div class="container">
-    <h1>Formulário de Pagamento</h1>
-    <form>
-      <label for="valor">Valor:</label>
-      <input type="text" id="valor" name="valor" placeholder="Insira o valor">
-      <button type="submit">Enviar</button>
-    </form>
+  <div id="logado" style="display: none;">
+    <div class="container">
+      <div id="username-container"></div> <!-- Moveu o elemento para dentro do div "logado" -->
+      <h1>Formulário de Pagamento</h1>
+      <form>
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" name="valor" placeholder="Insira o valor">
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<!-- Div que será mostrada somente se o usuário não estiver logado -->
-<div id="deslogado" style="display: none;">
-  <p>Para utilizar o site, você precisa estar logado.</p>
-  <!-- Botão de registro -->
-  <button id="registro">Registrar</button>
-  <!-- Botão de login -->
-  <button id="login">login</button>
-</div>
+  <div id="deslogado" style="display: none;">
+    <p>Para utilizar o site, você precisa estar logado.</p>
+    <button id="registro">Registrar</button>
+    <button id="login">login</button>
+  </div>
 
-<script>
-  // Código JavaScript para esconder o elemento main e o botão
-  const login = document.getElementById('login');
-  const registro = document.getElementById('registro');
-  
-  login.addEventListener('click', () => {
-    window.location.href = '/agiota/login';
-  });
+  <script>
+    const login = document.getElementById('login');
+    const registro = document.getElementById('registro');
+      
+    login.addEventListener('click', () => {
+      window.location.href = '/agiota/login';
+    });
 
-  registro.addEventListener('click', () => {
-    window.location.href = '/agiota/registro';
-  });		
+    registro.addEventListener('click', () => {
+      window.location.href = '/agiota/registro';
+    });		
 
-</script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      const divDeslogado = document.getElementById('deslogado');
+      const divLogado = document.getElementById('logado');
 
-<script>
-  // login bem-sucedido
-  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {      
+        divDeslogado.style.display = 'none';
+        divLogado.style.display = 'block';
 
-    const divDeslogado = document.getElementById('deslogado');
-    const divLogado = document.getElementById('logado');
+        var userId = user.uid;
+        var userRef = firebase.database().ref('users/' + userId);
 
-    if (user) {
-      divDeslogado.style.display = 'none';
-      divLogado.style.display = 'block';
-
-      // Recuperar o uid do usuário atual
-      var userId = user.uid;
-
-      // Criar uma referência para o nó do usuário no banco de dados
-      var userRef = firebase.database().ref('users/' + userId);
-
-      // Ler os dados do nó do usuário no banco de dados uma vez
-      userRef.once('value')
-        .then(function(snapshot) {
-          // Recuperar o valor do nó "username"
+        userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
 
-          // Exibir o username na página
-          var usernameSpan = document.createElement("span");
-          usernameSpan.id = "username";
-          usernameSpan.innerText = "Olá, " + username + ". Digite o valor que quer receber:";
-          document.getElementById('username-container').appendChild(usernameSpan);
-        })
-        .catch(function(error) {
+          // Insere o conteúdo do elemento "username-container" antes do elemento com "for" igual a "valor"
+          const valorLabel = document.querySelector('label[for="valor"]');
+          valorLabel.parentNode.insertBefore(document.getElementById('username-container'), valorLabel);
+
+          document.getElementById('username-container').innerHTML = "Olá, " + username + "\n digite o valor que quer receber";
+        }).catch(function(error) {
           console.log(error);
         });
 
-    } else {
-      divDeslogado.style.display = 'block';
-      divLogado.style.display = 'none';
-    }
-  });
-</script>
-
+      } else {
+        divDeslogado.style.display = 'block';
+        divLogado.style.display = 'none';      
+      }
+    });
+  </script>
 </body>
 </html>
