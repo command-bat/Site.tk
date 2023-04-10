@@ -14,6 +14,7 @@
 		.loading::after {
 			content: "";
 			animation: dots 1s infinite;
+			animation-play-state: paused;
 		}
 		
 		@keyframes dots {
@@ -37,7 +38,7 @@
 	</style>
 </head>
 <body>
-	<button onclick="startCountdown()">Iniciyar</button>
+	<button onclick="startCountdown()">Iniciar</button>
 	<p id="countdown" class="loading"></p>
 
 	<script>
@@ -45,10 +46,8 @@
 			var count = 10;
 			var countdownElem = document.getElementById("countdown");
 			countdownElem.classList.remove("loading");
-			countdownElem.classList.add("started");
-
 			setTimeout(function() {
-				countdownElem.classList.add("loading");
+				countdownElem.classList.add("started");
 			}, 100);
 
 			var countdownInterval = setInterval(function() {
