@@ -106,13 +106,11 @@ button[type="submit"] {
               email: email
           });
           // Registro bem-sucedido
-          alert('Registro bem-sucedido!');
           // Verificar se o username no banco de dados é o mesmo que o do registro
           firebase.database().ref('users/' + user.user.uid).once('value')
             .then(function(snapshot) {
               var username2 = snapshot.val().username;
               if (username === username2) {
-                alert(username + "\n" + username2)
 
                 var count = 3;
 		var countdownElem = document.getElementById("countdown");
@@ -121,12 +119,16 @@ button[type="submit"] {
 			count--;
 			countdownElem.innerHTML = "Caregando";
 				
-			if (count == 0) {
-				clearInterval(countdownInterval);
-				countdownElem.innerHTML = "Pronto!";
-// Redirecionar para a página principal
-                window.location.href = '/agiota';
+			if (count == 1) {
+				countdownElem.innerHTML = "Registro Feito!";
 			}
+                        if (count == 0) {
+                        clearInterval(countdownInterval);
+		        countdownElem.innerHTML = "Redirecionando";
+                        // Redirecionar para a página principal
+                        window.location.href = '/agiota';
+                        }
+
 		}, 1000);
 
 
