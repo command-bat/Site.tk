@@ -8,6 +8,9 @@
 
   <button id="gerar-pix">Gerar código PIX</button>
 
+  <canvas id="qrcode"></canvas>
+
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <script src="gerador-pix.min.js"></script>
   <script>
     // Adicione um evento de clique ao botão "gerar-pix"
@@ -25,8 +28,22 @@
         descricao: descricao
       });
 
-      // Exiba o código PIX gerado
-      alert(codigoPix);
+      // Crie o elemento <canvas> que será usado para exibir o QR Code
+      var canvas = document.getElementById("qrcode");
+
+      // Configure o tamanho do QR Code
+      var tamanhoQRCode = 256;
+
+      // Crie o QR Code utilizando a biblioteca "qrcode-generator"
+      var qr = qrcode(canvas, {
+        width: tamanhoQRCode,
+        height: tamanhoQRCode
+      });
+
+      // Adicione o código PIX ao QR Code
+      qr.makeCode(codigoPix);
+
+      console.log(codigoPix);
     });
   </script>
 
