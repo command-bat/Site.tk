@@ -12,14 +12,10 @@
 		function startCountdown() {
 			var count = 10;
 			var countdownElem = document.getElementById("countdown");
-			countdownElem.classList.remove("loading");
-			setTimeout(function() {
-				countdownElem.classList.add("started");
-			}, 100);
 
 			var countdownInterval = setInterval(function() {
 				count--;
-				countdownElem.innerHTML = Caregando;
+				countdownElem.innerHTML = "Caregando";
 				
 				if (count == 0) {
 					clearInterval(countdownInterval);
