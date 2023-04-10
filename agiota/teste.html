@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Gerar Código PIX</title>
+  <script src="https://cdn.rawgit.com/kazuhikoarase/qrcode-generator/66714cf9/qrcode.min.js"></script>
 </head>
 <body>
 
   <button id="gerar-pix">Gerar código PIX</button>
 
-  <canvas id="qrcode"></canvas>
+  <div id="qrcode"></div>
 
-  <script src="https://kazuhikoarase.github.io/qrcode-generator/js/qrcode.js"></script>
-  <script src="gerador-pix.min.js"></script>
   <script>
     // Adicione um evento de clique ao botão "gerar-pix"
     document.getElementById("gerar-pix").addEventListener("click", function() {
@@ -21,29 +20,18 @@
       var valor = 100.00; // Substitua pelo valor que deseja utilizar na transação PIX
       var descricao = "Pagamento de Serviço"; // Substitua pela descrição da transação
 
-      // Gere o código PIX utilizando a biblioteca "gerador-pix"
-      var codigoPix = GeradorPix(pixConfig = {
-        chave: chavePix,
-        valor: valor,
-        descricao: descricao
+      // Gere o código PIX
+      var codigoPix = "00020126370014BR.GOV.BCB.PIX0123"+chavePix+"5204000053039865406"+descricao+"5802BR5912Nome do Recebedor6012br.com.recebedor0105****6304A1AB";
+
+      // Crie o QR Code a partir do código PIX gerado
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: codigoPix,
+        width: 256,
+        height: 256,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
       });
-
-      // Crie o elemento <canvas> que será usado para exibir o QR Code
-      var canvas = document.getElementById("qrcode");
-
-      // Configure o tamanho do QR Code
-      var tamanhoQRCode = 256;
-
-      // Crie o QR Code utilizando a biblioteca "qrcode-generator"
-      var qr = qrcode(0, "M");
-      qr.addData(codigoPix);
-      qr.make();
-
-      // Adicione o QR Code ao elemento <canvas>
-      var qrCanvas = qr.createCanvas(tamanhoQRCode, tamanhoQRCode);
-      canvas.getContext("2d").drawImage(qrCanvas, 0, 0);
-
-      console.log(codigoPix);
     });
   </script>
 
