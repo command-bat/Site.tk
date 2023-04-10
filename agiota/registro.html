@@ -78,6 +78,9 @@ button[type="submit"] {
     <label for="username">Nome de usuário:</label>
     <input type="text" id="username" name="username" required><br>
 
+    <label for="pix">Seu pix:</label>
+    <input type="text" id="pix" name="pix" required><br>
+
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required><br>
 
@@ -94,6 +97,7 @@ button[type="submit"] {
     registerForm.addEventListener('submit', function(event) {
       event.preventDefault();
       var username = registerForm.username.value;
+      var pix = registerForm.pix.value;
       var email = registerForm.email.value;
       var password = registerForm.password.value;
 
@@ -103,6 +107,7 @@ button[type="submit"] {
           // Salvar o username no banco de dados
           firebase.database().ref('users/' + user.user.uid).set({
               username: username,
+              pix: pix,
               email: email
           });
           // Registro bem-sucedido
