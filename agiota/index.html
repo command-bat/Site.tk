@@ -15,11 +15,19 @@
     <div class="container">
       <br> <!-- Adiciona a quebra de linha para separar o texto do campo de entrada -->
       <h1>Agiota do Pix</h1>
-      <h2>Ola, selecione o valor que quer pagar</h2>
+      <h2 id="h2-pagar">Ola, selecione o valor que quer pagar</h2>
       <form id="pix-form">
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00">
         <button type="submit" onclick="generatePixCode()">Enviar</button>
+        <p id="code"></p>
+      </form>
+      
+      <h2 id="h2-receber">Ola, selecione o valor que quer receber</h2>
+      <form id="pix-formR">
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00">
+        <button type="submit" onclick="generatePixCodeR()">Enviar</button>
         <p id="code"></p>
       </form>
     </div>
@@ -57,9 +65,10 @@
 
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
+          var chavePixFB = snapshot.val().pix;
 
-          document.querySelector('h2').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
-
+          document.querySelectorById('h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer pagar";
+          document.querySelectorById('h2-receber').innerHTML = "Ola, " + pix + " selecione o valor que quer receber";
         }).catch(function(error) {
           console.log(error);
         });
@@ -78,6 +87,48 @@ pixForm.addEventListener('submit', function(event) {
 
         
         var chavePix = "44395052878";
+        var valorTransacao = pixForm.valor.value;
+        var country = "BR";
+        var nomeTitular = "TIAGO N LAUREANO";
+        var cidadeTitular = "GUAPIACU";
+        var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
+        var pixData = "000201" +
+              "010211" +
+              "26" + mai.length.toString().padStart(2, "0") + mai +
+              "52040000" +
+              "5303986" +
+              "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
+              "58" + country.length.toString().padStart(2, "0") + country +
+              "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
+              "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
+              "6207" +
+                       "0503" + "***" +
+              "6304";
+        var crc16 = crc16ccitt(pixData);
+        pixData += crc16;
+
+
+                let inputTest = document.createElement("input");
+                inputTest.value = pixData;
+                //Anexa o elemento ao body
+                document.body.appendChild(inputTest);
+                //seleciona todo o texto do elemento
+                inputTest.select();
+                //executa o comando copy
+                //aqui é feito o ato de copiar para a area de trabalho com base na seleção
+                document.execCommand('copy');
+                //remove o elemento
+                document.body.removeChild(inputTest);
+                type="copia/javascript";
+                alert("Copiado para a area de transferencia")
+
+      }
+    
+    
+          function generatePixCodeR() {
+
+        
+        var chavePix = chavePixFB;
         var valorTransacao = pixForm.valor.value;
         var country = "BR";
         var nomeTitular = "TIAGO N LAUREANO";
