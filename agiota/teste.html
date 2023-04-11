@@ -27,8 +27,6 @@ var valorTransacao = "0.01";
 
 // seila
 var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix
-// Identificador único da transação
-var idTransacao = generateTransactionId();
 
 // Constrói a string com os dados do Pix
 var pixData = "000201" +
@@ -44,31 +42,15 @@ var pixData = "000201" +
                        "0503" + "***" +
               "6304";
 
-var codeid = document.getElementById("code");
-codeid.innerHTML = pixData.length.toString().padStart(2, "0");
-alert(pixData);
 
         // Calcula o CRC16 dos dados do Pix
         var crc16 = crc16ccitt(pixData);
-var codeid2 = document.getElementById("code2");
-codeid2.innerHTML = crc16;
 
         // Adiciona o CRC16 aos dados do Pix
         pixData += crc16;
 
-var codeid3 = document.getElementById("code3");
-codeid3.innerHTML = pixData;
-alert(pixData);
-        // Gera o QR Code a partir dos dados do Pix
-        var qrCode = new QRCode(document.getElementById("qrcode"), {
-          text: pixData,
-          width: 256,
-          height: 256,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H
-        });
-      }
+var codeid = document.getElementById("code");
+codeid.innerHTML = pixData;
 
       // Função para calcular o CRC16 dos dados do Pix
       function crc16ccitt(data) {
@@ -85,26 +67,6 @@ alert(pixData);
         }
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
-
-function generateTransactionId() {
-  // Gera um número randômico de no máximo 3 dígitos
-  var randomNumber = Math.floor(Math.random() * 1000);
-
-  // Gera um caractere aleatório de A a Z
-  var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-
-  // Concatena o número e o caractere em uma string
-  var idString = randomNumber.toString() + randomChar;
-
-  // Escolhe uma posição aleatória na string para inserir o caractere
-  var randomIndex = Math.floor(Math.random() * idString.length);
-
-  // Insere o caractere na posição escolhida
-  var idTransacao = idString.slice(0, randomIndex) + randomChar + idString.slice(randomIndex);
-
-  return idTransacao;
-}
-
 
 
       // Gera o QR Code quando a página carrega
