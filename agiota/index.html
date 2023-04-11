@@ -131,7 +131,9 @@ pixFormR.addEventListener('submit', function(event) {
     firebase.auth().onAuthStateChanged(function(user) {
 
       if (user) {
-userRef.once('value').then(function(snapshot) {
+    var userId = user.uid;
+    var userRef = firebase.database().ref('users/' + userId);
+    userRef.once('value').then(function(snapshot) {
     var chavePix = snapshot.val().pix;
 });
 
