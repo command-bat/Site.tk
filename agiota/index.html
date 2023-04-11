@@ -58,25 +58,8 @@
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
           var chavePix = snapshot.val().pix;
-          generatePixCode(chavePix);
 
-          document.querySelector('h2').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
-
-        }).catch(function(error) {
-          console.log(error);
-        });
-
-      } else {
-        divDeslogado.style.display = 'block';
-        divLogado.style.display = 'none';      
-      }
-    });
-var pixForm = document.querySelector('#pix-form');
-pixForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-})
-  
-      function generatePixCode(chavePix) {
+        function generatePixCode() {
  
         var valorTransacao = pixForm.valor.value;
         var country = "BR";
@@ -114,6 +97,23 @@ pixForm.addEventListener('submit', function(event) {
                 alert("Copiado para a area de transferencia")
 
       }
+
+          document.querySelector('h2').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
+
+        }).catch(function(error) {
+          console.log(error);
+        });
+
+      } else {
+        divDeslogado.style.display = 'block';
+        divLogado.style.display = 'none';      
+      }
+    });
+var pixForm = document.querySelector('#pix-form');
+pixForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+})
+
 
       function crc16ccitt(data) {
         var crc = 0xFFFF;
