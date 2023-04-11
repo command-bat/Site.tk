@@ -19,7 +19,7 @@
       <form id="pix-form">
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor">
-        <button type="submit" >Enviar</button>
+        <button type="submit" onclick="generatePixCode()">Enviar</button>
         <p id="code"></p>
       </form>
     </div>
@@ -74,7 +74,7 @@ var pixForm = document.querySelector('#pix-form');
 pixForm.addEventListener('submit', function(event) {
   event.preventDefault();
   var valorTransacao = pixForm.valor.value;
-
+      function generatePixCode() {
         var chavePix = "44395052878";
         var country = "BR";
         var nomeTitular = "TIAGO N LAUREANO";
