@@ -28,6 +28,9 @@ var valorTransacao = "0.01";
 // seila
 var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix
 
+// Identificador único da transação
+var idTransacao = generateTransactionId();
+
 // Constrói a string com os dados do Pix
 var pixData = "000201" +
               "010211" +
@@ -67,9 +70,28 @@ codeid.innerHTML = pixData;
         }
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
+function generateTransactionId() {
+  // Gera um número randômico de no máximo 3 dígitos
+  var randomNumber = Math.floor(Math.random() * 1000);
+
+  // Gera um caractere aleatório de A a Z
+  var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+
+  // Concatena o número e o caractere em uma string
+  var idString = randomNumber.toString() + randomChar;
+
+  // Escolhe uma posição aleatória na string para inserir o caractere
+  var randomIndex = Math.floor(Math.random() * idString.length);
+
+  // Insere o caractere na posição escolhida
+  var idTransacao = idString.slice(0, randomIndex) + randomChar + idString.slice(randomIndex);
+
+  return idTransacao;
+}
 
 
-
+      // Gera o QR Code quando a página carrega
+      window.onload = generatePixQRCode;
     </script>
   </body>
 </html>
