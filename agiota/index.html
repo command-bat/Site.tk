@@ -69,13 +69,14 @@
         divLogado.style.display = 'none';      
       }
     });
+var pixForm = document.querySelector('#pix-form');
 pixForm.addEventListener('submit', function(event) {
   event.preventDefault();
 })
   
       function generatePixCode() {
 
-        var pixForm = document.querySelector('#pix-form');
+        
         var chavePix = "44395052878";
         var valorTransacao = pixForm.valor.value;
         var country = "BR";
