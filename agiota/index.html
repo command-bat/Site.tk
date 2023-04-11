@@ -57,7 +57,7 @@
         var userRef = firebase.database().ref('users/' + userId);
 
         userRef.once('value').then(function(snapshot) {
-          var username = snapshot.val().pix;
+          var username = snapshot.val().username;
           var chavePix = snapshot.val().pix;
           generatePixCode(chavePix);
 
