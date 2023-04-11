@@ -65,8 +65,6 @@
 
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
-          var chavePixFB = snapshot.val().pix;
-          generatePixCodeR(chavePixFB);
 
         document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer pagar";
         document.querySelector('#h2-receber').innerHTML = "Ola, " + chavePixFB + " selecione o valor que quer receber";
@@ -134,7 +132,6 @@ pixFormR.addEventListener('submit', function(event) {
       if (user) {
 function generatePixCodeR()  {
 userRef.once('value').then(function(snapshot) {
-    var username = snapshot.val().username;
     var chavePix = snapshot.val().pix;
 });
 
