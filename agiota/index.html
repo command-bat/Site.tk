@@ -75,8 +75,10 @@ pixForm.addEventListener('submit', function(event) {
 })
   
       function generatePixCode() {
-      userRef.once('value').then(function(snapshot) {
-          var chavePix = snapshot.val().pix;        
+        var userId = user.uid;
+        var userRef = firebase.database().ref('users/' + userId);
+        userRef.once('value').then(function(snapshot) {
+        var chavePix = snapshot.val().pix;        
         })    
  
         var valorTransacao = pixForm.valor.value;
