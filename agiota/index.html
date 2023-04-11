@@ -135,7 +135,7 @@ pixFormR.addEventListener('submit', function(event) {
     var userRef = firebase.database().ref('users/' + userId);
     userRef.once('value').then(function(snapshot) {
     var chavePix = snapshot.val().pix;
-});
+
 
 
     var valorTransacao = document.querySelector('#pix-formR input[name="valor"]').value;
@@ -171,6 +171,7 @@ alert(pixData);
                 document.body.removeChild(inputTest);
                 type="copia/javascript";
                 alert("Copiado para a area de transferencia")
+      });
       }})}
 
       function crc16ccitt(data) {
