@@ -90,6 +90,8 @@ button[type="submit"] {
     <label for="forgot-password-email">Digite seu email:</label>
     <input type="email" id="forgot-password-email" name="forgot-password-email" required><br>
     <button type="submit">Enviar email de redefinição de senha</button>
+    <a href="#" id="back-to-login-link">Voltar para o formulário de login</a>
+
   </form>
 
   <script>
@@ -122,6 +124,13 @@ button[type="submit"] {
       document.querySelector('#login-form').style.display = 'none';
       document.querySelector('#forgot-password-form').style.display = 'block';
     });
+// Voltar para o formulário de login quando clicar no link "Voltar para o formulário de login"
+    var backToLoginLink = document.querySelector('#back-to-login-link');
+    backToLoginLink.addEventListener('click', function() {
+      document.querySelector('#forgot-password-form').style.display = 'none';
+      document.querySelector('#login-form').style.display = 'block';
+    });
+
   </script>
 
 </body>
