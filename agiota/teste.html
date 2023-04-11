@@ -38,7 +38,7 @@ var pixData = "000201" +
               "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
               "6207" +
                        "0503" + "***" +
-              "6304" + idTransacao;
+              "63" + idTransacao.length.toString().padStart(2, "0") + idTransacao;
 
 var codeid = document.getElementById("code");
 codeid.innerHTML = pixData;
@@ -82,7 +82,7 @@ alert(pixData);
 
 function generateTransactionId() {
   // Gera um número randômico entre 0 e 999
-  var randomNumber = Math.floor(Math.random() * 1000);
+  var randomNumber = Math.floor(Math.random() * 100);
 
   // Converte o número para uma string com 3 dígitos
   var transactionId = randomNumber.toString().padStart(3, "0");
