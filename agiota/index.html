@@ -34,7 +34,6 @@
   <script>
     const login = document.getElementById('login');
     const registro = document.getElementById('registro');
-    var chavePix;
       
     login.addEventListener('click', () => {
       window.location.href = '/agiota/login';
@@ -58,14 +57,6 @@
 
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
-          var chavePix = snapshot.val().pix;
-          
-       var pixForm = document.querySelector('#pix-form');
-        pixForm.addEventListener('submit', function(event) {
-          event.preventDefault();
-          // chama a função generatePixCode() com a chavePix atual
-          generatePixCode(chavePix);
-        });
 
           document.querySelector('h2').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
 
@@ -78,8 +69,15 @@
         divLogado.style.display = 'none';      
       }
     });
+var pixForm = document.querySelector('#pix-form');
+pixForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+})
+  
+      function generatePixCode() {
 
-        function generatePixCode() {
+        
+        var chavePix = "44395052878";
         var valorTransacao = pixForm.valor.value;
         var country = "BR";
         var nomeTitular = "TIAGO N LAUREANO";
@@ -100,6 +98,7 @@
         var crc16 = crc16ccitt(pixData);
         pixData += crc16;
 
+
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
                 //Anexa o elemento ao body
@@ -115,7 +114,6 @@
                 alert("Copiado para a area de transferencia")
 
       }
-
 
       function crc16ccitt(data) {
         var crc = 0xFFFF;
