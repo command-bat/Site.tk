@@ -58,7 +58,8 @@
 
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().pix;
-          chavePix = snapshot.val().pix;
+          var chavePix = snapshot.val().pix;
+          generatePixCode(chavePix);
 
 
           document.querySelector('h2').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
