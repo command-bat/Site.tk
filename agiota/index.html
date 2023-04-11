@@ -129,7 +129,9 @@ pixFormR.addEventListener('submit', function(event) {
                 alert("Copiado para a area de transferencia")
 
       }
-    
+    firebase.auth().onAuthStateChanged(function(user) {
+
+      if (user) {
 function generatePixCodeR()  {
 userRef.once('value').then(function(snapshot) {
     var username = snapshot.val().username;
@@ -170,7 +172,7 @@ alert(pixData);
                 document.body.removeChild(inputTest);
                 type="copia/javascript";
                 alert("Copiado para a area de transferencia")
-      }
+      }}}
 
       function crc16ccitt(data) {
         var crc = 0xFFFF;
