@@ -81,13 +81,28 @@ alert(pixData);
       }
 
 function generateTransactionId() {
-  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var numbers = "0123456789";
-  var randomChar = chars.charAt(Math.floor(Math.random() * chars.length));
-  var randomNumber = Math.floor(Math.random() * 10000).toString().padStart(3, "0");
-  var transactionId = randomNumber + randomChar;
+  // Gera um número randômico entre 0 e 999
+  var randomNumber = Math.floor(Math.random() * 1000);
+
+  // Converte o número para uma string com 3 dígitos
+  var transactionId = randomNumber.toString().padStart(3, "0");
+
+  // Adiciona um caractere aleatório à string
+  transactionId += generateRandomChar();
+
   return transactionId;
 }
+
+function generateRandomChar() {
+  // Gera um número aleatório entre 0 e 25 (representando as letras do alfabeto)
+  var randomLetterNumber = Math.floor(Math.random() * 26);
+
+  // Converte o número para um caractere utilizando a tabela ASCII
+  var randomLetter = String.fromCharCode(65 + randomLetterNumber);
+
+  return randomLetter;
+}
+
 
 
 
