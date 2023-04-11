@@ -13,6 +13,7 @@
         var nomeTitular = "TIAGO N LAUREANO";
         var cidadeTitular = "GUAPIACU";
         var valorTransacao = "1";
+        var desc = "teste";
         var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
         var pixData = "000201" +
               "010211" +
@@ -24,7 +25,7 @@
               "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
               "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
               "6207" +
-                       "0503" + "***" +
+                       "05" + desc.length.toString().padStart(2, "0") + desc +
               "6304";
         var crc16 = crc16ccitt(pixData);
         pixData += crc16;
