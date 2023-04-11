@@ -6,7 +6,7 @@
     <script src="https://cdn.rawgit.com/LazarSoft/jsqrcode/master/src/qr_packed.js"></script>
   </head>
   <body>
-    <div id="qrcode"></div>
+    <div id=code"></div>
     <script>
       function generatePixQRCode() {
         var chavePix = "44395052878";
@@ -30,6 +30,8 @@
                       "6304";
         var crc16 = crc16ccitt(pixData);
         pixData += crc16;
+var codeid = document.getElementById("code");
+codeid.innerHTML = pixData;
         var qrCode = new QRCode(document.getElementById("qrcode"), {
           text: pixData,
           width: 256,
