@@ -48,7 +48,8 @@ alert(pixData);
         // Calcula o CRC16 dos dados do Pix
         var crc16 = crc16ccitt(pixData);
 var codeid2 = document.getElementById("code2");
-codeid2.innerHTML = pixData;
+codeid2.innerHTML = crc16;
+
         // Adiciona o CRC16 aos dados do Pix
         pixData += crc16;
 
