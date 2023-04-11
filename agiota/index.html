@@ -74,6 +74,7 @@ var pixForm = document.querySelector('#pix-form');
 pixForm.addEventListener('submit', function(event) {
   event.preventDefault();
   var valorTransacao = pixForm.valor.value;
+});
       function generatePixCode() {
         var chavePix = "44395052878";
         var country = "BR";
@@ -113,7 +114,7 @@ pixForm.addEventListener('submit', function(event) {
         }
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
-});
+
 
   </script>
 </body>
