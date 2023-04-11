@@ -75,9 +75,10 @@ pixForm.addEventListener('submit', function(event) {
 })
   
       function generatePixCode() {
-
-        
-        var chavePix = "44395052878";
+      userRef.once('value').then(function(snapshot) {
+          var chavePix = snapshot.val().pix;        
+        })    
+ 
         var valorTransacao = pixForm.valor.value;
         var country = "BR";
         var nomeTitular = "TIAGO N LAUREANO";
