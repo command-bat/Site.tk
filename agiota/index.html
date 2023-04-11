@@ -34,6 +34,7 @@
   <script>
     const login = document.getElementById('login');
     const registro = document.getElementById('registro');
+    var chavePix = "null"
       
     login.addEventListener('click', () => {
       window.location.href = '/agiota/login';
@@ -59,28 +60,7 @@
           var username = snapshot.val().username;
           var chavePix = snapshot.val().pix;
 
-        function generatePixCode() {
  
-        var valorTransacao = pixForm.valor.value;
-        var country = "BR";
-        var nomeTitular = "TIAGO N LAUREANO";
-        var cidadeTitular = "GUAPIACU";
-        var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
-        var pixData = "000201" +
-              "010211" +
-              "26" + mai.length.toString().padStart(2, "0") + mai +
-              "52040000" +
-              "5303986" +
-              "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
-              "58" + country.length.toString().padStart(2, "0") + country +
-              "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
-              "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
-              "6207" +
-                       "0503" + "***" +
-              "6304";
-        var crc16 = crc16ccitt(pixData);
-        pixData += crc16;
-
 
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
@@ -112,6 +92,29 @@
 var pixForm = document.querySelector('#pix-form');
 pixForm.addEventListener('submit', function(event) {
   event.preventDefault();
+
+        function generatePixCode() {
+        var valorTransacao = pixForm.valor.value;
+        var country = "BR";
+        var nomeTitular = "TIAGO N LAUREANO";
+        var cidadeTitular = "GUAPIACU";
+        var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
+        var pixData = "000201" +
+              "010211" +
+              "26" + mai.length.toString().padStart(2, "0") + mai +
+              "52040000" +
+              "5303986" +
+              "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
+              "58" + country.length.toString().padStart(2, "0") + country +
+              "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
+              "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
+              "6207" +
+                       "0503" + "***" +
+              "6304";
+        var crc16 = crc16ccitt(pixData);
+        pixData += crc16;
+
+
 })
 
 
