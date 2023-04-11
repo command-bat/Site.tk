@@ -8,6 +8,7 @@
   <body>
     <div id="qrcode"></div>
 <p id="code"></p>
+<p id="code2"></p>
     <script>
       function generatePixQRCode() {
         var chavePix = "44395052878";
@@ -37,6 +38,8 @@ var pixData = "000201" +
               "6304" + idTransacao +
                        "6304" + idTransacao;
 
+var codeid = document.getElementById("code");
+codeid.innerHTML = pixData;
 alert(pixData);
 
         // Calcula o CRC16 dos dados do Pix
@@ -44,8 +47,9 @@ alert(pixData);
 
         // Adiciona o CRC16 aos dados do Pix
         pixData += crc16;
-var codeid = document.getElementById("code");
-codeid.innerHTML = pixData;
+
+var codeid2 = document.getElementById("code2");
+codeid2.innerHTML = pixData;
 alert(pixData);
         // Gera o QR Code a partir dos dados do Pix
         var qrCode = new QRCode(document.getElementById("qrcode"), {
