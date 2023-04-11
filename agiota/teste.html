@@ -78,14 +78,14 @@ alert(pixData);
       }
 
 function generateTransactionId() {
-  // Gera um número randômico de 12 dígitos
-  var randomNumber = Math.floor(Math.random() * 1000000000000);
-
-  // Concatena as informações para gerar o identificador único
-  var transactionId = "T" + randomNumber.toString();
-
+  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var numbers = "0123456789";
+  var randomChar = chars.charAt(Math.floor(Math.random() * chars.length));
+  var randomNumber = Math.floor(Math.random() * 10000).toString().padStart(4, "0");
+  var transactionId = randomNumber + randomChar;
   return transactionId;
 }
+
 
 
       // Gera o QR Code quando a página carrega
