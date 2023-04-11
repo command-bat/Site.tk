@@ -130,14 +130,13 @@ pixFormR.addEventListener('submit', function(event) {
 
       }
     
-if (user) {
+function generatePixCodeR()  {
 userRef.once('value').then(function(snapshot) {
     var username = snapshot.val().username;
-    var chavePixFB = snapshot.val().pix;
-    generatePixCodeR(chavePixFB);
+    var chavePix = snapshot.val().pix;
 });
-}
-function generatePixCodeR(chavePix) {
+
+
     var valorTransacao = document.querySelector('#pix-formR input[name="valor"]').value;
     var country = "BR";
     var nomeTitular = "TIAGO N LAUREANO";
@@ -158,7 +157,6 @@ function generatePixCodeR(chavePix) {
     var crc16 = crc16ccitt(pixData);
     pixData += crc16;
 alert(pixData);
-/*
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
                 //Anexa o elemento ao body
@@ -172,7 +170,6 @@ alert(pixData);
                 document.body.removeChild(inputTest);
                 type="copia/javascript";
                 alert("Copiado para a area de transferencia")
-*/
       }
 
       function crc16ccitt(data) {
