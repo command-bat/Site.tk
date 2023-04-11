@@ -75,8 +75,15 @@ button[type="submit"] {
 <body>
   <h1>Registro</h1>
   <form id="register-form">
+    
+    <label for="name">Seu nome:</label>
+    <input type="text" id="name" name="name" required><br>
+    
     <label for="username">Nome de usuário:</label>
     <input type="text" id="username" name="username" required><br>
+        
+    <label for="city">Sea cidade:</label>
+    <input type="text" id="city" name="city" required><br>
 
     <label for="pix">Seu pix:</label>
     <input type="text" id="pix" name="pix" required><br>
@@ -95,7 +102,9 @@ button[type="submit"] {
     var registerForm = document.querySelector('#register-form');
 registerForm.addEventListener('submit', function(event) {
   event.preventDefault();
+  var name = registerForm.name.value;
   var username = registerForm.username.value;
+  var city = registerForm.city.value;
   var pix = registerForm.pix.value;
   var email = registerForm.email.value;
   var password = registerForm.password.value;
@@ -116,7 +125,9 @@ registerForm.addEventListener('submit', function(event) {
                 .then(function(user) {
                   // Salvar o username no banco de dados
                   firebase.database().ref('users/' + user.user.uid).set({
+                      name: name,
                       username: username,
+                      city: city,
                       pix: pix,
                       email: email
                   }).then(function() {
