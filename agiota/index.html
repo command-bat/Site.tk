@@ -70,13 +70,12 @@
       }
     });
 
-var pixForm = document.querySelector('#pix-form');
-pixForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-  var valorTransacao = pixForm.valor.value;
-});
+  
       function generatePixCode() {
+
+        var pixForm = document.querySelector('#pix-form');
         var chavePix = "44395052878";
+        var valorTransacao = pixForm.valor.value;
         var country = "BR";
         var nomeTitular = "TIAGO N LAUREANO";
         var cidadeTitular = "GUAPIACU";
