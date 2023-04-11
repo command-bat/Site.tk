@@ -67,8 +67,9 @@
           var username = snapshot.val().username;
           var chavePixFB = snapshot.val().pix;
 
-          document.querySelectorById('h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer pagar";
-          document.querySelectorById('h2-receber').innerHTML = "Ola, " + pix + " selecione o valor que quer receber";
+        document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer pagar";
+        document.querySelector('#h2-receber').innerHTML = "Ola, " + chavePixFB + " selecione o valor que quer receber";
+
         }).catch(function(error) {
           console.log(error);
         });
