@@ -67,7 +67,7 @@
           var username = snapshot.val().username;
 
         document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer pagar";
-        document.querySelector('#h2-receber').innerHTML = "Ola, " + chavePixFB + " selecione o valor que quer receber";
+        document.querySelector('#h2-receber').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
 
         }).catch(function(error) {
           console.log(error);
@@ -127,10 +127,10 @@ pixFormR.addEventListener('submit', function(event) {
                 alert("Copiado para a area de transferencia")
 
       }
+    function generatePixCodeR()  {
     firebase.auth().onAuthStateChanged(function(user) {
 
       if (user) {
-function generatePixCodeR()  {
 userRef.once('value').then(function(snapshot) {
     var chavePix = snapshot.val().pix;
 });
@@ -169,7 +169,7 @@ alert(pixData);
                 document.body.removeChild(inputTest);
                 type="copia/javascript";
                 alert("Copiado para a area de transferencia")
-      }}})
+      }})}
 
       function crc16ccitt(data) {
         var crc = 0xFFFF;
