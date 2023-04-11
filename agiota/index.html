@@ -130,30 +130,33 @@ pixFormR.addEventListener('submit', function(event) {
 
       }
     
-    
-          function generatePixCodeR() {
-
-        
-        var chavePix = chavePixFB;
-        var valorTransacao = pixForm.valor.value;
-        var country = "BR";
-        var nomeTitular = "TIAGO N LAUREANO";
-        var cidadeTitular = "GUAPIACU";
-        var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
-        var pixData = "000201" +
-              "010211" +
-              "26" + mai.length.toString().padStart(2, "0") + mai +
-              "52040000" +
-              "5303986" +
-              "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
-              "58" + country.length.toString().padStart(2, "0") + country +
-              "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
-              "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
-              "6207" +
-                       "0503" + "***" +
-              "6304";
-        var crc16 = crc16ccitt(pixData);
-        pixData += crc16;
+if (user) {
+userRef.once('value').then(function(snapshot) {
+    var username = snapshot.val().username;
+    var chavePixFB = snapshot.val().pix;
+    generatePixCodeR(chavePixFB);
+});
+}
+function generatePixCodeR(chavePix) {
+    var valorTransacao = document.querySelector('#pix-formR input[name="valor"]').value;
+    var country = "BR";
+    var nomeTitular = "TIAGO N LAUREANO";
+    var cidadeTitular = "GUAPIACU";
+    var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
+    var pixData = "000201" +
+        "010211" +
+        "26" + mai.length.toString().padStart(2, "0") + mai +
+        "52040000" +
+        "5303986" +
+        "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
+        "58" + country.length.toString().padStart(2, "0") + country +
+        "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
+        "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
+        "6207" +
+        "0503" + "***" +
+        "6304";
+    var crc16 = crc16ccitt(pixData);
+    pixData += crc16;
 alert(pixData);
 /*
                 let inputTest = document.createElement("input");
