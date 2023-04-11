@@ -9,6 +9,7 @@
     <div id="qrcode"></div>
 <p id="code"></p>
 <p id="code2"></p>
+<p id="code3"></p>
     <script>
       function generatePixQRCode() {
         var chavePix = "44395052878";
@@ -46,12 +47,13 @@ alert(pixData);
 
         // Calcula o CRC16 dos dados do Pix
         var crc16 = crc16ccitt(pixData);
-
+var codeid2 = document.getElementById("code2");
+codeid2.innerHTML = pixData;
         // Adiciona o CRC16 aos dados do Pix
         pixData += crc16;
 
-var codeid2 = document.getElementById("code2");
-codeid2.innerHTML = pixData;
+var codeid3 = document.getElementById("code3");
+codeid3.innerHTML = pixData;
 alert(pixData);
         // Gera o QR Code a partir dos dados do Pix
         var qrCode = new QRCode(document.getElementById("qrcode"), {
@@ -81,28 +83,23 @@ alert(pixData);
       }
 
 function generateTransactionId() {
-  // Gera um número randômico entre 0 e 999
-  var randomNumber = Math.floor(Math.random() * 999);
+  // Gera um número randômico de no máximo 3 dígitos
+  var randomNumber = Math.floor(Math.random() * 1000);
 
-  // Converte o número para uma string com 3 dígitos
-  var transactionId = randomNumber.toString().padStart(3, "0");
+  // Gera um caractere aleatório de A a Z
+  var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 
-  // Adiciona um caractere aleatório à string
-  transactionId += generateRandomChar();
+  // Concatena o número e o caractere em uma string
+  var idString = randomNumber.toString() + randomChar;
 
-  return transactionId;
+  // Escolhe uma posição aleatória na string para inserir o caractere
+  var randomIndex = Math.floor(Math.random() * idString.length);
+
+  // Insere o caractere na posição escolhida
+  var idTransacao = idString.slice(0, randomIndex) + randomChar + idString.slice(randomIndex);
+
+  return idTransacao;
 }
-
-function generateRandomChar() {
-  // Gera um número aleatório entre 0 e 25 (representando as letras do alfabeto)
-  var randomLetterNumber = Math.floor(Math.random() * 26);
-
-  // Converte o número para um caractere utilizando a tabela ASCII
-  var randomLetter = String.fromCharCode(65 + randomLetterNumber);
-
-  return randomLetter;
-}
-
 
 
 
