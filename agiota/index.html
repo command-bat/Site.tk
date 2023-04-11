@@ -16,10 +16,11 @@
       <br> <!-- Adiciona a quebra de linha para separar o texto do campo de entrada -->
       <h1>Agiota do Pix</h1>
       <h2>Ola, selecione o valor que quer receber</h2>
-      <form>
+      <form id="pix-form">
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor">
-        <button type="submit">Enviar</button>
+        <button type="submit" id="valor" >Enviar</button>
+        <p id="code"></p>
       </form>
     </div>
   </div>
@@ -68,6 +69,52 @@
         divLogado.style.display = 'none';      
       }
     });
+
+var pixForm = document.querySelector('#pix-form');
+pixForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  var valorTransacao = pixForm.valor.value;
+
+        var chavePix = "44395052878";
+        var country = "BR";
+        var nomeTitular = "TIAGO N LAUREANO";
+        var cidadeTitular = "GUAPIACU";
+        var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
+        var pixData = "000201" +
+              "010211" +
+              "26" + mai.length.toString().padStart(2, "0") + mai +
+              "52040000" +
+              "5303986" +
+              "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
+              "58" + country.length.toString().padStart(2, "0") + country +
+              "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
+              "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
+              "6207" +
+                       "0503" + "***" +
+              "6304";
+        var crc16 = crc16ccitt(pixData);
+        pixData += crc16;
+
+        var codeid = document.getElementById("code");
+        codeid.innerHTML = pixData;
+      }
+
+      function crc16ccitt(data) {
+        var crc = 0xFFFF;
+        for (var i = 0; i < data.length; i++) {
+          crc ^= data.charCodeAt(i) << 8;
+          for (var j = 0; j < 8; j++) {
+            if ((crc & 0x8000) != 0) {
+              crc = (crc << 1) ^ 0x1021;
+            } else {
+              crc <<= 1;
+            }
+          }
+        }
+        return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
+      }
+})
+
   </script>
 </body>
 </html>
