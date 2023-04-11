@@ -66,7 +66,7 @@
         userRef.once('value').then(function(snapshot) {
           var username = snapshot.val().username;
           var chavePixFB = snapshot.val().pix;
-          generatePixCode(chavePixFB);
+          generatePixCodeR(chavePixFB);
 
         document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer pagar";
         document.querySelector('#h2-receber').innerHTML = "Ola, " + chavePixFB + " selecione o valor que quer receber";
