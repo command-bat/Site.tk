@@ -45,7 +45,7 @@ var pixData = "000201" +
               "6304";
 
 var codeid = document.getElementById("code");
-codeid.innerHTML = pixData;
+codeid.innerHTML = pixData.length.toString().padStart(2, "0");
 alert(pixData);
 
         // Calcula o CRC16 dos dados do Pix
