@@ -14,7 +14,6 @@
         var cidadeTitular = "GUAPIACU";
         var valorTransacao = "0.50";
         var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
-        var idTransacao = generateTransactionId();
         var pixData = "000201" +
               "010211" +
               "26" + mai.length.toString().padStart(2, "0") + mai +
@@ -47,15 +46,6 @@
           }
         }
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
-      }
-
-      function generateTransactionId() {
-        var randomNumber = Math.floor(Math.random() * 1000);
-        var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-        var idString = randomNumber.toString() + randomChar;
-        var randomIndex = Math.floor(Math.random() * idString.length);
-        var idTransacao = idString.slice(0, randomIndex) + randomChar + idString.slice(randomIndex);
-        return idTransacao;
       }
 
 generatePixCode();
