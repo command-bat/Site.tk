@@ -30,7 +30,7 @@ var idTransacao = generateTransactionId();
 // Constrói a string com os dados do Pix
 var pixData = "000201" +
               "2658" + "0014br.gov.bcb.pix" +
-                       "0136" + chavePix.length.toString().padStart(4, "0") + chavePix +
+                       "01" + chavePix.length.toString().padStart(2, "0") + chavePix +
               "52040000" +
               "53" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
               "58" + country.length.toString().padStart(2, "0") + country +
