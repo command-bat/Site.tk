@@ -3,9 +3,9 @@
 <head>
 	<title>Exemplo de Select com valores do Firebase</title>
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-  <script src="js/firebase.js"></script>
+  	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  	<script src="js/firebase.js"></script>
 </head>
 <body>
 	<select id="nomes" name="nomes"></select>
@@ -21,6 +21,12 @@
 					option.text = childSnapshot.val().username;
 					option.value = childSnapshot.val().username;
 					select.appendChild(option);
+				});
+
+				// Adicionar evento de mudança no select
+				select.addEventListener('change', function() {
+					var username = this.value; // Recuperar o valor selecionado
+					alert("O username escolhido é: " + username); // Exibir em um alerta
 				});
 			});
 	</script>
