@@ -18,8 +18,8 @@
 				var select = document.getElementById("nomes");
 				snapshot.forEach(function(childSnapshot) {
 					var option = document.createElement("option");
-					option.text = childSnapshot.val().nome;
-					option.value = childSnapshot.val().nome;
+					option.text = childSnapshot.val().username;
+					option.value = childSnapshot.val().username;
 					select.appendChild(option);
 				});
 			});
