@@ -92,6 +92,7 @@ pixFormR.addEventListener('submit', function(event) {
   
       function generatePixCode() {
         
+var select = document.getElementById("nomes");
 				select.addEventListener('change', function() {
 					var selectedValue = this.value; // Recuperar o valor selecionado
 					var valuesArray = selectedValue.split('|'); // Separar os valores concatenados
