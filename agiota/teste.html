@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Code Pix</title>
+    <title>Exemplo de input de nomes</title>
   </head>
   <body>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=00020101021126330014br.gov.bcb.pix011144395052878520400005303986540510.005802BR5916TIAGO N LAUREANO6008GUAPIACU62070503***6304E808">
+    <h1>Input de nomes</h1>
+    <form>
+      <label for="nomes">Selecione um nome:</label>
+      <select id="nomes" name="nomes">
+        <option value="João">João</option>
+        <option value="Maria">Maria</option>
+        <option value="Pedro">Pedro</option>
+        <option value="Ana">Ana</option>
+      </select>
+      <br><br>
+      <input type="submit" value="Enviar">
+    </form>
   </body>
 </html>
