@@ -5,52 +5,6 @@
     <title>Code Pix</title>
   </head>
   <body>
-    <p id="code"></p>
-    <script>
-      function generatePixCode() {
-        var chavePix = "44395052878";
-        var country = "BR";
-        var nomeTitular = "TIAGO N LAUREANO";
-        var cidadeTitular = "GUAPIACU";
-        var valorTransacao = "1";
-        var desc = "testezao pika";
-        var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix + "02" + desc.length.toString().padStart(2, "0") + desc;
-        var pixData = "000201" +
-              "010211" +
-              "26" + mai.length.toString().padStart(2, "0") + mai +
-              "52040000" +
-              "5303986" +
-              "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
-              "58" + country.length.toString().padStart(2, "0") + country +
-              "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
-              "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
-              "6207" +
-                       "0503" + "***" +
-              "6304";
-        var crc16 = crc16ccitt(pixData);
-        pixData += crc16;
-
-        var codeid = document.getElementById("code");
-        codeid.innerHTML = pixData;
-      }
-
-      function crc16ccitt(data) {
-        var crc = 0xFFFF;
-        for (var i = 0; i < data.length; i++) {
-          crc ^= data.charCodeAt(i) << 8;
-          for (var j = 0; j < 8; j++) {
-            if ((crc & 0x8000) != 0) {
-              crc = (crc << 1) ^ 0x1021;
-            } else {
-              crc <<= 1;
-            }
-          }
-        }
-        return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
-      }
-
-generatePixCode();
-
-    </script>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=00020101021126360014br.gov.bcb.pix0114+5517997329942520400005303986540510.005802BR5925Tiago Nascimento Laureano6009Sao Paulo62070503***6304213D">
   </body>
 </html>
