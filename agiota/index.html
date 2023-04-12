@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Agiota</title>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -21,7 +21,7 @@
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00">
         <button type="submit" onclick="generatePixCode()">Enviar</button>
-        <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+	    <img id="imageQRCode"  width="100" height="100">
       </form>
       
       <h2 id="h2-receber">Ola, selecione o valor que quer receber</h2>
@@ -29,9 +29,9 @@
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00">
         <button type="submit" onclick="generatePixCodeR()">Enviar</button>
-        <div id="qrcodeR" style="width:100px; height:100px; margin-top:15px;"></div>
+	    <img id="imageQRCodeR"  width="100" height="100">
+	      
       </form>
-	    <img id="imageQRCode"  width="100" height="100">
     </div>
   </div>
 
@@ -167,7 +167,7 @@ pixFormR.addEventListener('submit', function(event) {
 	        var conteudo = pixDataR;
   		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
   		var imagemQRCode = GoogleCharts + conteudo;
-  		$('#imageQRCode').attr('src', imagemQRCode);
+  		$('#imageQRCodeR').attr('src', imagemQRCode);
 	    
                 let inputTest = document.createElement("input");
                 inputTest.value = pixDataR;
