@@ -5,10 +5,17 @@
   </head>
   <body>
     <h1>Gerador de QR Code</h1>
-    <div id="qrcode"></div>
-    <script type="text/javascript">
-    new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
-    </script>
+<div id="qrcode"></div>
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	text: "http://jindo.dev.naver.com/collie",
+	width: 128,
+	height: 128,
+	colorDark : "#000000",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.H
+});
+</script>
     
     <script src="qrcode.js"></script>
     <script src="qrcode.min.js"></script>
