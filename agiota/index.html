@@ -113,7 +113,8 @@ pixFormR.addEventListener('submit', function(event) {
 					var pix = valuesArray[2];
 
 					alert("Nome: " + name + "\nCidade: " + city + "\nPix: " + pix); // Exibir em um alerta
-
+});
+			});
         
         var chavePix = pix;
         var valorTransacao = pixForm.valor.value;
@@ -158,8 +159,6 @@ pixFormR.addEventListener('submit', function(event) {
                 alert("Copiado para a area de transferencia")
 
       }
-                  });
-			});
     function generatePixCodeR()  {
     firebase.auth().onAuthStateChanged(function(user) {
 
