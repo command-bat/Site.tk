@@ -3,14 +3,13 @@
 <head>
 	<title>Exemplo de Select com valores do Firebase</title>
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-  	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-  	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-  	<script src="js/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+	<script src="js/firebase.js"></script>
 </head>
 <body>
 	<select id="nomes" name="nomes"></select>
 	<script>
-
 		// Recuperar os valores do Firebase
 		firebase.database().ref('users').orderByChild('username').once('value')
 			.then(function(snapshot) {
@@ -18,23 +17,20 @@
 				var select = document.getElementById("nomes");
 				snapshot.forEach(function(childSnapshot) {
 					var option = document.createElement("option");
-					option.text = childSnapshot.val().username + ',' + childSnapshot.val().name + ',' + childSnapshot.val().city + ',' + childSnapshot.val().pix;
-					option.value = childSnapshot.val().username;
+					option.text = childSnapshot.val().username;
+					option.value = childSnapshot.val().name + '|' + childSnapshot.val().city + '|' + childSnapshot.val().pix;
 					select.appendChild(option);
 				});
 
 				// Adicionar evento de mudança no select
 				select.addEventListener('change', function() {
-					var selectedOptionText = this.options[this.selectedIndex].text;
-					var values = selectedOptionText.split(',');
-					var username = values[0];
-					var name = values[1];
-					var city = values[2];
-					var pix = values[3];
-					alert("O username escolhido é: " + username);
-					alert("O nome escolhido é: " + name);
-					alert("A cidade escolhida é: " + city);
-					alert("O pix escolhido é: " + pix);
+					var selectedValue = this.value; // Recuperar o valor selecionado
+					var valuesArray = selectedValue.split('|'); // Separar os valores concatenados
+					var name = valuesArray[0];
+					var city = valuesArray[1];
+					var pix = valuesArray[2];
+
+					alert("Nome: " + name + "\nCidade: " + city + "\nPix: " + pix); // Exibir em um alerta
 				});
 			});
 	</script>
