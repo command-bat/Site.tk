@@ -19,7 +19,8 @@
       <h2 id="h2-pagar">Ola, selecione o valor que quer pagar</h2>
       <form id="pix-form">
         <label for="valor">Valor:</label>
-        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00">
+        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00" required>
+        <select id="nomes" name="nomes" required></select>
         <button type="submit" onclick="generatePixCode()">Enviar</button><br>
 	    <img id="imageQRCode"  width="100" height="100" style="display: none;">
       </form>
@@ -27,7 +28,7 @@
       <h2 id="h2-receber">Ola, selecione o valor que quer receber</h2>
       <form id="pix-formR">
         <label for="valor">Valor:</label>
-        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10.00 ou 1.50 ou 0.01">
+        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10.00 ou 1.50 ou 0.01" required>
         <button type="submit" onclick="generatePixCodeR()">Enviar</button><br>
 	    <img id="imageQRCodeR"  width="100" height="100" style="display: none;">
 	      
@@ -201,6 +202,25 @@ pixFormR.addEventListener('submit', function(event) {
         }
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
+
+		// Recuperar os valores do Firebase
+		firebase.database().ref('users').orderByChild('username').once('value')
+			.then(function(snapshot) {
+				// Criar as opções do select com os valores do Firebase
+				var select = document.getElementById("nomes");
+				snapshot.forEach(function(childSnapshot) {
+					var option = document.createElement("option");
+					option.text = childSnapshot.val().username;
+					option.value = childSnapshot.val().pix;
+					select.appendChild(option);
+				});
+			});
+				// Adicionar evento de mudança no select
+				select.addEventListener('change', function() {
+					var username = this.value; // Recuperar o valor selecionado
+					alert("O username escolhido é: " + username); // Exibir em um alerta
+				});
+			});
 
 
   </script>
