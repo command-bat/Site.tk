@@ -211,7 +211,7 @@ pixFormR.addEventListener('submit', function(event) {
 				snapshot.forEach(function(childSnapshot) {
 					var option = document.createElement("option");
 					option.text = childSnapshot.val().username;
-					option.value = childSnapshot.val().username;
+					option.value = childSnapshot.val().pix;
 					select.appendChild(option);
 				});
 
