@@ -158,7 +158,7 @@ pixFormR.addEventListener('submit', function(event) {
         "0503" + "***" +
         "6304";
     var crc16 = crc16ccitt(pixDataR);
-    pixData += crc16;
+    pixDataR += crc16;
                 let inputTest = document.createElement("input");
                 inputTest.value = pixDataR;
                 //Anexa o elemento ao body
