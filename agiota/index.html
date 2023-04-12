@@ -91,20 +91,7 @@ pixFormR.addEventListener('submit', function(event) {
 })
   
       function generatePixCode() {
-
-		// Recuperar os valores do Firebase
-		firebase.database().ref('users').orderByChild('username').once('value')
-			.then(function(snapshot) {
-				// Criar as opções do select com os valores do Firebase
-				var select = document.getElementById("nomes");
-				snapshot.forEach(function(childSnapshot) {
-					var option = document.createElement("option");
-					option.text = childSnapshot.val().username;
-					option.value = childSnapshot.val().name + '|' + childSnapshot.val().city + '|' + childSnapshot.val().pix;
-					select.appendChild(option);
-				});
-
-				// Adicionar evento de mudança no select
+        
 				select.addEventListener('change', function() {
 					var selectedValue = this.value; // Recuperar o valor selecionado
 					var valuesArray = selectedValue.split('|'); // Separar os valores concatenados
@@ -112,10 +99,6 @@ pixFormR.addEventListener('submit', function(event) {
 					var city = valuesArray[1];
 					var pix = valuesArray[2];
 
-					alert("Nome: " + name + "\nCidade: " + city + "\nPix: " + pix); // Exibir em um alerta
-});
-			});
-        
         var chavePix = pix;
         var valorTransacao = pixForm.valor.value;
         var country = "BR";
@@ -226,7 +209,29 @@ pixFormR.addEventListener('submit', function(event) {
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
 
+// Recuperar os valores do Firebase
+		firebase.database().ref('users').orderByChild('username').once('value')
+			.then(function(snapshot) {
+				// Criar as opções do select com os valores do Firebase
+				var select = document.getElementById("nomes");
+				snapshot.forEach(function(childSnapshot) {
+					var option = document.createElement("option");
+					option.text = childSnapshot.val().username;
+					option.value = childSnapshot.val().name + '|' + childSnapshot.val().city + '|' + childSnapshot.val().pix;
+					select.appendChild(option);
+				});
 
+				// Adicionar evento de mudança no select
+				select.addEventListener('change', function() {
+					var selectedValue = this.value; // Recuperar o valor selecionado
+					var valuesArray = selectedValue.split('|'); // Separar os valores concatenados
+					var name = valuesArray[0];
+					var city = valuesArray[1];
+					var pix = valuesArray[2];
+
+					alert("Nome: " + name + "\nCidade: " + city + "\nPix: " + pix); // Exibir em um alerta
+});
+			});
   </script>
 </body>
 </html>
