@@ -18,15 +18,23 @@
 				var select = document.getElementById("nomes");
 				snapshot.forEach(function(childSnapshot) {
 					var option = document.createElement("option");
-					option.text = childSnapshot.val().username;
+					option.text = childSnapshot.val().username + ',' + childSnapshot.val().name + ',' + childSnapshot.val().city + ',' + childSnapshot.val().pix;
 					option.value = childSnapshot.val().username;
 					select.appendChild(option);
 				});
 
 				// Adicionar evento de mudança no select
 				select.addEventListener('change', function() {
-					var username = this.value; // Recuperar o valor selecionado
-					alert("O username escolhido é: " + username); // Exibir em um alerta
+					var selectedOptionText = this.options[this.selectedIndex].text;
+					var values = selectedOptionText.split(',');
+					var username = values[0];
+					var name = values[1];
+					var city = values[2];
+					var pix = values[3];
+					alert("O username escolhido é: " + username);
+					alert("O nome escolhido é: " + name);
+					alert("A cidade escolhida é: " + city);
+					alert("O pix escolhido é: " + pix);
 				});
 			});
 	</script>
