@@ -211,17 +211,21 @@ pixFormR.addEventListener('submit', function(event) {
 				snapshot.forEach(function(childSnapshot) {
 					var option = document.createElement("option");
 					option.text = childSnapshot.val().username;
-					option.value = childSnapshot.val().pix;
+					option.value = childSnapshot.val().name + '|' + childSnapshot.val().city + '|' + childSnapshot.val().pix;
 					select.appendChild(option);
 				});
 
 				// Adicionar evento de mudança no select
 				select.addEventListener('change', function() {
-					var username = this.value; // Recuperar o valor selecionado
-					alert("O username escolhido é: " + username); // Exibir em um alerta
+					var selectedValue = this.value; // Recuperar o valor selecionado
+					var valuesArray = selectedValue.split('|'); // Separar os valores concatenados
+					var name = valuesArray[0];
+					var city = valuesArray[1];
+					var pix = valuesArray[2];
+
+					alert("Nome: " + name + "\nCidade: " + city + "\nPix: " + pix); // Exibir em um alerta
 				});
 			});
-
   </script>
 </body>
 </html>
