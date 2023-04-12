@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Exemplo de input de nomes</title>
-  </head>
-  <body>
-    <h1>Input de nomes</h1>
-    <form>
-      <label for="nomes">Selecione um nome:</label>
-      <select id="nomes" name="nomes">
-        <option value="João">João</option>
-        <option value="Maria">Maria</option>
-        <option value="Pedro">Pedro</option>
-        <option value="Ana">Ana</option>
-      </select>
-      <br><br>
-      <input type="submit" value="Enviar">
-    </form>
-  </body>
+<head>
+	<title>Exemplo de Select com valores do Firebase</title>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="js/firebase.js"></script>
+</head>
+<body>
+	<select id="nomes" name="nomes"></select>
+	<script>
+
+		// Recuperar os valores do Firebase
+		firebase.database().ref('users').orderByChild('username').once('value')
+			.then(function(snapshot) {
+				// Criar as opções do select com os valores do Firebase
+				var select = document.getElementById("nomes");
+				snapshot.forEach(function(childSnapshot) {
+					var option = document.createElement("option");
+					option.text = childSnapshot.val().nome;
+					option.value = childSnapshot.val().nome;
+					select.appendChild(option);
+				});
+			});
+	</script>
+</body>
 </html>
