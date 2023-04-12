@@ -141,13 +141,11 @@ pixFormR.addEventListener('submit', function(event) {
     var userRef = firebase.database().ref('users/' + userId);
     userRef.once('value').then(function(snapshot) {
     var chavePix = snapshot.val().pix;
-
-
+    var nomeTitular = snapshot.val().name;
+    var cidadeTitular = snapshot.val().city;
 
     var valorTransacao = document.querySelector('#pix-formR input[name="valor"]').value;
-    var country = "BR";
-    var nomeTitular = "TIAGO N LAUREANO";
-    var cidadeTitular = "GUAPIACU";
+    var country = "BR"
     var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
     var pixDataR = "000201" +
         "010211" +
