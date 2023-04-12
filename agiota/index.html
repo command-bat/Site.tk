@@ -6,8 +6,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-  <script type="text/javascript" src="qrcode/jquery.min.js"></script>
-  <script type="text/javascript" src="qrcode/qrcode.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="js/firebase.js"></script>
   <link rel="stylesheet" href="css/index-style.css">
 
@@ -32,6 +31,7 @@
         <button type="submit" onclick="generatePixCodeR()">Enviar</button>
         <div id="qrcodeR" style="width:100px; height:100px; margin-top:15px;"></div>
       </form>
+	    <img id="imageQRCode">
     </div>
   </div>
 
@@ -112,7 +112,11 @@ pixFormR.addEventListener('submit', function(event) {
               "6304";
         var crc16 = crc16ccitt(pixData);
         pixData += crc16;
-
+	    
+	        var conteudo = pixData;
+  		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
+  		var imagemQRCode = GoogleCharts + conteudo;
+  		$('#imageQRCode').attr('src', imagemQRCode);
 
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
@@ -159,6 +163,12 @@ pixFormR.addEventListener('submit', function(event) {
         "6304";
     var crc16 = crc16ccitt(pixDataR);
     pixDataR += crc16;
+	    
+	        var conteudo = pixData;
+  		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
+  		var imagemQRCode = GoogleCharts + conteudo;
+  		$('#imageQRCode').attr('src', imagemQRCode);
+	    
                 let inputTest = document.createElement("input");
                 inputTest.value = pixDataR;
                 //Anexa o elemento ao body
@@ -192,71 +202,5 @@ pixFormR.addEventListener('submit', function(event) {
 
 
   </script>
-  
-  
-  <script type="text/javascript">
-    //QRcode
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 100,
-	height : 100
-});
-
-function makeCode () {		
-	var elText = pixData;
-	
-	if (!elText.value) {
-		alert("Input a text");
-		elText.focus();
-		return;
-	}
-	
-	qrcode.makeCode(elText.value);
-}
-
-makeCode();
-
-$("#text").
-	on("blur", function () {
-		makeCode();
-	}).
-	on("keydown", function (e) {
-		if (e.keyCode == 13) {
-			makeCode();
-		}
-	});
-</script>
-  
-  
-  <script type="text/javascript">
-    //QRcodeR
-var qrcode = new QRCode(document.getElementById("qrcodeR"), {
-	width : 100,
-	height : 100
-});
-
-function makeCode () {		
-	var elText = pixDataR;
-	
-	if (!elText.value) {
-		alert("Input a text");
-		elText.focus();
-		return;
-	}
-	
-	qrcode.makeCode(elText.value);
-}
-
-makeCode();
-
-$("#text").
-	on("blur", function () {
-		makeCode();
-	}).
-	on("keydown", function (e) {
-		if (e.keyCode == 13) {
-			makeCode();
-		}
-	});
-</script>
 </body>
 </html>
