@@ -21,15 +21,15 @@
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00">
         <button type="submit" onclick="generatePixCode()">Enviar</button><br>
-	    <img id="imageQRCode"  width="100" height="100">
+	    <img id="imageQRCode"  width="100" height="100" style="display: none;">
       </form>
       
       <h2 id="h2-receber">Ola, selecione o valor que quer receber</h2>
       <form id="pix-formR">
         <label for="valor">Valor:</label>
-        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00">
+        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10.00 ou 1.50" ou 0.01>
         <button type="submit" onclick="generatePixCodeR()">Enviar</button><br>
-	    <img id="imageQRCodeR"  width="100" height="100">
+	    <img id="imageQRCodeR"  width="100" height="100" style="display: none;">
 	      
       </form>
     </div>
@@ -116,7 +116,9 @@ pixFormR.addEventListener('submit', function(event) {
 	        var conteudo = pixData;
   		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
   		var imagemQRCode = GoogleCharts + conteudo;
-  		$('#imageQRCode').attr('src', imagemQRCode);
+    		var imgQRcode = $('#imageQRCode')
+                imgQRcode.attr('src', imagemQRCode);
+                imgQRcode.style.display = 'block';
 
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
@@ -164,7 +166,9 @@ pixFormR.addEventListener('submit', function(event) {
 	        var conteudo = pixDataR;
   		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
   		var imagemQRCode = GoogleCharts + conteudo;
-  		$('#imageQRCodeR').attr('src', imagemQRCode);
+  		var imgQRcodeR = $('#imageQRCodeR')
+                imgQRcodeR.attr('src', imagemQRCode);
+                imgQRcodeR.style.display = 'block';
 	    
                 let inputTest = document.createElement("input");
                 inputTest.value = pixDataR;
