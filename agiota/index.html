@@ -116,7 +116,7 @@ pixFormR.addEventListener('submit', function(event) {
 	        var conteudo = pixData;
   		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
   		var imagemQRCode = GoogleCharts + conteudo;
-    		var imgQRcode = $('#imageQRCode')
+    		var imgQRcode = document.getElementById('imageQRCodeR');
                 imgQRcode.attr('src', imagemQRCode);
                 imgQRcode.style.display = 'block';
 
@@ -166,7 +166,7 @@ pixFormR.addEventListener('submit', function(event) {
 	        var conteudo = pixDataR;
   		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
   		var imagemQRCode = GoogleCharts + conteudo;
-  		var imgQRcodeR = $('#imageQRCodeR')
+  		var imgQRcodeR = document.getElementById('imageQRCodeR');
                 imgQRcodeR.attr('src', imagemQRCode);
                 imgQRcodeR.style.display = 'block';
 	    
