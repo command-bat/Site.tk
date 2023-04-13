@@ -1,37 +1,50 @@
-<!DOCTYPE html>
+<body><!DOCTYPE html>
 <html>
 <head>
-	<title>Exemplo de Select com valores do Firebase</title>
+	<title>Lista de Usernames do Firebase</title>
+	<style>
+		/* Definir estilo para a lista */
+		#usernames {
+			height: 200px;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+	<h1>Lista de Usernames do Firebase</h1>
+	<ul id="usernames"></ul>
+
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 	<script src="js/firebase.js"></script>
-</head>
-<body>
-	<select id="nomes" name="nomes"></select>
 	<script>
+		// Configuração do Firebase
+		var firebaseConfig = {
+			apiKey: "SUA_API_KEY",
+			authDomain: "SEU_AUTH_DOMAIN",
+			databaseURL: "SUA_DATABASE_URL",
+			projectId: "SEU_PROJECT_ID",
+			storageBucket: "SEU_STORAGE_BUCKET",
+			messagingSenderId: "SEU_SENDER_ID",
+			appId: "SEU_APP_ID"
+		};
+		firebase.initializeApp(firebaseConfig);
+
 		// Recuperar os valores do Firebase
 		firebase.database().ref('users').orderByChild('username').once('value')
 			.then(function(snapshot) {
-				// Criar as opções do select com os valores do Firebase
-				var select = document.getElementById("nomes");
+				// Adicionar os usernames na lista
+				var usernames = document.getElementById("usernames");
 				snapshot.forEach(function(childSnapshot) {
-					var option = document.createElement("option");
-					option.text = childSnapshot.val().username;
-					option.value = childSnapshot.val().name + '|' + childSnapshot.val().city + '|' + childSnapshot.val().pix;
-					select.appendChild(option);
+					var username = childSnapshot.val().username;
+					var listItem = document.createElement("li");
+					listItem.innerHTML = username;
+					usernames.appendChild(listItem);
 				});
-
-				// Adicionar evento de mudança no select
-				select.addEventListener('change', function() {
-					var selectedValue = this.value; // Recuperar o valor selecionado
-					var valuesArray = selectedValue.split('|'); // Separar os valores concatenados
-					var name = valuesArray[0];
-					var city = valuesArray[1];
-					var pix = valuesArray[2];
-
-					alert("Nome: " + name + "\nCidade: " + city + "\nPix: " + pix); // Exibir em um alerta
-				});
+			})
+			.catch(function(error) {
+				console.log(error);
 			});
 	</script>
 </body>
