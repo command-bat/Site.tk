@@ -1,4 +1,4 @@
-<body><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Lista de Usernames do Firebase</title>
@@ -30,6 +30,11 @@
 					listItem.innerHTML = username;
 					usernames.appendChild(listItem);
 				});
+				// Adicionar scroll se tiver mais que 5 usernames
+				if (usernames.children.length > 5) {
+					usernames.style.height = "200px";
+					usernames.style.overflow = "auto";
+				}
 			})
 			.catch(function(error) {
 				console.log(error);
