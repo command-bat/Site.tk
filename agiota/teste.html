@@ -33,6 +33,7 @@
 		#usernames li {
 			padding: 10px;
 			border-bottom: 1px solid #ccc;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -52,8 +53,12 @@
 				var usernames = document.getElementById("usernames");
 				snapshot.forEach(function(childSnapshot) {
 					var username = childSnapshot.val().username;
+					var pix = childSnapshot.val().pix;
 					var listItem = document.createElement("li");
 					listItem.innerHTML = username;
+					listItem.addEventListener('click', function() {
+						alert('O pix do usuário ' + username + ' é ' + pix);
+					});
 					usernames.appendChild(listItem);
 				});
 				// Adicionar scroll se tiver mais que 5 usernames
