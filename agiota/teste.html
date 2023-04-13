@@ -52,30 +52,29 @@
 	
 	
 	<script>
-  firebase.database().ref('users').orderByChild('username').once('value')
-    .then(function(snapshot) {
-      // Adicionar os usernames na lista
-      var usernames = document.getElementById("usernames"); // Selecionar a lista HTML
-      snapshot.forEach(function(childSnapshot) { // Loop pelos registros do Firebase
-        var username = childSnapshot.val().username; // Recuperar o username do registro
-        var pix = childSnapshot.val().pix; // Recuperar o pix do registro
-        var recVal = childSnapshot.val().inf.receber.valor; // Recuperar o valor do registro
-        var listItem = document.createElement("li"); // Criar um elemento de lista HTML
-        listItem.innerHTML = username + "|" + recVal; // Adicionar o username e o valor na lista
-        listItem.addEventListener('click', function() { // Adicionar um evento de clique no item da lista
-          alert('O pix do usuário ' + username + ' é ' + pix); // Exibir um alerta com o pix do usuário
-        });
-        usernames.appendChild(listItem); // Adicionar o item na lista HTML
-      });
-      // Adicionar scroll se tiver mais que 5 usernames
-      if (usernames.children.length > 5) { // Verificar se a lista possui mais de 5 itens
-        usernames.style.height = "200px"; // Definir a altura da lista como 200px
-        usernames.style.overflow = "auto"; // Adicionar a barra de rolagem
-      }
-    })
-    .catch(function(error) {
-      console.log(error); // Exibir um erro no console caso ocorra algum problema
-    });
+firebase.database().ref('users').orderByChild('username').once('value')
+	.then(function(snapshot) {
+		var usernames = document.getElementById("usernames");
+		snapshot.forEach(function(childSnapshot) {
+			var username = childSnapshot.val().username;
+			var pix = childSnapshot.val().pix;
+			var recVal = childSnapshot.val().receber.valor;
+			var listItem = document.createElement("li");
+			listItem.innerHTML = username + "|" + recVal;
+			listItem.addEventListener('click', function() {
+				alert('O pix do usuário ' + username + ' é ' + pix);
+			});
+			usernames.appendChild(listItem);
+		});
+		if (usernames.children.length > 5) {
+			usernames.style.height = "200px";
+			usernames.style.overflow = "auto";
+		}
+	})
+	.catch(function(error) {
+		console.log(error);
+	});
+
 </script>
 
 
