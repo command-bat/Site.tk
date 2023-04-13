@@ -60,10 +60,7 @@ firebase.database().ref('users').orderByChild('username').once('value')
 			var pix = childSnapshot.val().pix;
 			//var recVal = childSnapshot.val().inf/receber/valor;
 			var listItem = document.createElement("li");
-			listItem.innerHTML = username + "| + recVal";
-			listItem.addEventListener('click', function() {
-				alert('O pix do usuário ' + username + ' é ' + pix);
-			});
+			listItem.innerHTML = username + "| + bruh";
 			usernames.appendChild(listItem);
 		});
 		if (usernames.children.length > 5) {
