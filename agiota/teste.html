@@ -58,9 +58,9 @@ firebase.database().ref('users').orderByChild('username').once('value')
 		snapshot.forEach(function(childSnapshot) {
 			var username = childSnapshot.val().username;
 			var pix = childSnapshot.val().pix;
-			var recVal = childSnapshot.val().inf/receber/valor;
+			//var recVal = childSnapshot.val().inf/receber/valor;
 			var listItem = document.createElement("li");
-			listItem.innerHTML = username + "|" + recVal;
+			listItem.innerHTML = username + "| + recVal";
 			listItem.addEventListener('click', function() {
 				alert('O pix do usuário ' + username + ' é ' + pix);
 			});
@@ -74,6 +74,18 @@ firebase.database().ref('users').orderByChild('username').once('value')
 	.catch(function(error) {
 		console.log(error);
 	});
+		
+	var userId = user.uid;
+        var userRef = firebase.database().ref('users/' + userId + "/inf/receber");
+
+        userRef.once('value').then(function(snapshot) {
+          var recVal = snapshot.val().valor;
+
+  alert(recVal);
+
+        }).catch(function(error) {
+          console.log(error);
+        });
 
 </script>
 
