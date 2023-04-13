@@ -77,9 +77,7 @@ firebase.database().ref('users').orderByChild('username').once('value')
 		
 		firebase.auth().onAuthStateChanged(function(user) {
 
-      if (user) {      
-        divDeslogado.style.display = 'none';
-        divLogado.style.display = 'block';
+      if (user) {
 
         
 	var userId = user.uid;
@@ -93,7 +91,6 @@ firebase.database().ref('users').orderByChild('username').once('value')
         }).catch(function(error) {
           console.log(error);
         });
-
       }
 		
 		
