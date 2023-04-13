@@ -74,7 +74,10 @@ firebase.database().ref('users').orderByChild('username').once('value')
 	.catch(function(error) {
 		console.log(error);
 	});
-		
+                var listItem = document.createElement("li");
+			listItem.addEventListener('click', function() {
+				
+
 		firebase.auth().onAuthStateChanged(function(user) {
 
       if (user) {
@@ -93,6 +96,9 @@ firebase.database().ref('users').orderByChild('username').once('value')
         });
       }
     });
+
+
+			});
 		
 	
 
