@@ -75,17 +75,29 @@ firebase.database().ref('users').orderByChild('username').once('value')
 		console.log(error);
 	});
 		
+		firebase.auth().onAuthStateChanged(function(user) {
+
+      if (user) {      
+        divDeslogado.style.display = 'none';
+        divLogado.style.display = 'block';
+
+        
 	var userId = user.uid;
         var userRef = firebase.database().ref('users/' + userId + "/inf/receber");
 
         userRef.once('value').then(function(snapshot) {
           var recVal = snapshot.val().valor;
 
-  alert(recVal);
+  	alert(recVal);
 
         }).catch(function(error) {
           console.log(error);
         });
+
+      }
+		
+		
+	
 
 </script>
 
