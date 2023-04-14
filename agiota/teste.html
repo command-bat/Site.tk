@@ -77,12 +77,14 @@ usersRef.orderByChild('username').on('value', function(snapshot) {
     if (receber.child('aceita').val() === false && receber.child('valor').val() !== null && /\d+/.test(receber.child('valor').val())) {
       var listItem = document.createElement("li");
       listItem.innerHTML = username + "|" + receber.child('valor').val();
-      listItem.addEventListener('click', function() {
-        receber.update({
-          uid: currentUserUid,
-          aceita: true
-        });
+	listItem.addEventListener('click', function() {
+ 	 receber.update({
+   	 uid: currentUserUid,
+  	  aceita: true,
+  	  username: currentUser.displayName
+  	});
       });
+
       emprestimo.appendChild(listItem);
     }
 
