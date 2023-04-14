@@ -63,6 +63,32 @@ firebase.auth().onAuthStateChanged((user) => {
 // Obtém uma referência para o nó "todevendo" da lista
 const todevendoRef = usersRef.child(currentUserUid).child('receber');
 
+// 1. Obter uma referência para o nó do Firebase que contém as informações sobre os usuários que precisam receber empréstimos.
+const listaEmprestimoRef = firebase.database().ref('users');
+
+// 2. Adicionar um listener para essa referência, de modo que você possa ser notificado sempre que houver uma alteração nos dados.
+listaEmprestimoRef.on('value', function(snapshot) {
+  // 3. Percorrer os dados obtidos e exibir as informações dos usuários na lista correspondente.
+  const emprestimoList = document.getElementById('emprestimo');
+  emprestimoList.innerHTML = '';
+  snapshot.forEach(function(childSnapshot) {
+    const childData = childSnapshot.val();
+    const receber = childData.receber;
+    if (receber && receber.aceita === false && receber.uid === '') {
+      const listItem = document.createElement('li');
+      listItem.innerText = childData.username + ': ' + receber.valor;
+      emprestimoList.appendChild(listItem);
+      
+      // 4. Adicionar um listener para o clique em um nome de usuário na lista, de modo que você possa atualizar o status de aceitação do empréstimo e o UID do usuário que fez a oferta de empréstimo.
+      listItem.addEventListener('click', function() {
+        receber.aceita = true;
+        receber.uid = firebase.auth().currentUser.uid;
+        childSnapshot.ref.update({receber: receber});
+      });
+    }
+  });
+});
+
 // Cria um listener para detectar mudanças na lista "todevendo"
 todevendoRef.on('value', (snapshot) => {
   // Remove todos os elementos da lista "todevendo"
