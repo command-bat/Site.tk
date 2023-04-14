@@ -60,9 +60,6 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     const currentUserUid = user.uid;
 
-// Obtém o uid do usuário logado
-const currentUserUid = firebase.auth().currentUser.uid;
-
 // Obtém uma referência para o nó "todevendo" da lista
 const todevendoRef = usersRef.child(currentUserUid).child('receber');
 
