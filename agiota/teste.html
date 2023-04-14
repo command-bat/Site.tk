@@ -98,20 +98,20 @@
             todevendo.appendChild(listItem);
           }
 
-          if (childSnapshot.key === currentUserUid) {
-            childSnapshot.child('inf/receber').forEach(function(receberSnapshot) {
-              if (receberSnapshot.key !== 'aceita' && receberSnapshot.key !== 'valor') {
-                var uid = receberSnapshot.key;
-                var valor = receberSnapshot.val();
-                usersRef.child(uid).child('username').once('value', function(usernameSnapshot) {
-                  var username = usernameSnapshot.val();
-                  var listItem = document.createElement("li");
-                  listItem.innerHTML = username + " | " + valor;
-                  medeve.appendChild(listItem);
-                });
-              }
+if (childSnapshot.key === currentUserUid) {
+    childSnapshot.child('inf/receber').forEach(function(receberSnapshot) {
+        if (receberSnapshot.key !== 'aceita' && receberSnapshot.key !== 'valor') {
+            var uid = receberSnapshot.key;
+            var valor = receberSnapshot.val();
+            usersRef.child(uid).child('username').once('value', function(usernameSnapshot) {
+                var username = usernameSnapshot.val();
+                var listItem = document.createElement("li");
+                listItem.innerHTML = username + "|" + valor;
+                medeve.appendChild(listItem); // Adiciona o item na lista "medeve"
             });
-          }
+        }
+    });
+}
         });
 
           // Define a altura das listas com base na quantidade de itens
