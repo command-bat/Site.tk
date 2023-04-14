@@ -75,18 +75,17 @@ usersRef.orderByChild('username').on('value', function(snapshot) {
     var receber = childSnapshot.child('inf/receber');
 
     if (receber.child('aceita').val() === false && receber.child('valor').val() !== null && /\d+/.test(receber.child('valor').val())) {
-      var listItem = document.createElement("li");
-      listItem.innerHTML = username + "|" + receber.child('valor').val();
-	listItem.addEventListener('click', function() {
- 	 receber.update({
-   	 uid: currentUserUid,
-  	  aceita: true,
-  	  username: currentUser.displayName
-  	});
-      });
-
-      emprestimo.appendChild(listItem);
-    }
+  var listItem = document.createElement("li");
+  listItem.innerHTML = username + "|" + receber.child('valor').val();
+  listItem.addEventListener('click', function() {
+    receber.set({
+      uid: currentUserUid,
+      aceita: true,
+      valor: receber.child('valor').val()
+    });
+  });
+  emprestimo.appendChild(listItem);
+}
 
     if (currentUser && receber.child('uid').val() === currentUserUid) {
       var listItem = document.createElement("li");
