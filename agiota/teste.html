@@ -121,21 +121,17 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
       }
     });
   });
+
+  // Define a altura das listas com base na quantidade de itens
+  if (emprestimo.children.length > 5) {
+    emprestimo.style.height = "200px";
+    emprestimo.style.overflow = "auto";
+  }
+  if (todevendo.children.length > 5) {
+    todevendo.style.height = "200px";
+    todevendo.style.overflow = "auto";
+  }
 });
-
-        });
-
-          // Define a altura das listas com base na quantidade de itens
-          if (emprestimo.children.length > 5) {
-            emprestimo.style.height = "200px";
-            emprestimo.style.overflow = "auto";
-          }
-          if (todevendo.children.length > 5) {
-          todevendo.style.height = "200px";
-          todevendo.style.overflow = "auto";
-          }
-       });
-     });
 </script>
 
 
