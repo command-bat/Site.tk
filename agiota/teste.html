@@ -49,56 +49,60 @@
 <script src="js/firebase.js"></script>
 
 <script>
-	// Referência do banco de dados
-var usersRef = firebase.database().ref('users');
+    // Referência do banco de dados
+    var usersRef = firebase.database().ref('users');
 
-// Consulta os usuários e exibe na lista
-usersRef.orderByChild('username').once('value', function(snapshot) {
-    var usernames = document.getElementById("usernames");
-    snapshot.forEach(function(childSnapshot) {
-        var username = childSnapshot.child('username').val();
-        var recVal = childSnapshot.child('inf/receber/valor').val();
-        var aceita = childSnapshot.child('inf/receber/aceita').val();
+    // Consulta os usuários e exibe na lista
+    usersRef.orderByChild('username').once('value', function(snapshot) {
+        var usernames = document.getElementById("usernames");
+        snapshot.forEach(function(childSnapshot) {
+            var username = childSnapshot.child('username').val();
+            var recVal = childSnapshot.child('inf/receber/valor').val();
+            var aceita = childSnapshot.child('inf/receber/aceita').val();
+            var uid = childSnapshot.key;
 
-        if (!aceita) {
-            var uid = user.uid; // Pega o UID do usuário
-            var listItem = document.createElement("li");
-            listItem.innerHTML = username + "|" + recVal;
-            listItem.addEventListener('click', function() {
-                var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
-                currentUserRef.update({
-                    uid: firebase.auth().currentUser.uid, // Salva o UID de quem clicou no nome do usuário
-                    aceita: true // Altera o valor de "aceita" para true
+            if (!aceita) {
+                var listItem = document.createElement("li");
+                listItem.innerHTML = username + "|" + recVal;
+                listItem.addEventListener('click', function() {
+                    var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
+                    currentUserRef.update({
+                        uid: firebase.auth().currentUser.uid,
+                        aceita: true
+                    });
                 });
-            });
-            usernames.appendChild(listItem);
+                usernames.appendChild(listItem);
+            }
+        });
+
+        // Define a altura da lista de usuários com base na quantidade de itens
+        if (usernames.children.length > 5) {
+            usernames.style.height = "200px";
+            usernames.style.overflow = "auto";
         }
     });
-    
-    // Define a altura da lista de usuários com base na quantidade de itens
-    if (usernames.children.length > 5) {
-        usernames.style.height = "200px";
-        usernames.style.overflow = "auto";
-    }
-});
 
-// Verifica se o usuário está logado e exibe o valor a receber ao clicar na lista
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        var userId = user.uid;
-        var userRef = firebase.database().ref('users/' + userId + '/inf/receber/valor');
-        var listItem = document.createElement("li");
-        listItem.addEventListener('click', function() {
+    // Verifica se o usuário está logado e exibe o valor a receber se "aceita" for verdadeiro
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var userId = user.uid;
+            var userRef = firebase.database().ref('users/' + userId + '/inf/receber');
             userRef.once('value').then(function(snapshot) {
-                var recVal = snapshot.val();
-                alert(recVal);
+                var recVal = snapshot.child('valor').val();
+                var aceita = snapshot.child('aceita').val();
+                if (aceita) {
+                    var listItem = document.createElement("li");
+                    listItem.addEventListener('click', function() {
+                        alert(recVal);
+                    });
+                    listItem.innerHTML = "Valor a receber: " + recVal;
+                    usernames.appendChild(listItem);
+                }
             }).catch(function(error) {
                 console.log(error);
             });
-        });
-    }
-});
-
+        }
+    });
 </script>
 
 </body>
