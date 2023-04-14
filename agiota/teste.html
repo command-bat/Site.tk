@@ -58,20 +58,18 @@
 var usersRef = firebase.database().ref('users');
 var currentUserUid;
 
-// Consulta os usuários e exibe nas listas
 firebase.auth().onAuthStateChanged(function(currentUser) {
   var emprestimo = document.getElementById("emprestimo");
   var todevendo = document.getElementById("todevendo");
   var medeve = document.getElementById("medeve");
 
-  // Limpa as listas para evitar duplicidade de elementos
   emprestimo.innerHTML = '';
   todevendo.innerHTML = '';
   medeve.innerHTML = '';
 
   currentUserUid = currentUser ? currentUser.uid : null;
 
-  var usernames = []; // array para armazenar usernames já adicionados
+  var usernames = [];
 
   usersRef.on('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
@@ -92,18 +90,18 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
             currentUserRef.child('inf/receber').child(uid).set(true);
           });
         });
-        if (!usernames.includes(username)) { // verifica se o username já foi adicionado
+        if (!usernames.includes(username)) {
           emprestimo.appendChild(listItem);
-          usernames.push(username); // adiciona o username ao array
+          usernames.push(username);
         }
       }
 
       if (currentUserUid && receber.child('uid').val() === currentUserUid) {
         var listItem = document.createElement("li");
-        listItem.innerHTML = username + " | " + receber.child('valor').val();
-        if (!usernames.includes(username)) { // verifica se o username já foi adicionado
+        listItem.innerHTML = receber.child('username').val() + " | " + receber.child('valor').val();
+        if (!usernames.includes(username)) {
           todevendo.appendChild(listItem);
-          usernames.push(username); // adiciona o username ao array
+          usernames.push(username);
         }
       }
 
@@ -116,9 +114,9 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
               var username = usernameSnapshot.val();
               var listItem = document.createElement("li");
               listItem.innerHTML = username + " | " + valor + " | " + receberUid;
-              if (!usernames.includes(username)) { // verifica se o username já foi adicionado
+              if (!usernames.includes(username)) {
                 medeve.appendChild(listItem);
-                usernames.push(username); // adiciona o username ao array
+                usernames.push(username);
               }
             });
           }
@@ -127,7 +125,6 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
     });
   });
 
-  // Remove os elementos das listas quando um usuário é removido
   usersRef.on('child_removed', function(snapshot) {
     var username = snapshot.child('username').val();
     var index = usernames.indexOf(username);
