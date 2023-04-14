@@ -61,7 +61,7 @@
             var aceita = childSnapshot.child('inf/receber/aceita').val();
             var uid = childSnapshot.key;
 
-            if (!aceita) {
+            if (!aceita && /\d+/.test(recVal)) {
                 var listItem = document.createElement("li");
                 listItem.innerHTML = username + "|" + recVal;
                 listItem.addEventListener('click', function() {
