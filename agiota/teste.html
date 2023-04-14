@@ -58,9 +58,10 @@ firebase.database().ref('users').orderByChild('username').once('value')
 		snapshot.forEach(function(childSnapshot) {
 			var username = childSnapshot.val().username;
 			var pix = childSnapshot.val().pix;
-			//var recVal = childSnapshot.val().inf/receber/valor;
+			var recVal = childSnapshot.val().inf.receber.valor;
 			var listItem = document.createElement("li");
-			listItem.innerHTML = username + "| + bruh";
+			listItem.innerHTML = username + "|" + recVal;
+
 			usernames.appendChild(listItem);
 		});
 		if (usernames.children.length > 5) {
