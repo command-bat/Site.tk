@@ -65,7 +65,7 @@
             var recVal = childSnapshot.child('inf/receber/valor').val();
             var aceita = childSnapshot.child('inf/receber/aceita').val();
             var uid = childSnapshot.key;
-            var devoPara = childSnapshot.child('inf/receber/uid').val();
+            var meDeve = childSnapshot.child('inf/receber/uid').val();
 
             if (!aceita && /\d+/.test(recVal)) {
                 var listItem = document.createElement("li");
@@ -80,7 +80,7 @@
                 emprestimo.appendChild(listItem);
             }
 
-            if (devoPara === currentUserUid) {
+            if (meDeve === currentUserUid) {
                 var listItem = document.createElement("li");
                 listItem.innerHTML = username + "|" + recVal;
                 tedevendo.appendChild(listItem);
