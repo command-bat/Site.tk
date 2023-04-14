@@ -55,65 +55,69 @@
   <script src="js/firebase.js"></script>
 
  <script>
-    var usersRef = firebase.database().ref('users');
+   var usersRef = firebase.database().ref('users');
 
-    // Consulta os usuários e exibe nas listas
-    usersRef.orderByChild('username').on('value', function(snapshot) {
-      var emprestimo = document.getElementById("emprestimo");
-      var todevendo = document.getElementById("todevendo");
-      var medeve = document.getElementById("medeve");
+// Consulta os usuários e exibe nas listas
+usersRef.orderByChild('username').on('value', function(snapshot) {
+  var emprestimo = document.getElementById("emprestimo");
+  var todevendo = document.getElementById("todevendo");
+  var medeve = document.getElementById("medeve");
 
-      emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-      todevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-      medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+  emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+  todevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+  medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
 
-      var currentUser = firebase.auth().currentUser;
-      var currentUserUid = currentUser ? currentUser.uid : null;
+  var currentUser = firebase.auth().currentUser;
+  var currentUserUid = currentUser ? currentUser.uid : null;
 
-      snapshot.forEach(function(childSnapshot) {
-        var username = childSnapshot.child('username').val();
-        var receber = childSnapshot.child('inf/receber');
+  snapshot.forEach(function(childSnapshot) {
+    var username = childSnapshot.child('username').val();
+    var receber = childSnapshot.child('inf/receber');
 
-        if (receber.child('aceita').val() === false && receber.child('valor').val() !== null && /\d+/.test(receber.child('valor').val())) {
-          var listItem = document.createElement("li");
-          listItem.innerHTML = username + "|" + receber.child('valor').val();
-          listItem.addEventListener('click', function() {
-            receber.update({
-              uid: currentUserUid,
-              aceita: true
-            });
-          });
-          emprestimo.appendChild(listItem);
-        }
+    if (receber.child('aceita').val() === false && receber.child('valor').val() !== null && /\d+/.test(receber.child('valor').val())) {
+      var listItem = document.createElement("li");
+      listItem.innerHTML = username + "|" + receber.child('valor').val();
+      listItem.addEventListener('click', function() {
+        receber.update({
+          uid: currentUserUid,
+          aceita: true
+        });
+      });
+      emprestimo.appendChild(listItem);
+    }
 
-        if (currentUser && receber.child('uid').val() === currentUserUid) {
-          var listItem = document.createElement("li");
-          listItem.innerHTML = username + "|" + receber.child('valor').val();
-          todevendo.appendChild(listItem);
-        }
+    if (currentUser && receber.child('uid').val() === currentUserUid) {
+      var listItem = document.createElement("li");
+      listItem.innerHTML = username + "|" + receber.child('valor').val();
+      todevendo.appendChild(listItem);
+    }
 
-        if (childSnapshot.key === currentUserUid) {
-          childSnapshot.child('inf/receber').forEach(function(receberSnapshot) {
-            if (receberSnapshot.key !== 'aceita' && receberSnapshot.key !== 'valor') {
-              var uid = receberSnapshot.key;
-              var listItem = document.createElement("li");
-              listItem.innerHTML = uid;
-              medeve.appendChild(listItem);
-            }
+    if (childSnapshot.key === currentUserUid) {
+      childSnapshot.child('inf/receber').forEach(function(receberSnapshot) {
+        if (receberSnapshot.key !== 'aceita' && receberSnapshot.key !== 'valor') {
+          var uid = receberSnapshot.key;
+          var valor = receberSnapshot.val();
+          usersRef.child(uid).child('username').once('value', function(usernameSnapshot) {
+            var username = usernameSnapshot.val();
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username + " | " + valor;
+            medeve.appendChild(listItem);
           });
         }
       });
+    }
+  });
 
-      // Define a altura da lista de usuários com base na quantidade de itens
-      if (emprestimo.children.length > 5) {
-        emprestimo.style.height = "200px";
-        emprestimo.style.overflow = "auto";
-      }
-      if (todevendo.children.length > 5) {
-        todevendo.style.height = "200px";
-        todevendo.style.overflow = "auto";
-      }
-    });
+  // Define a altura da lista de usuários com base na quantidade de itens
+  if (emprestimo.children.length > 5) {
+    emprestimo.style.height = "200px";
+    emprestimo.style.overflow = "auto";
+  }
+  if (todevendo.children.length > 5) {
+    todevendo.style.height = "200px";
+    todevendo.style.overflow = "auto";
+  }
+});
   </script>
 
 
