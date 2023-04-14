@@ -43,6 +43,9 @@
     <ul id="emprestimo"></ul>
     <h2>Username de quem vc esta<br>devendo dinheiro</h2>
     <ul id="todevendo"></ul>
+    <h3>Username de quem esta<br>te devendo dinheiro</h3>
+    <ul id="medeve"></ul>
+
 
     <!-- Inclui o SDK do Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -98,6 +101,22 @@
             todevendo.style.overflow = "auto";
         }
     });
-</script>
+
+var currentUser = firebase.auth().currentUser;
+var medeve = document.getElementById("medeve");
+medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+
+if (currentUser) {
+  var currentUserUid = currentUser.uid;
+  usersRef.orderByChild('inf/receber/uid').equalTo(currentUserUid).on('child_added', function(snapshot) {
+    var username = snapshot.child('username').val();
+    var listItem = document.createElement("li");
+    listItem.innerHTML = username;
+    medeve.appendChild(listItem);
+  });
+}
+
+
+</script> 
 
 </html>
