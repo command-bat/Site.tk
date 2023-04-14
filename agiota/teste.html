@@ -61,7 +61,7 @@ usersRef.orderByChild('username').once('value', function(snapshot) {
         var aceita = childSnapshot.child('inf/receber/aceita').val();
 
         if (!aceita) {
-            var uid = childSnapshot.key; // Pega o UID do usuário
+            var uid = user.uid; // Pega o UID do usuário
             var listItem = document.createElement("li");
             listItem.innerHTML = username + "|" + recVal;
             listItem.addEventListener('click', function() {
