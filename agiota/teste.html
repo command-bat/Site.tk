@@ -65,7 +65,7 @@
             var recVal = childSnapshot.child('inf/receber/valor').val();
             var aceita = childSnapshot.child('inf/receber/aceita').val();
             var uid = childSnapshot.key;
-            var meDeve = childSnapshot.child('inf/receber/uid').val();
+            var meDeve = childSnapshot.child('user/' + currentUserUid + '/inf/receber/' + uid).val();
 
             if (!aceita && /\d+/.test(recVal)) {
                 var listItem = document.createElement("li");
