@@ -39,66 +39,67 @@
 	</style>
 </head>
 <body>
-	<h1>Selecione o username<br>para emprestar dinheiro</h1>
-	<ul id="emprestimo"></ul>
-        <h2>Username de quem esta<br>de devendo dinheiro</h2>
-        <ul id="tedevendo"></ul>
+    <h1>Selecione o username<br>para emprestar dinheiro</h1>
+    <ul id="emprestimo"></ul>
+    <ul id="tedevendo"></ul>
 
-	<!-- Inclui o SDK do Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-<script src="js/firebase.js"></script>
+    <!-- Inclui o SDK do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="js/firebase.js"></script>
 
-<script>
-    var usersRef = firebase.database().ref('users');
-    var currentUserUid = firebase.auth().User.uid;
+    <script>
+        var usersRef = firebase.database().ref('users');
 
-    // Consulta os usuários e exibe na lista
-    usersRef.orderByChild('username').on('value', function(snapshot) {
-        var emprestimo = document.getElementById("emprestimo");
-        var tedevendo = document.getElementById("tedevendo");
-        emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-        tedevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-        snapshot.forEach(function(childSnapshot) {
-            var username = childSnapshot.child('username').val();
-            var recVal = childSnapshot.child('inf/receber/valor').val();
-            var aceita = childSnapshot.child('inf/receber/aceita').val();
-            var uid = childSnapshot.key;
-            var meDeve = childSnapshot.child('user/' + currentUserUid + '/inf/receber/' + uid).val();
+        // Consulta os usuários e exibe na lista
+        usersRef.orderByChild('username').on('value', function(snapshot) {
+            var emprestimo = document.getElementById("emprestimo");
+            var tedevendo = document.getElementById("tedevendo");
+            emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+            tedevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+            snapshot.forEach(function(childSnapshot) {
+                var username = childSnapshot.child('username').val();
+                var recVal = childSnapshot.child('inf/receber/valor').val();
+                var aceita = childSnapshot.child('inf/receber/aceita').val();
+                var uid = childSnapshot.key;
+                var meDeve = childSnapshot.child('inf/receber/uid').val();
 
-            if (!aceita && /\d+/.test(recVal)) {
-                var listItem = document.createElement("li");
-                listItem.innerHTML = username + "|" + recVal;
-                listItem.addEventListener('click', function() {
-                    var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
-                    currentUserRef.update({
-                        uid: currentUserUid,
-                        aceita: true
+                if (!aceita && /\d+/.test(recVal)) {
+                    var listItem = document.createElement("li");
+                    listItem.innerHTML = username + "|" + recVal;
+                    listItem.addEventListener('click', function() {
+                        var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
+                        var currentUserUid = firebase.auth().currentUser.uid;
+                        currentUserRef.update({
+                            uid: currentUserUid,
+                            aceita: true
+                        });
                     });
-                });
-                emprestimo.appendChild(listItem);
+                    emprestimo.appendChild(listItem);
+                }
+
+                var currentUser = firebase.auth().currentUser;
+                if (currentUser && meDeve === currentUser.uid) {
+                    var listItem = document.createElement("li");
+                    listItem.innerHTML = username + "|" + recVal;
+                    tedevendo.appendChild(listItem);
+                }
+            });
+
+            // Define a altura da lista de usuários com base na quantidade de itens
+            if (emprestimo.children.length > 5) {
+                emprestimo.style.height = "200px";
+                emprestimo.style.overflow = "auto";
             }
-
-            if (meDeve === currentUserUid) {
-    var listItem = document.createElement("li");
-    listItem.innerHTML = username + "|" + recVal;
-    tedevendo.appendChild(listItem);
-}
-
+            if (tedevendo.children.length > 5) {
+                tedevendo.style.height = "200px";
+                tedevendo.style.overflow = "auto";
+            }
         });
+    </script>
+</body>
 
-        // Define a altura da lista de usuários com base na quantidade de itens
-        if (emprestimo.children.length > 5) {
-            emprestimo.style.height = "200px";
-            emprestimo.style.overflow = "auto";
-        }
-        if (tedevendo.children.length > 5) {
-            tedevendo.style.height = "200px";
-            tedevendo.style.overflow = "auto";
-        }
-    });
-</script>
 
 
 </body>
