@@ -9,7 +9,7 @@
 			padding: 0;
 		}
 
-		h1 {
+		h1, h2 {
 			background-color: #333;
 			height: auto;
 			max-height: 150px;
@@ -20,7 +20,7 @@
 			margin: 0;
 		}
 
-		#emprestimo {
+		#emprestimo, #tedevendo {
 			height: auto;
 			max-height: 150px;
 			width: auto;
@@ -31,7 +31,7 @@
 			list-style: none;
 		}
 
-		#emprestimo li {
+		#emprestimo li, #tedevendo li {
 			padding: 10px;
 			border-bottom: 1px solid #ccc;
 			cursor: pointer;
@@ -41,6 +41,7 @@
 <body>
 	<h1>Selecione o username<br>para emprestar dinheiro</h1>
 	<ul id="emprestimo"></ul>
+        <h2>Username de quem esta<br>de devendo dinheiro</h2>
         <ul id="tedevendo"></ul>
 
 	<!-- Inclui o SDK do Firebase -->
