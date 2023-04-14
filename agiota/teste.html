@@ -56,72 +56,31 @@
 
  <script>
     
-    var currentUserUid;
+    // 1. Obter uma referência para o nó do Firebase que contém as informações sobre os usuários que precisam receber empréstimos.
+const listaEmprestimoRef = firebase.database().ref('users');
 
-    firebase.auth().onAuthStateChanged(function(currentUser) {
-      currentUserUid = currentUser ? currentUser.uid : null;
-
-      // Lista de empréstimos
-      var emprestimoRef = firebase.database().ref('users');
-      emprestimoRef.on('value', function(snapshot) {
-        var emprestimo = document.getElementById("emprestimo");
-        emprestimo.innerHTML = '';
-        snapshot.forEach(function(childSnapshot) {
-          var uid = childSnapshot.key;
-          var username = childSnapshot.child('inf/receber/username').val();
-          var receber = childSnapshot.child('inf/receber/receber');
-          if (!receber.child('aceita').val() && receber.child('valor').val() && /^\d+$/.test(receber.child('valor').val())) {
-            var listItem = document.createElement("li");
-            listItem.innerHTML = username + " | " + receber.child('valor').val();
-            listItem.addEventListener('click', function() {
-              receber.update({
-                uid: currentUserUid,
-                aceita: true
-              }).then(function() {
-                var currentUserRef = firebase.database().ref('users').child(currentUserUid);
-                currentUserRef.child('receber').child(uid).set(true);
-              });
-            });
-            emprestimo.appendChild(listItem);
-          }
-        });
+// 2. Adicionar um listener para essa referência, de modo que você possa ser notificado sempre que houver uma alteração nos dados.
+listaEmprestimoRef.on('value', function(snapshot) {
+  // 3. Percorrer os dados obtidos e exibir as informações dos usuários na lista correspondente.
+  const emprestimoList = document.getElementById('emprestimo');
+  emprestimoList.innerHTML = '';
+  snapshot.forEach(function(childSnapshot) {
+    const childData = childSnapshot.val();
+    const receber = childData.receber;
+    if (receber && receber.aceita === false && receber.uid === '') {
+      const listItem = document.createElement('li');
+      listItem.innerText = childData.username + ': ' + receber.valor;
+      emprestimoList.appendChild(listItem);
+      
+      // 4. Adicionar um listener para o clique em um nome de usuário na lista, de modo que você possa atualizar o status de aceitação do empréstimo e o UID do usuário que fez a oferta de empréstimo.
+      listItem.addEventListener('click', function() {
+        receber.aceita = true;
+        receber.uid = firebase.auth().currentUser.uid;
+        childSnapshot.ref.update({receber: receber});
       });
-
-      // Lista de pessoas te devendo
-      var todevendoRef = firebase.database().ref('username');
-      todevendoRef.on('value', function(snapshot) {
-        var todevendo = document.getElementById("todevendo");
-        todevendo.innerHTML = '';
-        snapshot.forEach(function(childSnapshot) {
-          var uid = childSnapshot.key;
-          var username = childSnapshot.child('inf/receber/username').val();
-          var receber = childSnapshot.child('inf/receber/receber');
-          if (receber.child('uid').val() === currentUserUid) {
-            var listItem = document.createElement("li");
-            listItem.innerHTML = username;
-            listItem.addEventListener('click', function() {
-              alert("Você emprestou " + receber.child('valor').val() + " para " + username);
-            });
-            todevendo.appendChild(listItem);
-          }
-        });
-      });
-
-      // Lista de pessoas que você está devendo
-      var medeveRef = firebase.database().ref('users').child(currentUserUid).child('receber');
-      medeveRef.on('value', function(snapshot) {
-        var medeve = document.getElementById("medeve");
-        medeve.innerHTML = '';
-        snapshot.forEach(function(childSnapshot) {
-          var uid = childSnapshot.key;
-          var listItem = document.createElement("li");
-          listItem.innerHTML = uid + " | " + childSnapshot.val();
-          listItem.addEventListener('click', function() {
-            alert("Você deve " + childSnapshot.val() + " para " + uid);
-          });
-          medeve.appendChild(listItem);
-        });
-      });
+    }
+  });
+});
     });
   </script>
 </body>
