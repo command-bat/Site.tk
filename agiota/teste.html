@@ -81,26 +81,6 @@
             usernames.style.overflow = "auto";
         }
     });
-
-    // Verifica se o usuário está logado e exibe o valor a receber se "aceita" for verdadeiro
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            var userId = user.uid;
-            var userRef = firebase.database().ref('users/' + userId + '/inf/receber');
-            userRef.on('value', function(snapshot) {
-                var recVal = snapshot.child('valor').val();
-                var aceita = snapshot.child('aceita').val();
-                if (aceita) {
-                    var listItem = document.createElement("li");
-                    listItem.addEventListener('click', function() {
-                        alert(recVal);
-                    });
-                    listItem.innerHTML = "Valor a receber: " + recVal;
-                    usernames.appendChild(listItem);
-                }
-            });
-        }
-    });
 </script>
 
 </body>
