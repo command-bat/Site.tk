@@ -54,7 +54,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
   <script src="js/firebase.js"></script>
 
-  <script>
+ <script>
     var currentUserUid;
 
     firebase.auth().onAuthStateChanged(function(currentUser) {
@@ -105,8 +105,23 @@
           }
         });
       });
-</script>
 
-
+      // Lista de pessoas que você está devendo
+      var medeveRef = firebase.database().ref('users').child(currentUserUid).child('receber');
+      medeveRef.on('value', function(snapshot) {
+        var medeve = document.getElementById("medeve");
+        medeve.innerHTML = '';
+        snapshot.forEach(function(childSnapshot) {
+          var uid = childSnapshot.key;
+          var listItem = document.createElement("li");
+          listItem.innerHTML = uid + " | " + childSnapshot.val();
+          listItem.addEventListener('click', function() {
+            alert("Você deve " + childSnapshot.val() + " para " + uid);
+          });
+          medeve.appendChild(listItem);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
