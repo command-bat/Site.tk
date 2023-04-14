@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Lista de Usernames do Firebase</title>
+	<title>Lista do Firebase</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -41,7 +41,7 @@
 <body>
 	<h1>Selecione o username<br>para emprestar dinheiro</h1>
 	<ul id="emprestimo"></ul>
-        <ul id="usernames"></ul>
+        <ul id="tedevendo"></ul>
 
 	<!-- Inclui o SDK do Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -51,16 +51,20 @@
 
 <script>
     var usersRef = firebase.database().ref('users');
+    var currentUserUid = firebase.auth().currentUser.uid;
 
     // Consulta os usuários e exibe na lista
     usersRef.orderByChild('username').on('value', function(snapshot) {
         var emprestimo = document.getElementById("emprestimo");
+        var tedevendo = document.getElementById("tedevendo");
         emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+        tedevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
         snapshot.forEach(function(childSnapshot) {
             var username = childSnapshot.child('username').val();
             var recVal = childSnapshot.child('inf/receber/valor').val();
             var aceita = childSnapshot.child('inf/receber/aceita').val();
             var uid = childSnapshot.key;
+            var devoPara = childSnapshot.child('inf/receber/uid').val();
 
             if (!aceita && /\d+/.test(recVal)) {
                 var listItem = document.createElement("li");
@@ -68,11 +72,17 @@
                 listItem.addEventListener('click', function() {
                     var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
                     currentUserRef.update({
-                        uid: firebase.auth().currentUser.uid,
+                        uid: currentUserUid,
                         aceita: true
                     });
                 });
                 emprestimo.appendChild(listItem);
+            }
+
+            if (devoPara === currentUserUid) {
+                var listItem = document.createElement("li");
+                listItem.innerHTML = username + "|" + recVal;
+                tedevendo.appendChild(listItem);
             }
         });
 
@@ -81,8 +91,13 @@
             emprestimo.style.height = "200px";
             emprestimo.style.overflow = "auto";
         }
+        if (tedevendo.children.length > 5) {
+            tedevendo.style.height = "200px";
+            tedevendo.style.overflow = "auto";
+        }
     });
 </script>
+
 
 </body>
 </html>
