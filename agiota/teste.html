@@ -60,7 +60,7 @@
 			var recVal = childSnapshot.child('inf/receber/valor').val();
 			var aceita = childSnapshot.child('inf/receber/aceita').val();
 
-			if (aceita) {
+			if (!aceita) {
 				var listItem = document.createElement("li");
 				listItem.innerHTML = username + "|" + recVal;
 				usernames.appendChild(listItem);
