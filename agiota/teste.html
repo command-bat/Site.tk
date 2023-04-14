@@ -55,6 +55,10 @@
   <script src="js/firebase.js"></script>
 
   <script>
+    var usersRef = firebase.database().ref('users');
+    var currentUserUid;
+
+    // Consulta os usuários e exibe nas listas
 firebase.auth().onAuthStateChanged(function(currentUser) {
   var emprestimo = document.getElementById("emprestimo");
   var todevendo = document.getElementById("todevendo");
