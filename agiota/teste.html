@@ -65,7 +65,7 @@
                 var uid = childSnapshot.key;
                 var meDeve = childSnapshot.child('inf/receber/uid').val();
 
-                if (!aceita && /\d+/.test(recVal)) {
+                if (!aceita && recVal != null && recVal != undefined && /\d+/.test(recVal)) {
                     var listItem = document.createElement("li");
                     listItem.innerHTML = username + "|" + recVal;
                     listItem.addEventListener('click', function() {
@@ -99,6 +99,7 @@
         });
     </script>
 </body>
+
 
 
 
