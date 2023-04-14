@@ -98,7 +98,7 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
 
       if (currentUserUid && receber.child('uid').val() === currentUserUid) {
         var listItem = document.createElement("li");
-        listItem.innerHTML = receber.child('username').val() + " | " + receber.child('valor').val();
+        listItem.innerHTML = username + " | " + receber.child('valor').val();
         if (!usernames.includes(username)) {
           todevendo.appendChild(listItem);
           usernames.push(username);
@@ -133,6 +133,17 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
     }
   });
 });
+
+
+	   if (emprestimo.children.length > 5) {
+                emprestimo.style.height = "200px";
+                emprestimo.style.overflow = "auto";
+            }
+            if (tedevendo.children.length > 5) {
+                tedevendo.style.height = "200px";
+                tedevendo.style.overflow = "auto";
+            }
+        });
 
 </script>
 
