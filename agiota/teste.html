@@ -54,16 +54,18 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
   <script src="js/firebase.js"></script>
 
-  <script>
+ <script>
     var usersRef = firebase.database().ref('users');
 
     // Consulta os usuários e exibe na lista
     usersRef.orderByChild('username').on('value', function(snapshot) {
       var emprestimo = document.getElementById("emprestimo");
       var todevendo = document.getElementById("todevendo");
+      var medeve = document.getElementById("medeve");
 
       emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
       todevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+      medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
 
       snapshot.forEach(function(childSnapshot) {
         var username = childSnapshot.child('username').val();
@@ -88,6 +90,12 @@
           listItem.innerHTML = username + "|" + receber.child('valor').val();
           todevendo.appendChild(listItem);
         }
+
+        if (currentUser && receber.child('uid').val() === currentUser.uid) {
+          var listItem = document.createElement("li");
+          listItem.innerHTML = username;
+          medeve.appendChild(listItem);
+        }
       });
 
       // Define a altura da lista de usuários com base na quantidade de itens
@@ -100,19 +108,7 @@
         todevendo.style.overflow = "auto";
       }
     });
+  </script>
 
-    var medeve = document.getElementById("medeve");
-    medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-
-    var currentUser = firebase.auth().currentUser;
-    if (currentUser) {
-      usersRef.orderByChild('inf/receber/uid').equalTo(currentUser.uid).on('child_added', function(snapshot) {
-        var username = snapshot.child('username').val();
-        var listItem = document.createElement("li");
-        listItem.innerHTML = username;
-        medeve.appendChild(listItem);
-      });
-    }
-  </script> 
 </body>
 </html>
