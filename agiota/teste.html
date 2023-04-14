@@ -67,7 +67,7 @@
         emprestimo.innerHTML = '';
         snapshot.forEach(function(childSnapshot) {
           var uid = childSnapshot.key;
-          var username = childSnapshot.child('username').val();
+          var username = childSnapshot.child('inf/receber/username').val();
           var receber = childSnapshot.child('receber');
           if (!receber.child('aceita').val() && receber.child('valor').val() && /^\d+$/.test(receber.child('valor').val())) {
             var listItem = document.createElement("li");
