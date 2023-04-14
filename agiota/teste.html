@@ -55,77 +55,77 @@
   <script src="js/firebase.js"></script>
 
   <script>
-var usersRef = firebase.database().ref('users');
-var currentUserUid;
+    var usersRef = firebase.database().ref('users');
+    var currentUserUid;
 
-firebase.auth().onAuthStateChanged(function(currentUser) {
-  var emprestimo = document.getElementById("emprestimo");
-  var todevendo = document.getElementById("todevendo");
-  var medeve = document.getElementById("medeve");
+    firebase.auth().onAuthStateChanged(function(currentUser) {
+      currentUserUid = currentUser ? currentUser.uid : null;
+      var emprestimo = document.getElementById("emprestimo");
+      var todevendo = document.getElementById("todevendo");
+      var medeve = document.getElementById("medeve");
 
-  emprestimo.innerHTML = '';
-  todevendo.innerHTML = '';
-  medeve.innerHTML = '';
+      usersRef.on('value', function(snapshot) {
+        var usernames = [];
 
-  currentUserUid = currentUser ? currentUser.uid : null;
+        snapshot.forEach(function(childSnapshot) {
+          var uid = childSnapshot.key;
+          var username = childSnapshot.child('username').val();
+          var receber = childSnapshot.child('receber');
 
-  var usernames = [];
+          if (receber.child('aceita').val() === false && receber.child('valor').val() !== null && /^\d+$/.test(receber.child('valor').val())) {
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username + " | " + receber.child('valor').val();
+            listItem.addEventListener('click', function() {
+              receber.ref.update({
+                uid: currentUserUid,
+                aceita: true
+              }).then(function() {
+                var currentUserRef = usersRef.child(currentUserUid);
+                currentUserRef.child('receber').child(uid).set(true);
+              });
+            });
+            if (!usernames.includes(username)) {
+              emprestimo.appendChild(listItem);
+              usernames.push(username);
+            }
+          }
 
-  usersRef.on('value', function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      var uid = childSnapshot.key;
-      var username = childSnapshot.child('username').val();
-      var receber = childSnapshot.child('inf/receber');
+          if (currentUserUid && receber.child('uid').val() === currentUserUid) {
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username;
+            listItem.addEventListener('click', function() {
+              alert("Você emprestou dinheiro para " + username);
+            });
+            if (!usernames.includes(username)) {
+              todevendo.appendChild(listItem);
+              usernames.push(username);
+            }
+          }
 
-      if (receber.child('aceita').val() === false && receber.child('valor').val() !== null && /^\d+$/.test(receber.child('valor').val())) {
-        var listItem = document.createElement("li");
-        listItem.innerHTML = username + " | " + receber.child('valor').val();
-        listItem.addEventListener('click', function() {
-          var receberRef = receber.ref;
-          receberRef.update({
-            uid: currentUserUid,
-            aceita: true
-          }).then(function() {
-            var currentUserRef = usersRef.child(currentUserUid);
-            currentUserRef.child('inf/receber').child(uid).set(true);
-          });
-        });
-        if (!usernames.includes(username)) {
-          emprestimo.appendChild(listItem);
-          usernames.push(username);
-        }
-      }
-
-      if (currentUserUid && receber.child('uid').val() === currentUserUid) {
-        var listItem = document.createElement("li");
-        listItem.innerHTML = username + " | " + receber.child('valor').val();
-        if (!usernames.includes(username)) {
-          todevendo.appendChild(listItem);
-          usernames.push(username);
-        }
-      }
-
-      if (uid === currentUserUid) {
-        receber.forEach(function(receberSnapshot) {
-          var receberUid = receberSnapshot.key;
-          if (receberUid !== 'aceita' && receberUid !== 'valor') {
-            var valor = receberSnapshot.val();
-            usersRef.child(receberUid).child('username').once('value', function(usernameSnapshot) {
-              var username = usernameSnapshot.val();
-              var listItem = document.createElement("li");
-              listItem.innerHTML = username + " | " + valor + " | " + receberUid;
-              if (!usernames.includes(username)) {
-                medeve.appendChild(listItem);
-                usernames.push(username);
+          if (uid === currentUserUid) {
+            receber.forEach(function(receberSnapshot) {
+              var receberUid = receberSnapshot.key;
+              if (receberUid !== 'aceita' && receberUid !== 'valor') {
+                var valor = receberSnapshot.val();
+                usersRef.child(receberUid).child('username').once('value', function(usernameSnapshot) {
+                  var username = usernameSnapshot.val();
+                  var listItem = document.createElement("li");
+                  listItem.innerHTML = username + " | " + valor;
+                  listItem.addEventListener('click', function() {
+                    alert("Você deve dinheiro para " + username + " no valor de " + valor);
+                  });
+                  if (!usernames.includes(username)) {
+                    medeve.appendChild(listItem);
+                    usernames.push(username);
+                  }
+                });
               }
             });
           }
         });
-      }
-    });
-  });
+      });
 
-  usersRef.on('child_removed', function(snapshot) {
+      usersRef.on('child_removed', function(snapshot) {
     var username = snapshot.child('username').val();
     var index = usernames.indexOf(username);
     if (index !== -1) {
