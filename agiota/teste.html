@@ -55,42 +55,38 @@
   <script src="js/firebase.js"></script>
 
  <script>
-// Referência do Realtime Database do Firebase
-const databaseRef = firebase.database().ref();
+// Obtém uma referência para o nó "users" do banco de dados
+const usersRef = firebase.database().ref('users');
 
-// Referência do nó do usuário logado
-const currentUserRef = databaseRef.child('users').child(uid);
+// Obtém o uid do usuário logado
+const currentUserUid = firebase.auth().currentUser.uid;
 
-// Referência do nó de recebimentos do usuário logado
-const currentUserRecebRef = currentUserRef.child('receber');
+// Obtém uma referência para o nó "todevendo" da lista
+const todevendoRef = usersRef.child(currentUserUid).child('receber');
 
-// Referência dos usuários que devem dinheiro para o usuário logado
-const usersDevedoresRef = databaseRef.child('users').orderByChild('receber/uid').equalTo(uid);
-
-// Elemento HTML onde será exibida a lista de usuários devedores
-const todevendoList = document.getElementById('todevendo');
-
-// Função para exibir a lista de usuários devedores
-function exibirDevedores(snapshot) {
-  // Limpa a lista de usuários devedores
+// Cria um listener para detectar mudanças na lista "todevendo"
+todevendoRef.on('value', (snapshot) => {
+  // Remove todos os elementos da lista "todevendo"
+  const todevendoList = document.getElementById('todevendo');
   todevendoList.innerHTML = '';
-  // Itera sobre os usuários devedores
-  snapshot.forEach(function(childSnapshot) {
-    // Obtém os dados do usuário
-    const userData = childSnapshot.val();
-    // Exibe o nome do usuário na lista
-    const username = document.createElement('li');
-    username.textContent = userData.username;
-    todevendoList.appendChild(username);
-    // Adiciona um listener de clique para exibir o alerta
-    username.addEventListener('click', function() {
-      alert(`Você emprestou dinheiro para ${userData.username}`);
-    });
-  });
-}
 
-// Adiciona um listener de eventos para a referência dos usuários devedores
-usersDevedoresRef.on('value', exibirDevedores);
+  // Obtém todos os usuários que devem dinheiro ao usuário logado
+  const users = snapshot.val() || {};
+
+  // Cria elementos de lista para cada usuário e adiciona-os à lista "todevendo"
+  for (const userUid in users) {
+    const user = users[userUid];
+    if (user.uid) {
+      const li = document.createElement('li');
+      li.textContent = user.username;
+      li.addEventListener('click', () => {
+        alert(`${user.username} está te devendo R$${user.valor}`);
+      });
+      todevendoList.appendChild(li);
+    }
+  }
+});
+
   </script>
 </body>
 </html>
