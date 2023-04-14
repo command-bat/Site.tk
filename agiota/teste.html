@@ -56,7 +56,9 @@
 
  <script>
 // Obtém uma referência para o nó "users" do banco de dados
-const usersRef = firebase.database().ref('users');
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    const currentUserUid = user.uid;
 
 // Obtém o uid do usuário logado
 const currentUserUid = firebase.auth().currentUser.uid;
@@ -86,7 +88,10 @@ todevendoRef.on('value', (snapshot) => {
     }
   }
 });
-
+} else {
+    // usuário não autenticado, redirecionar para página de login ou fazer outra ação
+  }
+});
   </script>
 </body>
 </html>
