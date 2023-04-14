@@ -20,7 +20,7 @@
 			margin: 0;
 		}
 
-		#usernames {
+		#emprestimo {
 			height: auto;
 			max-height: 150px;
 			width: auto;
@@ -31,7 +31,7 @@
 			list-style: none;
 		}
 
-		#usernames li {
+		#emprestimo li {
 			padding: 10px;
 			border-bottom: 1px solid #ccc;
 			cursor: pointer;
@@ -40,7 +40,8 @@
 </head>
 <body>
 	<h1>Selecione o username<br>para emprestar dinheiro</h1>
-	<ul id="usernames"></ul>
+	<ul id="emprestimo"></ul>
+        <ul id="usernames"></ul>
 
 	<!-- Inclui o SDK do Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -53,8 +54,8 @@
 
     // Consulta os usuários e exibe na lista
     usersRef.orderByChild('username').on('value', function(snapshot) {
-        var usernames = document.getElementById("usernames");
-        usernames.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+        var emprestimo = document.getElementById("emprestimo");
+        emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
         snapshot.forEach(function(childSnapshot) {
             var username = childSnapshot.child('username').val();
             var recVal = childSnapshot.child('inf/receber/valor').val();
@@ -71,14 +72,14 @@
                         aceita: true
                     });
                 });
-                usernames.appendChild(listItem);
+                emprestimo.appendChild(listItem);
             }
         });
 
         // Define a altura da lista de usuários com base na quantidade de itens
-        if (usernames.children.length > 5) {
-            usernames.style.height = "200px";
-            usernames.style.overflow = "auto";
+        if (emprestimo.children.length > 5) {
+            emprestimo.style.height = "200px";
+            emprestimo.style.overflow = "auto";
         }
     });
 </script>
