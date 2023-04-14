@@ -111,6 +111,45 @@ todevendoRef.on('value', (snapshot) => {
     }
   }
 });
+	  // Obtém o UID do usuário atualmente autenticado
+var user = firebase.auth().currentUser;
+var uid = user.uid;
+
+// Obtém uma referência para o nó do usuário atualmente autenticado
+var userRef = firebase.database().ref('users/' + uid);
+
+// Obtém uma referência para o nó "receber" dentro do nó do usuário atualmente autenticado
+var receberRef = userRef.child('receber');
+
+// Adiciona um ouvinte para detectar alterações no nó "receber"
+receberRef.on('value', function(snapshot) {
+  // Limpa a lista de dívidas
+  var medeveList = document.getElementById('medeve');
+  medeveList.innerHTML = '';
+
+  // Itera sobre cada filho do nó "receber"
+  snapshot.forEach(function(childSnapshot) {
+    // Obtém os valores dos campos "uid", "username" e "valor"
+    var childData = childSnapshot.val();
+    var childUid = childData.uid;
+    var childUsername = childData.username;
+    var childValor = childData.valor;
+
+    // Verifica se o valor do campo "uid" é igual ao UID do usuário atualmente autenticado
+    if (childUid === uid) {
+      // Adiciona o nome de usuário e o valor da dívida à lista de dívidas
+      var listItem = document.createElement('li');
+      listItem.textContent = childUsername + ' - R$' + childValor;
+      listItem.addEventListener('click', function() {
+        // Exibe um alerta com o nome de usuário do usuário devedor
+        alert(childUsername);
+      });
+      medeveList.appendChild(listItem);
+    }
+  });
+});
+
+	  
 } else {
     // usuário não autenticado, redirecionar para página de login ou fazer outra ação
   }
