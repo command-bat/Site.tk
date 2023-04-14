@@ -55,10 +55,10 @@
   <script src="js/firebase.js"></script>
 
   <script>
-    var usersRef = firebase.database().ref('users');
-    var currentUserUid;
+var usersRef = firebase.database().ref('users');
+var currentUserUid;
 
-    // Consulta os usuários e exibe nas listas
+// Consulta os usuários e exibe nas listas
 firebase.auth().onAuthStateChanged(function(currentUser) {
   var emprestimo = document.getElementById("emprestimo");
   var todevendo = document.getElementById("todevendo");
@@ -73,14 +73,15 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
 
   var usernames = []; // array para armazenar usernames já adicionados
 
-  usersRef.orderByChild('username').on('value', function(snapshot) {
+  usersRef.on('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
+      var uid = childSnapshot.key;
       var username = childSnapshot.child('username').val();
       var receber = childSnapshot.child('inf/receber');
 
       if (receber.child('aceita').val() === false && receber.child('valor').val() !== null && /^\d+$/.test(receber.child('valor').val())) {
         var listItem = document.createElement("li");
-        listItem.innerHTML = username + "|" + receber.child('valor').val();
+        listItem.innerHTML = username + " | " + receber.child('valor').val();
         listItem.addEventListener('click', function() {
           var receberRef = receber.ref;
           receberRef.update({
@@ -88,7 +89,7 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
             aceita: true
           }).then(function() {
             var currentUserRef = usersRef.child(currentUserUid);
-            currentUserRef.child('inf/receber').child(childSnapshot.key).set(true);
+            currentUserRef.child('inf/receber').child(uid).set(true);
           });
         });
         if (!usernames.includes(username)) { // verifica se o username já foi adicionado
@@ -97,24 +98,24 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
         }
       }
 
-      if (currentUser && receber.child('uid').val() === currentUserUid) {
+      if (currentUserUid && receber.child('uid').val() === currentUserUid) {
         var listItem = document.createElement("li");
-        listItem.innerHTML = username + "|" + receber.child('valor').val();
+        listItem.innerHTML = username + " | " + receber.child('valor').val();
         if (!usernames.includes(username)) { // verifica se o username já foi adicionado
           todevendo.appendChild(listItem);
           usernames.push(username); // adiciona o username ao array
         }
       }
 
-      if (childSnapshot.key === currentUserUid) {
-        childSnapshot.child('inf/receber').forEach(function(receberSnapshot) {
-          if (receberSnapshot.key !== 'aceita' && receberSnapshot.key !== 'valor') {
-            var uid = receberSnapshot.key;
+      if (uid === currentUserUid) {
+        receber.forEach(function(receberSnapshot) {
+          var receberUid = receberSnapshot.key;
+          if (receberUid !== 'aceita' && receberUid !== 'valor') {
             var valor = receberSnapshot.val();
-            usersRef.child(uid).child('username').once('value', function(usernameSnapshot) {
+            usersRef.child(receberUid).child('username').once('value', function(usernameSnapshot) {
               var username = usernameSnapshot.val();
               var listItem = document.createElement("li");
-              listItem.innerHTML = username + " | " + valor + "|" + uid;
+              listItem.innerHTML = username + " | " + valor + " | " + receberUid;
               if (!usernames.includes(username)) { // verifica se o username já foi adicionado
                 medeve.appendChild(listItem);
                 usernames.push(username); // adiciona o username ao array
@@ -126,16 +127,16 @@ firebase.auth().onAuthStateChanged(function(currentUser) {
     });
   });
 
-  // Define a altura das listas com base na quantidade de itens
-  if (emprestimo.children.length > 5) {
-    emprestimo.style.height = "200px";
-    emprestimo.style.overflow = "auto";
-  }
-  if (todevendo.children.length > 5) {
-    todevendo.style.height = "200px";
-    todevendo.style.overflow = "auto";
-  }
+  // Remove os elementos das listas quando um usuário é removido
+  usersRef.on('child_removed', function(snapshot) {
+    var username = snapshot.child('username').val();
+    var index = usernames.indexOf(username);
+    if (index !== -1) {
+      usernames.splice(index, 1);
+    }
+  });
 });
+
 </script>
 
 
