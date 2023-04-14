@@ -3,31 +3,28 @@
 <head>
 	<title>Lista de Usernames do Firebase</title>
 	<style>
-		/* Estilos para o corpo da página */
 		body {
 			font-family: Arial, sans-serif;
 			margin: 0;
 			padding: 0;
 		}
 
-		/* Estilos para o título da página */
 		h1 {
 			background-color: #333;
 			height: auto;
 			max-height: 150px;
-            		width: auto;
-           		max-width: 350px;
+			width: auto;
+			max-width: 350px;
 			color: #fff;
 			padding: 10px;
 			margin: 0;
 		}
 
-		/* Estilos para a lista de usernames */
 		#usernames {
 			height: auto;
 			max-height: 150px;
-            		width: auto;
-           		max-width: 350px;
+			width: auto;
+			max-width: 350px;
 			overflow-y: auto;
 			padding: 0;
 			margin: 0;
@@ -45,48 +42,54 @@
 	<h1>Selecione o username<br>para emprestar dinheiro</h1>
 	<ul id="usernames"></ul>
 
+	<!-- Inclui o SDK do Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-	<script src="js/firebase.js"></script>
 
 	<script>
-		firebase.database().ref('users').orderByChild('username').once('value')
-		.then(function(snapshot) {
+		// Configuração do Firebase
+		var firebaseConfig = {
+			// Insira aqui as suas credenciais do Firebase
+		};
+		// Inicializa o Firebase
+		firebase.initializeApp(firebaseConfig);
+
+		// Referência do banco de dados
+		var usersRef = firebase.database().ref('users');
+
+		// Consulta os usuários e exibe na lista
+		usersRef.orderByChild('username').once('value', function(snapshot) {
 			var usernames = document.getElementById("usernames");
 			snapshot.forEach(function(childSnapshot) {
-				var username = childSnapshot.val().username;
-				var pix = childSnapshot.val().pix;
-				var recVal = childSnapshot.val().inf.receber.valor;
+				var username = childSnapshot.child('username').val();
+				var recVal = childSnapshot.child('inf/receber/valor').val();
 				var listItem = document.createElement("li");
 				listItem.innerHTML = username + "|" + recVal;
-
 				usernames.appendChild(listItem);
 			});
+			// Define a altura da lista de usuários com base na quantidade de itens
 			if (usernames.children.length > 5) {
 				usernames.style.height = "200px";
 				usernames.style.overflow = "auto";
 			}
-		})
-		.catch(function(error) {
-			console.log(error);
 		});
 
+		// Verifica se o usuário está logado e exibe o valor a receber ao clicar na lista
 		firebase.auth().onAuthStateChanged(function(user) {
-			var listItem = document.createElement("li");
-			listItem.addEventListener('click', function() {
-				if (user) {
-					var userId = user.uid;
-					var userRef = firebase.database().ref('users/' + userId + "/inf/receber");
-
+			if (user) {
+				var userId = user.uid;
+				var userRef = firebase.database().ref('users/' + userId + '/inf/receber/valor');
+				var listItem = document.createElement("li");
+				listItem.addEventListener('click', function() {
 					userRef.once('value').then(function(snapshot) {
-						var recVal = snapshot.val().valor;
+						var recVal = snapshot.val();
 						alert(recVal);
 					}).catch(function(error) {
 						console.log(error);
 					});
-				}
-			});
+				});
+			}
 		});
 	</script>
 </body>
