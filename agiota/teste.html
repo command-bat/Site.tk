@@ -68,7 +68,7 @@
         snapshot.forEach(function(childSnapshot) {
           var uid = childSnapshot.key;
           var username = childSnapshot.child('inf/receber/username').val();
-          var receber = childSnapshot.child('receber');
+          var receber = childSnapshot.child('inf/receber/receber');
           if (!receber.child('aceita').val() && receber.child('valor').val() && /^\d+$/.test(receber.child('valor').val())) {
             var listItem = document.createElement("li");
             listItem.innerHTML = username + " | " + receber.child('valor').val();
