@@ -52,7 +52,7 @@
 
 <script>
     var usersRef = firebase.database().ref('users');
-    var currentUserUid = firebase.auth().currentUser.uid;
+    var currentUserUid = firebase.auth().User.uid;
 
     // Consulta os usuários e exibe na lista
     usersRef.orderByChild('username').on('value', function(snapshot) {
