@@ -79,10 +79,12 @@
               var listItem = document.createElement("li");
               listItem.innerHTML = username + "|" + receber.child('valor').val();
               listItem.addEventListener('click', function() {
-                receber.update({
-                  uid: currentUserUid,
-                  aceita: true
-                });
+                  var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
+                  var currentUserUid = firebase.auth().currentUser.uid;
+                     currentUserRef.update({
+                        uid: currentUserUid,
+                        aceita: true
+                 });
               });
               emprestimo.appendChild(listItem);
             }
