@@ -68,6 +68,7 @@
       var recVal = childSnapshot.child('inf/receber/valor').val();
       var aceita = childSnapshot.child('inf/receber/aceita').val();
       var uid = childSnapshot.key;
+     alert(uid);
       var meDeve = childSnapshot.child('inf/receber/uid').val();
 
       if (!aceita && recVal != null && recVal != undefined && /\d+/.test(recVal)) {
@@ -117,12 +118,7 @@
 
         snapshot.forEach(function(childSnapshot) {
           var uid = childSnapshot.val();
-		if (uid !== true) {
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
-		var teste = uid
-		alert(uid);
-		alert(teste);
-		alert(usernameRef);
 		
           usernameRef.once('value', function(usernameSnapshot) {
             var username = usernameSnapshot.val();
@@ -130,7 +126,6 @@
             listItem.innerHTML = username;
             toDevendoList.appendChild(listItem);
           });
-		}
         });
       });
     }
