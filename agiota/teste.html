@@ -116,8 +116,8 @@
         toDevendoList.innerHTML = '';
 
         snapshot.forEach(function(childSnapshot) {
-          var uid = childSnapshot.child('inf/receber/uid').val();
-     alert(uid);
+          var uid = childSnapshot.val();
+          if (uid.length === 28) {
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
 		
           usernameRef.once('value', function(usernameSnapshot) {
@@ -126,6 +126,7 @@
             listItem.innerHTML = username;
             toDevendoList.appendChild(listItem);
           });
+}
         });
       });
     }
