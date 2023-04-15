@@ -110,30 +110,41 @@
 
 	
 	
-// Obtenha o usuário atualmente logado
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    var userId = user.uid;
-    
-    // Realize uma consulta em tempo real para obter a lista de usuários que o usuário atual deve dinheiro
-    var query = firebase.database().ref("users/" + userId + "/inf/receber").orderByKey();
-    query.on("child_added", function(snapshot) {
-      var debtorId = snapshot.key;
-      var usernameRef = firebase.database().ref("users/" + debtorId + "/username");
-      usernameRef.once("value", function(snapshot) {
-        var username = snapshot.val();
-        if (username) {
-          // Adicione o nome do usuário que o usuário atual deve dinheiro à lista
-	  var li = document.createElement("li");
- 	  var username = snapshot.val();
-	  li.textContent = username;
-	  document.getElementById("todevendo").appendChild(li);
+// Obtenha o UID do usuário logado
+var uid = firebase.auth().currentUser.uid;
 
-        }
-      });
+// Obtenha uma referência para o nó do Firebase que contém as informações do usuário logado
+var userRef = firebase.database().ref('users/' + uid);
+
+// Obtenha uma referência para o nó do Firebase que contém as informações de receber do usuário logado
+var receberRef = userRef.child('inf/receber');
+
+// Crie a lista com o id "todevendo"
+var todevendoList = document.createElement('ul');
+todevendoList.setAttribute('id', 'todevendo');
+
+// Verifique se o usuário logado deve algo para alguém
+receberRef.once('value', function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    // Obtenha o UID do usuário que o usuário logado deve algo
+    var uidDevedor = childSnapshot.key;
+
+    // Obtenha uma referência para o nó do Firebase que contém as informações do usuário devedor
+    var devedorRef = firebase.database().ref('users/' + uidDevedor);
+
+    // Obtenha o username do usuário devedor e adicione à lista "todevendo"
+    devedorRef.child('username').once('value', function(snapshot) {
+      var usernameDevedor = snapshot.val();
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(usernameDevedor));
+      todevendoList.appendChild(li);
     });
-  }
+  });
 });
+
+// Adicione a lista "todevendo" ao seu HTML
+document.body.appendChild(todevendoList);
+
 </script>
 
 </body>
