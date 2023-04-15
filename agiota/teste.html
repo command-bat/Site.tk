@@ -109,23 +109,25 @@
   });
 
 	
-	
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     var currentUserUid = user.uid;
-    var toDevendoRef = firebase.database().ref('users').orderByChild('inf/receber/uid').equalTo(currentUserUid);
-
+    var toDevendoRef = firebase.database().ref('users/' + currentUserUid + '/inf/receber');
+    
     toDevendoRef.on('value', function(snapshot) {
-      var toDevendo = document.getElementById("todevendo");
-      toDevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-
+      var toDevendoList = document.getElementById("todevendo");
+      toDevendoList.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+      
       snapshot.forEach(function(childSnapshot) {
-        var username = childSnapshot.child('username').val();
-        var uid = childSnapshot.key;
-
-        var listItem = document.createElement("li");
-        listItem.innerHTML = username;
-        toDevendo.appendChild(listItem);
+        var uid = childSnapshot.val();
+        var usernameRef = firebase.database().ref('users/' + uid + '/username');
+        
+        usernameRef.once('value', function(usernameSnapshot) {
+          var username = usernameSnapshot.val();
+          var listItem = document.createElement("li");
+          listItem.innerHTML = username;
+          toDevendoList.appendChild(listItem);
+        });
       });
     });
   }
