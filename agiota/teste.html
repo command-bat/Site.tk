@@ -109,37 +109,29 @@
   });
 
 	
-	 // Obtém uma referência ao usuário logado atualmente
-  const currentUser = firebase.auth().currentUser;
-
-  // Obtém uma referência para o caminho "users/uid/inf/receber/uid" do usuário atual
-  const currentUserReceberRef = firebase.database().ref(`users/${currentUser.uid}/inf/receber/${currentUser.uid}`);
-
-  // Cria um ouvinte em tempo real para verificar se o usuário atual tem alguma dívida pendente
-  currentUserReceberRef.on('value', (snapshot) => {
-    // Limpa a lista de "todevendo"
-    const toDevendoList = document.getElementById('todevendo');
-    toDevendoList.innerHTML = '';
-
-    // Verifica se o usuário atual tem alguma dívida pendente
-    const receberData = snapshot.val();
-    if (receberData) {
-      // Se sim, itera sobre os IDs de usuários para os quais ele deve
-      Object.keys(receberData).forEach((uid) => {
-        // Obtém uma referência para o caminho "users/uid/username" do usuário que ele deve
-        const userRef = firebase.database().ref(`users/${uid}/username`);
-
-        // Cria um ouvinte em tempo real para obter o nome do usuário
-        userRef.on('value', (snapshot) => {
-          // Adiciona o nome do usuário a lista de "todevendo"
-          const username = snapshot.val();
-          const li = document.createElement('li');
-          li.innerText = username;
-          toDevendoList.appendChild(li);
-        });
+	
+// Obtenha o usuário atualmente logado
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    var userId = user.uid;
+    
+    // Realize uma consulta em tempo real para obter a lista de usuários que o usuário atual deve dinheiro
+    var query = firebase.database().ref("users/" + userId + "/inf/receber").orderByKey();
+    query.on("child_added", function(snapshot) {
+      var debtorId = snapshot.key;
+      var usernameRef = firebase.database().ref("users/" + debtorId + "/username");
+      usernameRef.once("value", function(snapshot) {
+        var username = snapshot.val();
+        if (username) {
+          // Adicione o nome do usuário que o usuário atual deve dinheiro à lista
+          var li = document.createElement("li");
+          li.appendChild(document.createTextNode(username));
+          document.getElementById("todevendo").appendChild(li);
+        }
       });
-    }
-  });
+    });
+  }
+});
 </script>
 
 </body>
