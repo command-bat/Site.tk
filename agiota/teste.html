@@ -65,10 +65,10 @@
 
     snapshot.forEach(function(childSnapshot) {
       var username = childSnapshot.child('username').val();
-      var recVal = childSnapshot.child('inf/receber/valor').val();
-      var aceita = childSnapshot.child('inf/receber/aceita').val();
+      var recVal = childSnapshot.child('inf/transaction/valor').val();
+      var aceita = childSnapshot.child('inf/transaction/aceita').val();
       var uid = childSnapshot.key;
-      var meDeve = childSnapshot.child('inf/receber/uid').val();
+      var meDeve = childSnapshot.child('inf/transaction/uid').val();
 
       if (!aceita && recVal != null && recVal != undefined && /\d+/.test(recVal)) {
         var listItem = document.createElement("li");
@@ -76,7 +76,7 @@
         listItem.addEventListener('click', function() {
           firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-              var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
+              var currentUserRef = firebase.database().ref('users/' + uid + '/inf/transaction');
               currentUserRef.update({
                 uid: user.uid,
                 aceita: true
@@ -109,7 +109,7 @@
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       var currentUserUid = user.uid;
-      var toDevendoRef = firebase.database().ref('users/' + currentUserUid + '/inf/receber');
+      var toDevendoRef = firebase.database().ref('users/' + currentUserUid + '/inf/transaction');
 
       toDevendoRef.on('value', function(snapshot) {
         var toDevendoList = document.getElementById("todevendo");
