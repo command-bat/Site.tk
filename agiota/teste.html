@@ -117,12 +117,13 @@
 
         snapshot.forEach(function(childSnapshot) {
           var uid = childSnapshot.val();
+		if (uid !== "true") {
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
 		var teste = uid
 		alert(uid);
 		alert(teste);
 		alert(usernameRef);
-		
+		}
           usernameRef.once('value', function(usernameSnapshot) {
             var username = usernameSnapshot.val();
             var listItem = document.createElement("li");
