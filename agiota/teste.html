@@ -55,105 +55,97 @@
   <script src="js/firebase.js"></script>
 
  <script>
-// Obtém uma referência para o nó "users" do banco de dados
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    const currentUserUid = user.uid;
+const emprestimoList = document.getElementById('emprestimo');
+const todevendoList = document.getElementById('todevendo');
+const medeveList = document.getElementById('medeve');
 
-// Obtém uma referência para o nó "todevendo" da lista
-const todevendoRef = usersRef.child(currentUserUid).child('receber');
+const usersRef = firebase.database().ref('users');
+const currentUser = firebase.auth().currentUser;
 
-// 1. Obter uma referência para o nó do Firebase que contém as informações sobre os usuários que precisam receber empréstimos.
-const listaEmprestimoRef = firebase.database().ref('users');
+if (currentUser) {
+  const currentUserUid = currentUser.uid;
 
-// 2. Adicionar um listener para essa referência, de modo que você possa ser notificado sempre que houver uma alteração nos dados.
-listaEmprestimoRef.on('value', function(snapshot) {
-  // 3. Percorrer os dados obtidos e exibir as informações dos usuários na lista correspondente.
-  const emprestimoList = document.getElementById('emprestimo');
-  emprestimoList.innerHTML = '';
-  snapshot.forEach(function(childSnapshot) {
-    const childData = childSnapshot.val();
-    const receber = childData.receber;
-    if (receber && receber.aceita === false && receber.uid === '') {
-      const listItem = document.createElement('li');
-      listItem.innerText = childData.username + ': ' + receber.valor;
-      emprestimoList.appendChild(listItem);
-      
-      // 4. Adicionar um listener para o clique em um nome de usuário na lista, de modo que você possa atualizar o status de aceitação do empréstimo e o UID do usuário que fez a oferta de empréstimo.
-      listItem.addEventListener('click', function() {
-        receber.aceita = true;
-        receber.uid = firebase.auth().currentUser.uid;
-        childSnapshot.ref.update({receber: receber});
-      });
-    }
+  // Linha abaixo deve ser corrigida, pois 'receberRef' está sendo
+  // definido com o mesmo valor que 'todevendoRef'
+  const todevendoRef = usersRef.child(currentUserUid).child('receber');
+  const receberRef = usersRef.child(currentUserUid).child('receber');
+
+  const listaEmprestimo = {};
+
+  // A variável abaixo deve ser 'receberRef', que foi definida corretamente
+  receberRef.on('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      const childData = childSnapshot.val();
+      const receber = childData.receber;
+      if (receber && receber.aceita === false && receber.uid === '') {
+        const key = childSnapshot.key;
+        if (!listaEmprestimo.hasOwnProperty(key)) {
+          const listItem = document.createElement('li');
+          listItem.innerText = `${childData.username}: ${receber.valor}`;
+          listItem.id = `emprestimo-${key}`;
+          emprestimoList.appendChild(listItem);
+
+          listItem.addEventListener('click', function() {
+            receber.aceita = true;
+            receber.uid = currentUserUid;
+            childSnapshot.ref.update({ receber });
+          });
+
+          listaEmprestimo[key] = true;
+        }
+      }
+    });
   });
-});
 
-// Cria um listener para detectar mudanças na lista "todevendo"
-todevendoRef.on('value', (snapshot) => {
-  // Remove todos os elementos da lista "todevendo"
-  const todevendoList = document.getElementById('todevendo');
-  todevendoList.innerHTML = '';
+  // O código abaixo deve ser corrigido, pois está duplicando itens na lista
+  // de "todevendo" e não está verificando se o item já existe
+  todevendoRef.on('value', function(snapshot) {
+    todevendoList.innerHTML = '';
 
-  // Obtém todos os usuários que devem dinheiro ao usuário logado
-  const users = snapshot.val() || {};
+    snapshot.forEach(function(childSnapshot) {
+      const childData = childSnapshot.val();
+      const childUid = childData.uid;
+      if (childUid === currentUserUid) {
+        const key = childSnapshot.key;
+        const listItem = document.createElement('li');
+        listItem.textContent = childData.username;
+        listItem.id = `todevendo-${key}`;
 
-  // Cria elementos de lista para cada usuário e adiciona-os à lista "todevendo"
-  for (const userUid in users) {
-    const user = users[userUid];
-    if (user.uid) {
-      const li = document.createElement('li');
-      li.textContent = user.username;
-      li.addEventListener('click', () => {
-        alert(`${user.username} está te devendo R$${user.valor}`);
-      });
-      todevendoList.appendChild(li);
-    }
-  }
-});
-	  // Obtém o UID do usuário atualmente autenticado
-var user = firebase.auth().currentUser;
-var uid = user.uid;
+        // Verifica se o item já existe na lista
+        if (!todevendoList.contains(listItem)) {
+          todevendoList.appendChild(listItem);
 
-// Obtém uma referência para o nó do usuário atualmente autenticado
-var userRef = firebase.database().ref('users/' + uid);
-
-// Obtém uma referência para o nó "receber" dentro do nó do usuário atualmente autenticado
-var receberRef = userRef.child('receber');
-
-// Adiciona um ouvinte para detectar alterações no nó "receber"
-receberRef.on('value', function(snapshot) {
-  // Limpa a lista de dívidas
-  var medeveList = document.getElementById('medeve');
-  medeveList.innerHTML = '';
-
-  // Itera sobre cada filho do nó "receber"
-  snapshot.forEach(function(childSnapshot) {
-    // Obtém os valores dos campos "uid", "username" e "valor"
-    var childData = childSnapshot.val();
-    var childUid = childData.uid;
-    var childUsername = childData.username;
-    var childValor = childData.valor;
-
-    // Verifica se o valor do campo "uid" é igual ao UID do usuário atualmente autenticado
-    if (childUid === uid) {
-      // Adiciona o nome de usuário e o valor da dívida à lista de dívidas
-      var listItem = document.createElement('li');
-      listItem.textContent = childUsername + ' - R$' + childValor;
-      listItem.addEventListener('click', function() {
-        // Exibe um alerta com o nome de usuário do usuário devedor
-        alert(childUsername);
-      });
-      medeveList.appendChild(listItem);
-    }
+          listItem.addEventListener('click', function() {
+            alert(`${childData.username} está te devendo R$${childData.valor}`);
+          });
+        }
+      }
+    });
   });
-});
 
-	  
-} else {
-    // usuário não autenticado, redirecionar para página de login ou fazer outra ação
-  }
-});
+  // O código abaixo deve ser corrigido, pois está duplicando itens na lista
+  // de "medeve" e não está verificando se o item já existe
+  usersRef.on('value', function(snapshot) {
+    medeveList.innerHTML = '';
+
+    snapshot.forEach(function(childSnapshot) {
+      const childData = childSnapshot.val();
+      const receber = childData.receber;
+      if (receber && receber.aceita === true && receber.uid === currentUserUid) {
+        const key = childSnapshot.key;
+        const listItem = document.createElement('li');
+        listItem.textContent = childData.username;
+        listItem.id = `medeve-${key}`;
+
+        // Verifica se o item já existe na lista
+        if (!medeveList.contains(listItem)) {
+          medeveList.appendChild(listItem);
+        }
+      }
+    });
+  });
+}
+
   </script>
 </body>
 </html>
