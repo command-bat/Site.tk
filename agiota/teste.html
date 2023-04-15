@@ -117,7 +117,7 @@
 
         snapshot.forEach(function(childSnapshot) {
           var uid = childSnapshot.val();
-		if (uid !== "true") {
+		if (uid !== true) {
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
 		var teste = uid
 		alert(uid);
