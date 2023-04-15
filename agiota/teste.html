@@ -116,7 +116,6 @@
         toDevendoList.innerHTML = '';
 
         snapshot.forEach(function(childSnapshot) {
-          var keyuid = childSnapshot.key;
           var uid = childSnapshot.child('inf/receber/uid').val();
      alert(uid);
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
