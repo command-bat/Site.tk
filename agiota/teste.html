@@ -56,6 +56,9 @@
 
 <script>
     var usersRef = firebase.database().ref('users');
+    // Obtenha o UID do usuário logado
+    var currentUserUid = firebase.auth().currentUser.uid;
+
 
     // Consulta os usuários e exibe na lista
     usersRef.orderByChild('username').on('value', function(snapshot) {
@@ -75,7 +78,6 @@
                 listItem.innerHTML = username + "|" + recVal;
                 listItem.addEventListener('click', function() {
                     var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
-                    var currentUserUid = firebase.auth().currentUser.uid;
                     currentUserRef.update({
                         uid: currentUserUid,
                         aceita: true
@@ -103,9 +105,6 @@
         }
     });
 
-  // Obtenha o UID do usuário logado
-  const currentUserUidL = firebase.auth().currentUser.uid;
-
   // Use o método once() para recuperar os dados do banco de dados uma vez
   usersRef.once("value").then((snapshot) => {
     // Crie um array para armazenar os nomes dos usuários que o usuário logado deve
@@ -119,7 +118,7 @@
         const uid = userSnapshot.child("inf/receber/uid").val();
 
         // Verifique se o valor do nó é igual ao UID do usuário logado
-        if (uid === currentUserUidL) {
+        if (uid === currentUserUid) {
           // Se for, adicione o nome do usuário à matriz "nomes"
           names.push(userSnapshot.child("username").val());
         }
