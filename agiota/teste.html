@@ -108,39 +108,7 @@
     }
   });
 
-  // Use o método once() para recuperar os dados do banco de dados uma vez
-  usersRef.on('value', function(snapshot) {
-    // Obtenha o UID do usuário logado
-    var currentUserUid = firebase.auth().currentUser.uid;
 
-    // Crie um array para armazenar os nomes dos usuários que o usuário logado deve
-    const names = [];
-
-    // Itere sobre os usuários no snapshot
-    snapshot.forEach((userSnapshot) => {
-      // Verifique se o usuário atual tem um nó "inf/receber/uid" em seu caminho
-      if (userSnapshot.child("inf/receber/uid").exists()) {
-        // Obtenha o valor do nó "inf/receber/uid"
-        const uid = userSnapshot.child("inf/receber/uid").val();
-
-        // Verifique se o valor do nó é igual ao UID do usuário logado
-        if (uid === currentUserUid) {
-          // Se for, adicione o nome do usuário à matriz "nomes"
-          names.push(userSnapshot.child("username").val());
-        }
-      }
-    });
-
-    // Atualize o conteúdo da lista "todevendo" com os nomes dos usuários
-    const todevendoList = document.getElementById("todevendo");
-    todevendoList.innerHTML = names.map((name) => `<li>${name}</li>`).join("");
-
-    // Define a altura da lista de usuários com base na quantidade de itens
-    if (todevendoList.children.length > 5) {
-      todevendoList.style.height = "200px";
-      todevendoList.style.overflow = "auto";
-    }
-  });
 </script>
 
 </body>
