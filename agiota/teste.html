@@ -115,21 +115,19 @@ usersRef.orderByChild('inf/receber/uid').equalTo(firebase.auth().currentUser.uid
 });
 
 // Lista 3: medeve
-usersRef.orderByChild('inf/receber/uid').on('value', function(snapshot) {
+usersRef.orderByChild('inf/receber/uid').equalTo(firebase.auth().currentUser.uid).on('value', function(snapshot) {
     var medeve = document.getElementById("medeve");
     medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
     snapshot.forEach(function(childSnapshot) {
         var username = childSnapshot.child('username').val();
         var recVal = childSnapshot.child('inf/receber/valor').val();
         var uidList = childSnapshot.child('inf/receber/uid').val();
-        if (uidList === firebase.auth().currentUser.uid) {
-            var listItem = document.createElement("li");
-            listItem.innerHTML = username + " | " + recVal;
-            listItem.addEventListener('click', function() {
-                alert(username + " deve para você");
-            });
-            medeve.appendChild(listItem);
-        }
+        var listItem = document.createElement("li");
+        listItem.innerHTML = username + " | " + recVal;
+        listItem.addEventListener('click', function() {
+            alert(username + " deve para você");
+        });
+        medeve.appendChild(listItem);
     });
 
     // Define a altura da lista de usuários com base na quantidade de itens
@@ -138,6 +136,7 @@ usersRef.orderByChild('inf/receber/uid').on('value', function(snapshot) {
         medeve.style.overflow = "auto";
     }
 });
-  </script>
+</script>
+
 </body>
 </html>
