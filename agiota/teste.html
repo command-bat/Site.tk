@@ -55,97 +55,89 @@
   <script src="js/firebase.js"></script>
 
  <script>
-const emprestimoList = document.getElementById('emprestimo');
-const todevendoList = document.getElementById('todevendo');
-const medeveList = document.getElementById('medeve');
+var usersRef = firebase.database().ref('users');
 
-const usersRef = firebase.database().ref('users');
-const currentUser = firebase.auth().currentUser;
-
-if (currentUser) {
-  const currentUserUid = currentUser.uid;
-
-  // Linha abaixo deve ser corrigida, pois 'receberRef' está sendo
-  // definido com o mesmo valor que 'todevendoRef'
-  const todevendoRef = usersRef.child(currentUserUid).child('receber');
-  const receberRef = usersRef.child(currentUserUid).child('receber');
-
-  const listaEmprestimo = {};
-
-  // A variável abaixo deve ser 'receberRef', que foi definida corretamente
-  receberRef.on('value', function(snapshot) {
+// Lista 1: emprestimo
+usersRef.orderByChild('inf/receber/aceita').equalTo(false).on('value', function(snapshot) {
+    var emprestimo = document.getElementById("emprestimo");
+    emprestimo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
     snapshot.forEach(function(childSnapshot) {
-      const childData = childSnapshot.val();
-      const receber = childData.receber;
-      if (receber && receber.aceita === false && receber.uid === '') {
-        const key = childSnapshot.key;
-        if (!listaEmprestimo.hasOwnProperty(key)) {
-          const listItem = document.createElement('li');
-          listItem.innerText = `${childData.username}: ${receber.valor}`;
-          listItem.id = `emprestimo-${key}`;
-          emprestimoList.appendChild(listItem);
+        var username = childSnapshot.child('username').val();
+        var recVal = childSnapshot.child('inf/receber/valor').val();
+        var aceita = childSnapshot.child('inf/receber/aceita').val();
+        var uid = childSnapshot.key;
+        var currentUserUid = firebase.auth().currentUser.uid;
+        var currentUserRef = firebase.database().ref('users/' + uid + '/inf/receber');
+        var uidList = childSnapshot.child('inf/receber/uid').val();
 
-          listItem.addEventListener('click', function() {
-            receber.aceita = true;
-            receber.uid = currentUserUid;
-            childSnapshot.ref.update({ receber });
-          });
-
-          listaEmprestimo[key] = true;
+        if (!uidList && recVal && !aceita) {
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username + "|" + recVal;
+            listItem.addEventListener('click', function() {
+                currentUserRef.update({
+                    uid: currentUserUid,
+                    aceita: true
+                });
+            });
+            emprestimo.appendChild(listItem);
         }
-      }
     });
-  });
 
-  // O código abaixo deve ser corrigido, pois está duplicando itens na lista
-  // de "todevendo" e não está verificando se o item já existe
-  todevendoRef.on('value', function(snapshot) {
-    todevendoList.innerHTML = '';
+    // Define a altura da lista de usuários com base na quantidade de itens
+    if (emprestimo.children.length > 5) {
+        emprestimo.style.height = "200px";
+        emprestimo.style.overflow = "auto";
+    }
+});
 
+// Lista 2: todevendo
+usersRef.orderByChild('inf/receber/uid').equalTo(firebase.auth().currentUser.uid).on('value', function(snapshot) {
+    var todevendo = document.getElementById("todevendo");
+    todevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
     snapshot.forEach(function(childSnapshot) {
-      const childData = childSnapshot.val();
-      const childUid = childData.uid;
-      if (childUid === currentUserUid) {
-        const key = childSnapshot.key;
-        const listItem = document.createElement('li');
-        listItem.textContent = childData.username;
-        listItem.id = `todevendo-${key}`;
-
-        // Verifica se o item já existe na lista
-        if (!todevendoList.contains(listItem)) {
-          todevendoList.appendChild(listItem);
-
-          listItem.addEventListener('click', function() {
-            alert(`${childData.username} está te devendo R$${childData.valor}`);
-          });
+        var username = childSnapshot.child('username').val();
+        var uidList = childSnapshot.child('inf/receber/uid').val();
+        if (uidList === firebase.auth().currentUser.uid) {
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username;
+            listItem.addEventListener('click', function() {
+                alert("Você deve para " + username);
+            });
+            todevendo.appendChild(listItem);
         }
-      }
     });
-  });
 
-  // O código abaixo deve ser corrigido, pois está duplicando itens na lista
-  // de "medeve" e não está verificando se o item já existe
-  usersRef.on('value', function(snapshot) {
-    medeveList.innerHTML = '';
+    // Define a altura da lista de usuários com base na quantidade de itens
+    if (todevendo.children.length > 5) {
+        todevendo.style.height = "200px";
+        todevendo.style.overflow = "auto";
+    }
+});
 
+// Lista 3: medeve
+usersRef.orderByChild('inf/receber/uid').on('value', function(snapshot) {
+    var medeve = document.getElementById("medeve");
+    medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
     snapshot.forEach(function(childSnapshot) {
-      const childData = childSnapshot.val();
-      const receber = childData.receber;
-      if (receber && receber.aceita === true && receber.uid === currentUserUid) {
-        const key = childSnapshot.key;
-        const listItem = document.createElement('li');
-        listItem.textContent = childData.username;
-        listItem.id = `medeve-${key}`;
-
-        // Verifica se o item já existe na lista
-        if (!medeveList.contains(listItem)) {
-          medeveList.appendChild(listItem);
+        var username = childSnapshot.child('username').val();
+        var recVal = childSnapshot.child('inf/receber/valor').val();
+        var uidList = childSnapshot.child('inf/receber/uid').val();
+        if (uidList === firebase.auth().currentUser.uid) {
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username + " | " + recVal;
+            listItem.addEventListener('click', function() {
+                alert(username + " deve para você");
+            });
+            medeve.appendChild(listItem);
         }
-      }
     });
-  });
-}
 
+    // Define a altura da lista de usuários com base na quantidade de itens
+    if (medeve.children.length > 5) {
+        medeve.style.height = "200px";
+        medeve.style.overflow = "auto";
+    }
+});
   </script>
 </body>
 </html>
