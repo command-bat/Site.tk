@@ -121,24 +121,25 @@ if (firebase.auth().currentUser) { // verifica se há um usuário logado
     usersRef.orderByChild('inf/receber/uid').equalTo(firebase.auth().currentUser.uid).on('value', function(snapshot) {
         var medeve = document.getElementById("medeve");
         medeve.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-    snapshot.forEach(function(childSnapshot) {
-        var username = childSnapshot.child('username').val();
-        var recVal = childSnapshot.child('inf/receber/valor').val();
-        var uidList = childSnapshot.child('inf/receber/uid').val();
-        var listItem = document.createElement("li");
-        listItem.innerHTML = username + " | " + recVal;
-        listItem.addEventListener('click', function() {
-            alert(username + " deve para você");
+        snapshot.forEach(function(childSnapshot) {
+            var username = childSnapshot.child('username').val();
+            var recVal = childSnapshot.child('inf/receber/valor').val();
+            var uidList = childSnapshot.child('inf/receber/uid').val();
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username + " | " + recVal;
+            listItem.addEventListener('click', function() {
+                alert(username + " deve para você");
+            });
+            medeve.appendChild(listItem);
         });
-        medeve.appendChild(listItem);
-    });
 
-    // Define a altura da lista de usuários com base na quantidade de itens
-    if (medeve.children.length > 5) {
-        medeve.style.height = "200px";
-        medeve.style.overflow = "auto";
-    }
-});
+        // Define a altura da lista de usuários com base na quantidade de itens
+        if (medeve.children.length > 5) {
+            medeve.style.height = "200px";
+            medeve.style.overflow = "auto";
+        }
+    });
+}
 </script>
 
 </body>
