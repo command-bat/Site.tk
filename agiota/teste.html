@@ -107,34 +107,38 @@
       medeve.style.overflow = "auto";
     }
   });
-  // obtém o usuário atualmente logado
-  const user = firebase.auth().currentUser;
 
-  // define o caminho para verificar se há usuários devedores
-  const receberRef = database.ref(`users/${user.uid}/inf/receber`);
-  
-  // escuta por alterações no caminho definido
-  receberRef.on('value', (snapshot) => {
-    // limpa a lista de usuários devedores
+	
+	 // Obtém uma referência ao usuário logado atualmente
+  const currentUser = firebase.auth().currentUser;
+
+  // Obtém uma referência para o caminho "users/uid/inf/receber/uid" do usuário atual
+  const currentUserReceberRef = firebase.database().ref(`users/${currentUser.uid}/inf/receber/${currentUser.uid}`);
+
+  // Cria um ouvinte em tempo real para verificar se o usuário atual tem alguma dívida pendente
+  currentUserReceberRef.on('value', (snapshot) => {
+    // Limpa a lista de "todevendo"
     const toDevendoList = document.getElementById('todevendo');
     toDevendoList.innerHTML = '';
-    
-    // percorre todos os usuários que devem ao usuário atual
-    snapshot.forEach((childSnapshot) => {
-      const uid = childSnapshot.key;
-      
-      // verifica se o usuário que deve está registrado no sistema
-      const userRef = database.ref(`users/${uid}`);
-      userRef.once('value', (userSnapshot) => {
-        const userData = userSnapshot.val();
-        if (userData) {
-          // adiciona o nome do usuário que deve na lista
+
+    // Verifica se o usuário atual tem alguma dívida pendente
+    const receberData = snapshot.val();
+    if (receberData) {
+      // Se sim, itera sobre os IDs de usuários para os quais ele deve
+      Object.keys(receberData).forEach((uid) => {
+        // Obtém uma referência para o caminho "users/uid/username" do usuário que ele deve
+        const userRef = firebase.database().ref(`users/${uid}/username`);
+
+        // Cria um ouvinte em tempo real para obter o nome do usuário
+        userRef.on('value', (snapshot) => {
+          // Adiciona o nome do usuário a lista de "todevendo"
+          const username = snapshot.val();
           const li = document.createElement('li');
-          li.textContent = userData.username;
+          li.innerText = username;
           toDevendoList.appendChild(li);
-        }
+        });
       });
-    });
+    }
   });
 </script>
 
