@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+8<!DOCTYPE html>
 <html>
 <head>
 	<title>Lista do Firebase</title>
@@ -103,31 +103,36 @@
         }
     });
 
-// Lista 2: todevendo
-if (firebase.auth().currentUser) { // verifica se há um usuário logado
-  usersRef.orderByChild('inf/receber/uid').equalTo(firebase.auth().currentUser.uid).on('value', function(snapshot) {
-    var todevendo = document.getElementById("todevendo");
-    todevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-    snapshot.forEach(function(childSnapshot) {
-      var username = childSnapshot.child('username').val();
-      var uidList = childSnapshot.child('inf/receber/uid').val();
-      if (uidList && uidList === firebase.auth().currentUser.uid) { // verifica se uidList existe e é igual ao ID do usuário atual
-        var listItem = document.createElement("li");
-        listItem.innerHTML = username;
-        listItem.addEventListener('click', function() {
-          alert("Você deve para " + username);
-        });
-        todevendo.appendChild(listItem);
-      }
-    });
+// obter referência para o banco de dados Firebase
+var dbRef = firebase.database().ref();
 
+// obter o uid do usuário logado
+var uid = firebase.auth().currentUser.uid;
+
+// obter a lista onde os usuários serão exibidos
+var todevendo = document.getElementById("todevendo");
+
+// percorrer todos os usuários cadastrados no banco de dados
+dbRef.child("users").once("value", function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    // verificar se o caminho "users/uid/inf/receber/uid" existe para o usuário atual
+    if (childSnapshot.child("inf/receber/uid").exists()) {
+      // verificar se o valor em "users/uid/inf/receber/uid" é igual ao uid do usuário logado
+      if (childSnapshot.child("inf/receber/uid").val() === uid) {
+        // adicionar o nome do usuário atual à lista
+        var nome = childSnapshot.child("nome").val();
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(nome));
+        todevendo.appendChild(li);
+      }
+    }
     // Define a altura da lista de usuários com base na quantidade de itens
     if (todevendo.children.length > 5) {
       todevendo.style.height = "200px";
       todevendo.style.overflow = "auto";
     }
   });
-}
+});
 </script>
 
 </body>
