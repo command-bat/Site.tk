@@ -103,9 +103,6 @@
         }
     });
 
-  // Obtenha o UID do usuário logado
-  const currentUserUid = firebase.auth().currentUser.uid;
-
   // Use o método once() para recuperar os dados do banco de dados uma vez
   usersRef.once("value").then((snapshot) => {
     // Crie um array para armazenar os nomes dos usuários que o usuário logado deve
