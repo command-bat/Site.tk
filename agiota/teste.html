@@ -110,40 +110,26 @@
 
 	
 	
-// Obtenha o UID do usuário logado
-var uid = firebase.auth().currentUser.uid;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    var currentUserUid = user.uid;
+    var toDevendoRef = firebase.database().ref('users').orderByChild('inf/receber/uid').equalTo(currentUserUid);
 
-// Obtenha uma referência para o nó do Firebase que contém as informações do usuário logado
-var userRef = firebase.database().ref('users/' + uid);
+    toDevendoRef.on('value', function(snapshot) {
+      var toDevendo = document.getElementById("todevendo");
+      toDevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
 
-// Obtenha uma referência para o nó do Firebase que contém as informações de receber do usuário logado
-var receberRef = userRef.child('inf/receber');
+      snapshot.forEach(function(childSnapshot) {
+        var username = childSnapshot.child('username').val();
+        var uid = childSnapshot.key;
 
-// Crie a lista com o id "todevendo"
-var todevendoList = document.createElement('ul');
-todevendoList.setAttribute('id', 'todevendo');
-
-// Verifique se o usuário logado deve algo para alguém
-receberRef.once('value', function(snapshot) {
-  snapshot.forEach(function(childSnapshot) {
-    // Obtenha o UID do usuário que o usuário logado deve algo
-    var uidDevedor = childSnapshot.key;
-
-    // Obtenha uma referência para o nó do Firebase que contém as informações do usuário devedor
-    var devedorRef = firebase.database().ref('users/' + uidDevedor);
-
-    // Obtenha o username do usuário devedor e adicione à lista "todevendo"
-    devedorRef.child('username').once('value', function(snapshot) {
-      var usernameDevedor = snapshot.val();
-      var li = document.createElement('li');
-      li.appendChild(document.createTextNode(usernameDevedor));
-      todevendoList.appendChild(li);
+        var listItem = document.createElement("li");
+        listItem.innerHTML = username;
+        toDevendo.appendChild(listItem);
+      });
     });
-  });
+  }
 });
-
-// Adicione a lista "todevendo" ao seu HTML
-document.body.appendChild(todevendoList);
 
 </script>
 
