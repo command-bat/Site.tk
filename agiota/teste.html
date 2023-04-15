@@ -124,9 +124,11 @@ firebase.auth().onAuthStateChanged(function(user) {
         var username = snapshot.val();
         if (username) {
           // Adicione o nome do usuário que o usuário atual deve dinheiro à lista
-          var li = document.createElement("li");
-          li.appendChild(document.createTextNode(username));
-          document.getElementById("todevendo").appendChild(li);
+	  var li = document.createElement("li");
+ 	  var username = snapshot.val();
+	  li.textContent = username;
+	  document.getElementById("todevendo").appendChild(li);
+
         }
       });
     });
