@@ -123,13 +123,14 @@
 		alert(uid);
 		alert(teste);
 		alert(usernameRef);
-		}
+		
           usernameRef.once('value', function(usernameSnapshot) {
             var username = usernameSnapshot.val();
             var listItem = document.createElement("li");
             listItem.innerHTML = username;
             toDevendoList.appendChild(listItem);
           });
+		}
         });
       });
     }
