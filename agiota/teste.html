@@ -107,8 +107,35 @@
       medeve.style.overflow = "auto";
     }
   });
+  // obtém o usuário atualmente logado
+  const user = firebase.auth().currentUser;
 
-
+  // define o caminho para verificar se há usuários devedores
+  const receberRef = database.ref(`users/${user.uid}/inf/receber`);
+  
+  // escuta por alterações no caminho definido
+  receberRef.on('value', (snapshot) => {
+    // limpa a lista de usuários devedores
+    const toDevendoList = document.getElementById('todevendo');
+    toDevendoList.innerHTML = '';
+    
+    // percorre todos os usuários que devem ao usuário atual
+    snapshot.forEach((childSnapshot) => {
+      const uid = childSnapshot.key;
+      
+      // verifica se o usuário que deve está registrado no sistema
+      const userRef = database.ref(`users/${uid}`);
+      userRef.once('value', (userSnapshot) => {
+        const userData = userSnapshot.val();
+        if (userData) {
+          // adiciona o nome do usuário que deve na lista
+          const li = document.createElement('li');
+          li.textContent = userData.username;
+          toDevendoList.appendChild(li);
+        }
+      });
+    });
+  });
 </script>
 
 </body>
