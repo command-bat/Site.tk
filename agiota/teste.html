@@ -92,28 +92,28 @@ usersRef.orderByChild('inf/receber/aceita').equalTo(false).on('value', function(
 
 // Lista 2: todevendo
 if (firebase.auth().currentUser) { // verifica se há um usuário logado
-    usersRef.orderByChild('inf/receber/uid').equalTo(firebase.auth().currentUser.uid).on('value', function(snapshot) {
-        var todevendo = document.getElementById("todevendo");
-        todevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
-        snapshot.forEach(function(childSnapshot) {
-            var username = childSnapshot.child('username').val();
-            var uidList = childSnapshot.child('inf/receber/uid').val();
-            if (uidList && uidList === firebase.auth().currentUser.uid) { // verifica se uidList existe e é igual ao ID do usuário atual
-                var listItem = document.createElement("li");
-                listItem.innerHTML = username;
-                listItem.addEventListener('click', function() {
-                    alert("Você deve para " + username);
-                });
-                todevendo.appendChild(listItem);
-            }
+  usersRef.orderByChild('inf/receber/uid').equalTo(firebase.auth().currentUser.uid).on('value', function(snapshot) {
+    var todevendo = document.getElementById("todevendo");
+    todevendo.innerHTML = ''; // Limpa a lista para evitar duplicidade de elementos
+    snapshot.forEach(function(childSnapshot) {
+      var username = childSnapshot.child('username').val();
+      var uidList = childSnapshot.child('inf/receber/uid').val();
+      if (uidList && uidList === firebase.auth().currentUser.uid) { // verifica se uidList existe e é igual ao ID do usuário atual
+        var listItem = document.createElement("li");
+        listItem.innerHTML = username;
+        listItem.addEventListener('click', function() {
+          alert("Você deve para " + username);
         });
-
-        // Define a altura da lista de usuários com base na quantidade de itens
-        if (todevendo.children.length > 5) {
-            todevendo.style.height = "200px";
-            todevendo.style.overflow = "auto";
-        }
+        todevendo.appendChild(listItem);
+      }
     });
+
+    // Define a altura da lista de usuários com base na quantidade de itens
+    if (todevendo.children.length > 5) {
+      todevendo.style.height = "200px";
+      todevendo.style.overflow = "auto";
+    }
+  });
 }
 
 // Lista 3: medeve
