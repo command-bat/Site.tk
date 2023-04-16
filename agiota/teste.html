@@ -199,17 +199,15 @@ firebase.auth().onAuthStateChanged(function(user) {
         var uid = childSnapshot.val();
         if (uid.length === 28) {
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
-          var valorRef = firebase.database().ref('users/' + uid + '/inf/transaction/valor');
+          var valorRef = firebase.database().ref('users/' + currentUserUid + '/inf/transaction/valor');
           
           usernameRef.once('value', function(usernameSnapshot) {
-            valorRef.once('value', function(valorSnapshot) {
+            valorRef.once('value', function(valorSnapshot) { // ajuste aqui!
               var username = usernameSnapshot.val();
               var valor = valorSnapshot.val();
-              if (valor != null && valor != undefined && /\d+/.test(valor)) {
-                var listItem = document.createElement("li");
-                listItem.innerHTML = username + " | " + valor; // Adiciona o valor ao elemento da lista
-                toDevendoList.appendChild(listItem);
-              }
+              var listItem = document.createElement("li");
+              listItem.innerHTML = username + " | " + valor; // Adiciona o valor ao elemento da lista
+              toDevendoList.appendChild(listItem);
             });
           });
         }
@@ -217,6 +215,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     });
   }
 });
+
 
 
 
