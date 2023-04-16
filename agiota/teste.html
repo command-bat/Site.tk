@@ -187,30 +187,32 @@
   });
 
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      var currentUserUid = user.uid;
-      var toDevendoRef = firebase.database().ref('users/' + currentUserUid + '/inf/transaction');
+  if (user) {
+    var currentUserUid = user.uid;
+    var toDevendoRef = firebase.database().ref('users/' + currentUserUid + '/inf/transaction');
 
-      toDevendoRef.on('value', function(snapshot) {
-        var toDevendoList = document.getElementById("todevendo");
-        toDevendoList.innerHTML = '';
+    toDevendoRef.on('value', function(snapshot) {
+      var toDevendoList = document.getElementById("todevendo");
+      toDevendoList.innerHTML = '';
 
-        snapshot.forEach(function(childSnapshot) {
-          var uid = childSnapshot.val();
-          if (uid.length === 28) {
+      snapshot.forEach(function(childSnapshot) {
+        var uid = childSnapshot.val();
+        if (uid.length === 28) {
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
-		
+          var valorRef = childSnapshot.child('valor').val(); // Adiciona esta linha para obter o valor
+          
           usernameRef.once('value', function(usernameSnapshot) {
             var username = usernameSnapshot.val();
             var listItem = document.createElement("li");
-            listItem.innerHTML = username;
+            listItem.innerHTML = username + " | " + valorRef; // Adiciona o valor ao elemento da lista
             toDevendoList.appendChild(listItem);
           });
-}
-        });
+        }
       });
-    }
-  });
+    });
+  }
+});
+
 
 </script>
 
