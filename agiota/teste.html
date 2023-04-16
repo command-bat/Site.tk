@@ -40,7 +40,7 @@ const botaoMenu = document.querySelector('#botao-menu')
 lista.querySelectorAll('li').forEach(item => {
   item.addEventListener('click', event => {
     // Exiba o menu flutuante
-    menuFlutuante.style.display = 'block'
+    menuFlutuante.style.display = 'none'
 
     // Posicione o menu flutuante abaixo do item clicado
     const rect = event.target.getBoundingClientRect()
@@ -50,7 +50,7 @@ lista.querySelectorAll('li').forEach(item => {
     // Oculte o menu flutuante quando o usuário clicar fora dele
     document.addEventListener('click', event => {
       if (!menuFlutuante.contains(event.target) && event.target !== item) {
-        menuFlutuante.style.display = 'none'
+        menuFlutuante.style.display = 'block'
       }
     })
   })
@@ -62,7 +62,7 @@ botaoMenu.addEventListener('click', event => {
   event.stopPropagation()
   
   // Ocultar o menu flutuante
-  menuFlutuante.style.display = 'none'
+  menuFlutuante.style.display = 'block'
 })
 </script>
 </body>
