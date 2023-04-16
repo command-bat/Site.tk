@@ -20,7 +20,7 @@
       <form id="pix-form">
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00" required>
-        <button type="submit" onclick="generatePixCode()">Enviar</button><br>
+        <button type="submit">Enviar</button><br>
 	    <img id="imageQRCode"  width="100" height="100" style="display: none;">
       </form>
     </div>
@@ -74,7 +74,7 @@ var pixForm = document.querySelector('#pix-form');
 pixForm.addEventListener('submit', function(event) {
   event.preventDefault();
   
-  const valorInput = document.querySelector('#valor-input').value;
+  const valorInput = document.querySelector('#valor').value;
   if (/^\d+\.\d{2}$/.test(valorInput)) { // Verifica se o valor está no formato correto
     const user = firebase.auth().currentUser;
     const userId = user.uid;
