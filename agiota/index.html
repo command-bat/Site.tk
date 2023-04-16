@@ -80,9 +80,11 @@ firebase.auth().onAuthStateChanged(function(user) {
   document.querySelector('#valor').style.display = 'none';
   document.querySelector('button[type="submit"]').style.display = 'none';
   document.querySelector('#valor').disabled = true;
+  document.querySelector('#valor').disabled = true;
 } else {
   document.querySelector('#valor').style.display = 'block';
   document.querySelector('button[type="submit"]').style.display = 'block';
+  document.querySelector('#valor').disabled = false;
   document.querySelector('#valor').disabled = false;
 }
 
