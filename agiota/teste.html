@@ -9,18 +9,32 @@
 			padding: 0;
 		}
 
-		ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: inline-block;
-  max-width: 30%;
-}
-
+		/* estilos para os headings */
 h1, h2, h3 {
-  margin-top: 40px;
   margin-bottom: 20px;
 }
+
+/* estilos para as listas */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* estilo para os itens da lista */
+li {
+  margin-bottom: 10px;
+}
+
+/* estilo para as três listas lado a lado */
+#emprestimo, #todevendo, #medeve {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  width: 30%;
+}
+
 	</style>
 </head>
 <body>
