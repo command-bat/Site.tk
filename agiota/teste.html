@@ -22,20 +22,18 @@
     <li><a href="#">Item 1</a></li>
     <li><a href="#">Item 2</a></li>
     <li><a href="#">Item 3</a></li>
+    <div id="menu-flutuante">
+      <img src="imagem.jpg" alt="Imagem do menu">
+      <h3>Título do menu</h3>
+      <p>Descrição do menu</p>
+      <button id="botao-menu">Botão</button>
+    </div>
   </ul>
-
-  <div id="menu-flutuante">
-    <img src="imagem.jpg" alt="Imagem do menu">
-    <h3>Título do menu</h3>
-    <p>Descrição do menu</p>
-  </div>
-  <button id="botao-menu">Botão</button>
 
 <script>
   // Selecione os elementos relevantes
 const lista = document.querySelector('ul')
 const menuFlutuante = document.querySelector('#menu-flutuante')
-const botaoMenu = document.querySelector('#botao-menu')
 
 // Adicione um manipulador de eventos para cada item da lista
 lista.querySelectorAll('li').forEach(item => {
@@ -55,15 +53,6 @@ lista.querySelectorAll('li').forEach(item => {
       }
     })
   })
-})
-
-// Adicione um manipulador de eventos para o botão do menu
-botaoMenu.addEventListener('click', event => {
-  // Impedir que o evento de clique se propague para o menu flutuante
-  event.stopPropagation()
-  
-  // Ocultar o menu flutuante
-  menuFlutuante.style.display = 'none'
 })
 </script>
 </body>
