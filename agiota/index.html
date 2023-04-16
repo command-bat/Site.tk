@@ -24,15 +24,6 @@
         <button type="submit" onclick="generatePixCode()">Enviar</button><br>
 	    <img id="imageQRCode"  width="100" height="100" style="display: none;">
       </form>
-      
-      <h2 id="h2-receber">Ola, selecione o valor que quer receber</h2>
-      <form id="pix-formR">
-        <label for="valor">Valor:</label>
-        <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10.00 ou 1.50 ou 0.01" required>
-        <button type="submit" onclick="generatePixCodeR()">Enviar</button><br>
-	    <img id="imageQRCodeR"  width="100" height="100" style="display: none;">
-	      
-      </form>
     </div>
   </div>
 
@@ -70,7 +61,6 @@
           var username = snapshot.val().username;
 
         document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer pagar";
-        document.querySelector('#h2-receber').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
 
         }).catch(function(error) {
           console.log(error);
@@ -85,11 +75,6 @@ var pixForm = document.querySelector('#pix-form');
 pixForm.addEventListener('submit', function(event) {
   event.preventDefault();
 })
-    var pixFormR = document.querySelector('#pix-formR');
-pixFormR.addEventListener('submit', function(event) {
-  event.preventDefault();
-})
-  
       function generatePixCode() {
         
 var select = document.getElementById("nomes");
@@ -141,57 +126,6 @@ var select = document.getElementById("nomes");
                 type="copia/javascript";
                 alert("Copiado para a area de transferencia")
 }
-    function generatePixCodeR()  {
-    firebase.auth().onAuthStateChanged(function(user) {
-
-      if (user) {
-    var userId = user.uid;
-    var userRef = firebase.database().ref('users/' + userId);
-    userRef.once('value').then(function(snapshot) {
-    var chavePix = snapshot.val().pix;
-    var nomeTitular = snapshot.val().name;
-    var cidadeTitular = snapshot.val().city;
-
-    var valorTransacao = document.querySelector('#pix-formR input[name="valor"]').value;
-    var country = "BR"
-    var mai = "0014br.gov.bcb.pix" + "01" + chavePix.length.toString().padStart(2, "0") + chavePix;
-    var pixDataR = "000201" +
-        "010211" +
-        "26" + mai.length.toString().padStart(2, "0") + mai +
-        "52040000" +
-        "5303986" +
-        "54" + valorTransacao.length.toString().padStart(2, "0") + valorTransacao +
-        "58" + country.length.toString().padStart(2, "0") + country +
-        "59" + nomeTitular.length.toString().padStart(2, "0") + nomeTitular +
-        "60" + cidadeTitular.length.toString().padStart(2, "0") + cidadeTitular +
-        "6207" +
-        "0503" + "***" +
-        "6304";
-    var crc16 = crc16ccitt(pixDataR);
-    pixDataR += crc16;
-	    
-	        var conteudo = pixDataR;
-  		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
-  		var imagemQRCode = GoogleCharts + conteudo;
-  		$('#imageQRCodeR').attr('src', imagemQRCode);
-  		var imgQRcodeR = document.getElementById('imageQRCodeR');
-                imgQRcodeR.style.display = 'block';
-	    
-                let inputTest = document.createElement("input");
-                inputTest.value = pixDataR;
-                //Anexa o elemento ao body
-                document.body.appendChild(inputTest);
-                //seleciona todo o texto do elemento
-                inputTest.select();
-                //executa o comando copy
-                //aqui é feito o ato de copiar para a area de trabalho com base na seleção
-                document.execCommand('copy');
-                //remove o elemento
-                document.body.removeChild(inputTest);
-                type="copia/javascript";
-                alert("Copiado para a area de transferencia")
-      });
-      }})}
 
       function crc16ccitt(data) {
         var crc = 0xFFFF;
