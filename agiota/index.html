@@ -108,6 +108,85 @@
         alert('Valor inválido. O valor deve ser um número no formato xx.xx');
       }
     });
+
+//Lista
+
+var usersRef = firebase.database().ref('users');
+  var emprestimo = document.getElementById("emprestimo");
+  var medeve = document.getElementById("medeve");
+
+  usersRef.orderByChild('username').on('value', function(snapshot) {
+    emprestimo.innerHTML = '';
+    medeve.innerHTML = '';
+
+    snapshot.forEach(function(childSnapshot) {
+      var username = childSnapshot.child('username').val();
+      var recVal = childSnapshot.child('inf/transaction/valor').val();
+      var aceita = childSnapshot.child('inf/transaction/aceita').val();
+      var uid = childSnapshot.key;
+      var meDeve = childSnapshot.child('inf/transaction/uid').val();
+
+      if (!aceita && recVal != null && recVal != undefined && /\d+/.test(recVal)) {
+        var listItem = document.createElement("li");
+        listItem.innerHTML = username + "|" + recVal;
+        listItem.addEventListener('click', function() {
+          firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+              var currentUserRef = firebase.database().ref('users/' + uid + '/inf/transaction');
+              currentUserRef.update({
+                uid: user.uid,
+                aceita: true
+              });
+            }
+          });
+        });
+        emprestimo.appendChild(listItem);
+      }
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user && meDeve === user.uid) {
+          var listItem = document.createElement("li");
+          listItem.innerHTML = username + "|" + recVal;
+          medeve.appendChild(listItem);
+        }
+      });
+    });
+
+    if (emprestimo.children.length > 5) {
+      emprestimo.style.height = "200px";
+      emprestimo.style.overflow = "auto";
+    }
+    if (medeve.children.length > 5) {
+      medeve.style.height = "200px";
+      medeve.style.overflow = "auto";
+    }
+  });
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var currentUserUid = user.uid;
+      var toDevendoRef = firebase.database().ref('users/' + currentUserUid + '/inf/transaction');
+
+      toDevendoRef.on('value', function(snapshot) {
+        var toDevendoList = document.getElementById("todevendo");
+        toDevendoList.innerHTML = '';
+
+        snapshot.forEach(function(childSnapshot) {
+          var uid = childSnapshot.val();
+          if (uid.length === 28) {
+          var usernameRef = firebase.database().ref('users/' + uid + '/username');
+		
+          usernameRef.once('value', function(usernameSnapshot) {
+            var username = usernameSnapshot.val();
+            var listItem = document.createElement("li");
+            listItem.innerHTML = username;
+            toDevendoList.appendChild(listItem);
+          });
+}
+        });
+      });
+    }
+  });
   </script>
 </body>
 </html>
