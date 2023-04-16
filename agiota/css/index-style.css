@@ -59,6 +59,7 @@ button[type="submit"] {
   padding: 10px 20px;
   font-size: 18px;
   cursor: pointer;
+  display: none;
 }
 
 
