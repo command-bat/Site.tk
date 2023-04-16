@@ -82,7 +82,7 @@
         const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
         
         userRef.set({
-          valor: parseFloat(valorInput)
+          valor: parseFloat(valorInput).toFixed(2)
         }).then(() => {
           console.log('Valor salvo com sucesso!');
         }).catch((error) => {
