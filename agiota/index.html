@@ -143,13 +143,7 @@ var usersRef = firebase.database().ref('users');
         });
         emprestimo.appendChild(listItem);
       }
-     }else{
-const divLogado = document.getElementById('logado');
-const divConli = document.getElementById('container-li');
-
-        divConli.style.display = 'block';
-        divLogado.style.display = 'none';
-}
+     }
 
       firebase.auth().onAuthStateChanged(function(user) {
         if (user && meDeve === user.uid) {
