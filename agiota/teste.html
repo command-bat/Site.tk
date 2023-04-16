@@ -4,105 +4,107 @@
 	<title>Lista do Firebase</title>
 	<style>
 
-/* Estilos gerais */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  margin: 0;
-  padding: 0;
-  background-color: #f2f2f2;
-}
+<style>
+  /* Estilos gerais */
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+  }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 30px;
-  box-sizing: border-box;
-}
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    box-sizing: border-box;
+  }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-/* Estilos específicos para o cabeçalho */
-h1, h2, h3 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 28px;
-  font-weight: 600;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  width: 32%;
-}
+  /* Estilos específicos para o cabeçalho */
+  h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+  }
 
-h1 {
-  color: #202020;
-}
+  h1 {
+    color: #202020;
+  }
 
-h2 {
-  color: #ffa500;
-}
+  h2 {
+    color: #ffa500;
+  }
 
-h3 {
-  color: #00bfff;
-}
+  h3 {
+    color: #00bfff;
+  }
 
-/* Estilos para as listas */
-#emprestimo li {
-  background-color: #202020;
-  color: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-}
+  /* Estilos para as listas */
+  #emprestimo li {
+    background-color: #202020;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
 
-#todevendo li {
-  background-color: #ffa500;
-  color: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-}
+  #todevendo li {
+    background-color: #ffa500;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
 
-#medeve li {
-  background-color: #00bfff;
-  color: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-}
+  #medeve li {
+    background-color: #00bfff;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
 
-/* Estilos para o layout dos cabeçalhos e listas */
-.header-list {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
+  /* Estilos para o layout dos cabeçalhos e listas */
+  .header-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
 
-.header-list h1, .header-list h2, .header-list h3 {
-  display: inline-block;
-  width: 32%;
-}
+  .header-list > div {
+    width: 32%;
+  }
 
-.header-list #emprestimo, .header-list #todevendo, .header-list #medeve {
-  width: 32%;
-}
+  .header-list h1, .header-list h2, .header-list h3 {
+    margin-bottom: 10px;
+  }
+</style>
 
-
-	</style>
-</head>
-<body>
 <div class="container">
-  <h1>Selecione o username<br>para emprestar dinheiro</h1>
-  <ul id="emprestimo"></ul>
-
-  <h2>Username de quem vc esta<br>devendo dinheiro</h2>
-  <ul id="todevendo"></ul>
-
-  <h3>Username de quem esta<br>te devendo dinheiro</h3>
-  <ul id="medeve"></ul>
+  <div class="header-list">
+    <div>
+      <h1>Selecione o username<br>para emprestar dinheiro</h1>
+      <ul id="emprestimo"></ul>
+    </div>
+    <div>
+      <h2>Username de quem vc esta<br>devendo dinheiro</h2>
+      <ul id="todevendo"></ul>
+    </div>
+    <div>
+      <h3>Username de quem esta<br>te devendo dinheiro</h3>
+      <ul id="medeve"></ul>
+    </div>
+  </div>
 </div>
+
 
 <!-- Inclui o SDK do Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
