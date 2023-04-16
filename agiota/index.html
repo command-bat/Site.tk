@@ -60,32 +60,39 @@
       window.location.href = '/agiota/registro';
     });    
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      const divDeslogado = document.getElementById('deslogado');
-      const divLogado = document.getElementById('logado');
+firebase.auth().onAuthStateChanged(function(user) {
+  const divDeslogado = document.getElementById('deslogado');
+  const divLogado = document.getElementById('logado');
 
-      if (user) {      
-        divDeslogado.style.display = 'none';
-        divLogado.style.display = 'block';
+  if (user) {      
+    divDeslogado.style.display = 'none';
+    divLogado.style.display = 'block';
 
-        
-        var userId = user.uid;
-        var userRef = firebase.database().ref('users/' + userId);
+    
+    var userId = user.uid;
+    var userRef = firebase.database().ref('users/' + userId);
 
-        userRef.once('value').then(function(snapshot) {
-          var username = snapshot.val().username;
-
-        document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
-
-        }).catch(function(error) {
-          console.log(error);
-        });
-
-      } else {
-        divDeslogado.style.display = 'block';
-        divLogado.style.display = 'none';      
+    userRef.once('value').then(function(snapshot) {
+      var username = snapshot.val().username;
+      var transaction = snapshot.child('inf/transaction').val();
+      
+      if (transaction && transaction.valor) {
+        document.querySelector('#valor').disabled = true;
+        alert('Você já tem um valor de transação registrado!');
       }
+
+      document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + " selecione o valor que quer receber";
+
+    }).catch(function(error) {
+      console.log(error);
     });
+
+  } else {
+    divDeslogado.style.display = 'block';
+    divLogado.style.display = 'none';      
+  }
+});
+
 
     var pixForm = document.querySelector('#pix-form');
     pixForm.addEventListener('submit', function(event) {
