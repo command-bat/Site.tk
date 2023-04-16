@@ -115,11 +115,11 @@ firebase.auth().onAuthStateChanged(function(user) {
         userRef.set({
           valor: parseFloat(valorInput).toFixed(2)
         }).then(() => {
-          document.querySelector('#valor').style.display = 'block';
-          document.querySelector('button[type="submit"]').style.display = 'block';
-          document.querySelector('#valor').disabled = false;
-          document.querySelector('label[for=valor]').style.display = 'block';
-          document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + "<br>escreva o valor que quer receber";
+          document.querySelector('#valor').style.display = 'none';
+          document.querySelector('button[type="submit"]').style.display = 'none';
+          document.querySelector('#valor').disabled = true;
+          document.querySelector('label[for=valor]').style.display = 'none';
+          document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + "<br>espere alguém enviar o dinheiro que você pediu.";
           console.log('Valor salvo com sucesso!');
         }).catch((error) => {
           console.log(error);
