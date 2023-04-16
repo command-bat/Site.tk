@@ -1,59 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Menu Flutuante</title>
-  <style>
-    /* Estilos CSS para o menu flutuante */
-    #menu-flutuante {
-      position: absolute;
-      top: 50px;
-      left: 0;
-      width: 200px;
-      background-color: #fff;
-      padding: 10px;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-      display: block;
-    }
-  </style>
+	<title>Menu flutuante em HTML</title>
+	<style>
+		/* Define a classe que oculta o menu */
+		.menu-hidden {
+			display: none;
+		}
+
+		/* Define a classe que exibe o menu */
+		.menu-visible {
+			display: block;
+			position: absolute;
+			top: 30px;
+			left: 0;
+			background-color: #ccc;
+			padding: 10px;
+			z-index: 1;
+		}
+	</style>
 </head>
 <body>
-  <ul>
-    <li><a href="#">Item 1</a></li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
-    <div id="menu-flutuante">
-      <img src="imagem.jpg" alt="Imagem do menu">
-      <h3>Título do menu</h3>
-      <p>Descrição do menu</p>
-      <button id="botao-menu">Botão</button>
-    </div>
-  </ul>
+	<ul>
+		<li><a href="#" onclick="toggleMenu()">Item 1</a></li>
+		<li><a href="#" onclick="toggleMenu()">Item 2</a></li>
+		<li><a href="#" onclick="toggleMenu()">Item 3</a></li>
+	</ul>
 
-<script>
-  // Selecione os elementos relevantes
-const lista = document.querySelector('ul')
-const menuFlutuante = document.querySelector('#menu-flutuante')
+	<div id="menu" class="menu-hidden">
+		<button onclick="toggleMenu()">Fechar</button>
+		<p>Conteúdo do menu flutuante</p>
+                <img src="imagem.jpg" alt="Imagem do menu">
+                <h3>Título do menu</h3>
+                <p>Descrição do menu</p>
+	</div>
 
-// Adicione um manipulador de eventos para cada item da lista
-lista.querySelectorAll('li').forEach(item => {
-  item.addEventListener('click', event => {
-    // Exiba o menu flutuante
-    menuFlutuante.style.display = 'block'
-
-    // Posicione o menu flutuante abaixo do item clicado
-    const rect = event.target.getBoundingClientRect()
-    menuFlutuante.style.top = rect.bottom + 'px'
-    menuFlutuante.style.left = rect.left + 'px'
-
-    // Oculte o menu flutuante quando o usuário clicar fora dele
-    document.addEventListener('click', event => {
-      if (!menuFlutuante.contains(event.target) && event.target !== item) {
-        menuFlutuante.style.display = 'none'
-      }
-    })
-  })
-})
-</script>
+	<script>
+		function toggleMenu() {
+			var menu = document.getElementById("menu");
+			menu.classList.toggle("menu-hidden");
+			menu.classList.toggle("menu-visible");
+		}
+	</script>
 </body>
 </html>
