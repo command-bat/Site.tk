@@ -186,7 +186,7 @@
     }
   });
 
-  firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     var currentUserUid = user.uid;
     var toDevendoRef = firebase.database().ref('users/' + currentUserUid + '/inf/transaction');
@@ -202,16 +202,22 @@
           var valorRef = firebase.database().ref('users/' + uid + '/inf/transaction/valor');
           
           usernameRef.once('value', function(usernameSnapshot) {
-            var username = usernameSnapshot.val();
-            var listItem = document.createElement("li");
-            listItem.innerHTML = username + " | " + valorRef; // Adiciona o valor ao elemento da lista
-            toDevendoList.appendChild(listItem);
+            valorRef.once('value', function(valorSnapshot) {
+              var username = usernameSnapshot.val();
+              var valor = valorSnapshot.val();
+              if (valor != null && valor != undefined && /\d+/.test(valor)) {
+                var listItem = document.createElement("li");
+                listItem.innerHTML = username + " | " + valor; // Adiciona o valor ao elemento da lista
+                toDevendoList.appendChild(listItem);
+              }
+            });
           });
         }
       });
     });
   }
 });
+
 
 
 </script>
