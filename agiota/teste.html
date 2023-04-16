@@ -30,32 +30,41 @@
     <p>Descrição do menu</p>
     <button>Botão</button>
   </div>
+<script>
+  // Selecione os elementos relevantes
+const lista = document.querySelector('ul')
+const menuFlutuante = document.querySelector('#menu-flutuante')
+const botaoMenu = document.querySelector('#botao-menu')
 
-  <script>
-    // Selecione os elementos relevantes
-    const lista = document.querySelector('ul')
-    const menuFlutuante = document.querySelector('#menu-flutuante')
+// Adicione um manipulador de eventos para cada item da lista
+lista.querySelectorAll('li').forEach(item => {
+  item.addEventListener('click', event => {
+    // Exiba o menu flutuante
+    menuFlutuante.style.display = 'block'
 
-    // Adicione um manipulador de eventos para cada item da lista
-    lista.querySelectorAll('li').forEach(item => {
-      item.addEventListener('click', event => {
-        // Exiba o menu flutuante
+    // Posicione o menu flutuante abaixo do item clicado
+    const rect = event.target.getBoundingClientRect()
+    menuFlutuante.style.top = rect.bottom + 'px'
+    menuFlutuante.style.left = rect.left + 'px'
+
+    // Oculte o menu flutuante quando o usuário clicar fora dele
+    document.addEventListener('click', event => {
+      if (!menuFlutuante.contains(event.target) && event.target !== item) {
         menuFlutuante.style.display = 'none'
-
-        // Posicione o menu flutuante abaixo do item clicado
-        const rect = event.target.getBoundingClientRect()
-        menuFlutuante.style.top = rect.bottom + 'px'
-        menuFlutuante.style.left = rect.left + 'px'
-
-        // Oculte o menu flutuante quando o usuário clicar fora dele
-        document.addEventListener('click', event => {
-          if (!menuFlutuante.contains(event.target) && event.target !== item) {
-            menuFlutuante.style.display = 'block'
-          }
-        })
-      })
+      }
     })
-  </script>
+  })
+})
+
+// Adicione um manipulador de eventos para o botão do menu
+botaoMenu.addEventListener('click', event => {
+  // Impedir que o evento de clique se propague para o menu flutuante
+  event.stopPropagation()
+  
+  // Ocultar o menu flutuante
+  menuFlutuante.style.display = 'none'
+})
+</script>
 </body>
 </html>
  
