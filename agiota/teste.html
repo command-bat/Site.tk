@@ -199,7 +199,7 @@
         var uid = childSnapshot.val();
         if (uid.length === 28) {
           var usernameRef = firebase.database().ref('users/' + uid + '/username');
-          var valorRef = childSnapshot.child('valor').val(); // Adiciona esta linha para obter o valor
+          var valorRef = firebase.database().ref('users/' + uid + '/inf/transaction/valor');
           
           usernameRef.once('value', function(usernameSnapshot) {
             var username = usernameSnapshot.val();
