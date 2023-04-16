@@ -126,7 +126,8 @@ var usersRef = firebase.database().ref('users');
       var uid = childSnapshot.key;
       var meDeve = childSnapshot.child('inf/transaction/uid').val();
 
-      if (!aceita && recVal != null && recVal != undefined && /\d+/.test(recVal)) {
+      if (recVal != null && recVal != undefined && /\d+/.test(recVal)) {
+        if (!aceita) {
         var listItem = document.createElement("li");
         listItem.innerHTML = username + "|" + recVal;
         listItem.addEventListener('click', function() {
@@ -142,6 +143,13 @@ var usersRef = firebase.database().ref('users');
         });
         emprestimo.appendChild(listItem);
       }
+     }else{
+const divLogado = document.getElementById('logado');
+const divConli = document.getElementById('container-li');
+
+        divConli.style.display = 'block';
+        divLogado.style.display = 'none';
+}
 
       firebase.auth().onAuthStateChanged(function(user) {
         if (user && meDeve === user.uid) {
