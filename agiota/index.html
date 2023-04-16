@@ -79,7 +79,7 @@
       if (/^\d+\.\d{2}$/.test(valorInput)) { // Verifica se o valor está no formato correto
         const user = firebase.auth().currentUser;
         const userId = user.uid;
-        const userRef = firebase.database().ref('users/' + userId + '/transaction');
+        const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
         
         userRef.set({
           valor: parseFloat(valorInput)
