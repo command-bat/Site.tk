@@ -126,30 +126,30 @@ firebase.auth().onAuthStateChanged(function(user) {
         alert(usernameRef + "/n" + pixRef + "/n" + cityRef);
 
 usernameRef.once('value').then((snapshot) => {
-  const username = snapshot.val();
+  var username = snapshot.val();
   console.log(username);
 }).catch((error) => {
   console.log(error.message);
 });
 
 pixRef.once('value').then((snapshot) => {
-  const pix = snapshot.val();
-  console.log(username);
+  var pix = snapshot.val();
+  console.log(pix);
 }).catch((error) => {
   console.log(error.message);
 });
 
 cityRef.once('value').then((snapshot) => {
-  const city = snapshot.val();
-  console.log(username);
+  var city = snapshot.val();
+  console.log(city);
 }).catch((error) => {
   console.log(error.message);
 });
 
 
-usernameRef.once('value').then((snapshot) => {
-  const username = snapshot.val();
-  console.log(username);
+nameRef.once('value').then((snapshot) => {
+  var name = snapshot.val();
+  console.log(name);
 }).catch((error) => {
   console.log(error.message);
 });
