@@ -8,6 +8,8 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="js/firebase.js"></script>
+  import { generatePixCode } from './js/createPix.js';
+
   <script src="js/createPix.js"></script>
   <link rel="stylesheet" href="css/index-style.css">
 
@@ -55,6 +57,10 @@
     <button id="registro">Registrar</button>
     <button id="login">login</button>
   </div>
+
+<script type="module">
+    import { generatePixCode } from './js/createPix.js';
+</script>
 
   <script>
     const login = document.getElementById('login');
@@ -249,7 +255,7 @@ emprestimoLista.forEach(item => {
   });
 });
 
-		function toggleMenu() {
+		function toggleMenu()m {
 			var menu = document.getElementById("menu");
 			menu.classList.toggle("menu-hidden");
 			menu.classList.toggle("menu-visible"); 
