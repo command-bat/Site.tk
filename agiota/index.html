@@ -120,40 +120,22 @@ firebase.auth().onAuthStateChanged(function(user) {
         const userId = user.uid;
         const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
         const usernameRef = firebase.database().ref('users/' + userId + '/username');
-        const pixRef = firebase.database().ref('users/' + userId + '/pix');
-        const cityRef = firebase.database().ref('users/' + userId + '/city');
-        const nameRef = firebase.database().ref('users/' + userId + '/name');
-        alert(usernameRef + "/n" + pixRef + "/n" + cityRef);
+const pixRef = firebase.database().ref('users/' + userId + '/pix');
+const cityRef = firebase.database().ref('users/' + userId + '/city');
+const nameRef = firebase.database().ref('users/' + userId + '/name');
 
-usernameRef.once('value').then((snapshot) => {
-  var username = snapshot.val();
-  console.log(username);
-}).catch((error) => {
-  console.log(error.message);
-});
-
-pixRef.once('value').then((snapshot) => {
-  var pix = snapshot.val();
-  console.log(pix);
-}).catch((error) => {
-  console.log(error.message);
-});
-
-cityRef.once('value').then((snapshot) => {
-  var city = snapshot.val();
-  console.log(city);
-}).catch((error) => {
-  console.log(error.message);
-});
-
-
-nameRef.once('value').then((snapshot) => {
-  var name = snapshot.val();
-  console.log(name);
-}).catch((error) => {
-  console.log(error.message);
-});
-alert(username + "   " + pix + "   " + city + "    " + name);
+Promise.all([usernameRef.once('value'), pixRef.once('value'), cityRef.once('value'), nameRef.once('value')])
+  .then((snapshots) => {
+    const username = snapshots[0].val();
+    const pix = snapshots[1].val();
+    const city = snapshots[2].val();
+    const name = snapshots[3].val();
+    console.log(username, pix, city, name);
+    alert(username + "   " + pix + "   " + city + "    " + name);
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
 
         userRef.set({
           valor: parseFloat(valorInput).toFixed(2)
