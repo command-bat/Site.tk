@@ -118,27 +118,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         const user = firebase.auth().currentUser;
         const userId = user.uid;
         const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
-        const valorRef = firebase.database().ref('users/' + userId + '/inf/transaction/valor');
-	const pixRef = firebase.database().ref('users/' + userId + '/pix');
-	const cityRef = firebase.database().ref('users/' + userId + '/city');
-	const nameRef = firebase.database().ref('users/' + userId + '/name');
-
-Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value'), cityRef.once('value')])
-  .then((snapshots) => {
-    var pix = snapshots[0].val();
-    var valor = snapshots[1].val();
-    var name = snapshots[2].val();
-    var city = snapshots[3].val();
-    console.log(pix, valor, name, city);
-    alert(username + "   " + pix + "   " + city + "    " + name);
-	function toggleMenu(pix, valor, name, city) {
-		var menu = document.getElementById("menu");
-		menu.classList.toggle("menu-hidden");
-		menu.classList.toggle("menu-visible"); 
-  			if (menu.classList.contains("menu-visible")) {
-    				generatePixCode(pix, valor, name, city);
-  			}
-	}
   })
   .catch((error) => {
     console.log(error.message);
@@ -251,11 +230,34 @@ const emprestimoLista = document.querySelectorAll('#emprestimo li');
 
 emprestimoLista.forEach(item => {
   item.addEventListener('click', () => {
-    toggleMenu();
+	const user = firebase.auth().currentUser;
+        const userId = user.uid;
+        const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
+        const valorRef = firebase.database().ref('users/' + userId + '/inf/transaction/valor');
+	const pixRef = firebase.database().ref('users/' + userId + '/pix');
+	const cityRef = firebase.database().ref('users/' + userId + '/city');
+	const nameRef = firebase.database().ref('users/' + userId + '/name');
+
+Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value'), cityRef.once('value')])
+  .then((snapshots) => {
+    var pix = snapshots[0].val();
+    var valor = snapshots[1].val();
+    var name = snapshots[2].val();
+    var city = snapshots[3].val();
+    console.log(pix, valor, name, city);
+    alert(username + "   " + pix + "   " + city + "    " + name);
+   toggleMenu(pix, valor, name, city)
 
   });
 });
-
+	function toggleMenu(pix, valor, name, city) {
+		var menu = document.getElementById("menu");
+		menu.classList.toggle("menu-hidden");
+		menu.classList.toggle("menu-visible"); 
+  			if (menu.classList.contains("menu-visible")) {
+    				generatePixCode(pix, valor, name, city);
+  			}
+	}
   </script>
 </body>
 </html>
