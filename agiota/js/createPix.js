@@ -1,7 +1,7 @@
-function generatePixCode(pix, city, name) {
+function generatePixCode(pix, valor, name, city) {
        
 var chavePix = pix;
-        var valorTransacao = pixForm.valor.value;
+        var valorTransacao = valor;
         var country = "BR";
         var nomeTitular = name;
         var cidadeTitular = city;
