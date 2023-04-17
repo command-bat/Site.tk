@@ -40,6 +40,13 @@
     </div>
   </div>
 </div>
+	<div id="menu" class="menu-hidden">
+		<button onclick="toggleMenu()">Fechar</button>
+		<p>Conteúdo do menu flutuante</p>
+                <img src="imagem.jpg" alt="Imagem do menu">
+                <h3>Título do menu</h3>
+                <p>Descrição do menu</p>
+	</div>
   </div>
 
   <div id="deslogado" style="display: none;">
@@ -213,7 +220,11 @@ var usersRef = firebase.database().ref('users');
     });
   }
 });
-
+		function toggleMenu() {
+			var menu = document.getElementById("menu");
+			menu.classList.toggle("menu-hidden");
+			menu.classList.toggle("menu-visible");
+		}
   </script>
 </body>
 </html>
