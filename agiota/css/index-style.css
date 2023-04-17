@@ -187,3 +187,18 @@ button[type="submit"] {
   .header-list l3 {
     margin-bottom: 10px;
   }
+		/* Define a classe que oculta o menu */
+		.menu-hidden {
+			display: none;
+		}
+
+		/* Define a classe que exibe o menu */
+		.menu-visible {
+			display: block;
+			position: absolute;
+			top: 30px;
+			left: 0;
+			background-color: #ccc;
+			padding: 10px;
+			z-index: 1;
+		}
