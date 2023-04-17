@@ -109,35 +109,34 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
-    var pixForm = document.querySelector('#pix-form');
-    pixForm.addEventListener('submit', function(event) {
-      event.preventDefault();
+var pixForm = document.querySelector('#pix-form');
+pixForm.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-      const valorInput = document.querySelector('#valor').value;
-      if (/^\d+\.\d{2}$/.test(valorInput)) { // Verifica se o valor está no formato correto
-        const user = firebase.auth().currentUser;
-        const userId = user.uid;
-        const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
+  const valorInput = document.querySelector('#valor').value;
+  if (/^\d+\.\d{2}$/.test(valorInput)) { // Verifica se o valor está no formato correto
+    const user = firebase.auth().currentUser;
+    const userId = user.uid;
+    const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
+
+    userRef.set({
+      valor: parseFloat(valorInput).toFixed(2)
+    }).then(() => {
+      document.querySelector('#valor').style.display = 'none';
+      document.querySelector('button[type="submit"]').style.display = 'none';
+      document.querySelector('#valor').disabled = true;
+      document.querySelector('label[for=valor]').style.display = 'none';
+      document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + "<br>espere alguém enviar o dinheiro que você pediu.";
+      console.log('Valor salvo com sucesso!');
     }).catch((error) => {
-    console.log(error.message);
-  });
-
-        userRef.set({
-          valor: parseFloat(valorInput).toFixed(2)
-        }).then(() => {
-          document.querySelector('#valor').style.display = 'none';
-          document.querySelector('button[type="submit"]').style.display = 'none';
-          document.querySelector('#valor').disabled = true;
-          document.querySelector('label[for=valor]').style.display = 'none';
-          document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + "<br>espere alguém enviar o dinheiro que você pediu.";
-          console.log('Valor salvo com sucesso!');
-        }).catch((error) => {
-          console.log(error);
-        });
-      } else {
-        alert('Valor inválido. O valor deve ser um número no formato xx.xx');
-      }
+      console.log(error);
     });
+  } else {
+    alert('Valor inválido. O valor deve ser um número no formato xx.xx');
+  }
+}).catch((error) => {
+  console.log(error.message);
+});
 
 //Lista
 
