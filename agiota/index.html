@@ -146,7 +146,6 @@ cityRef.once('value').then((snapshot) => {
   console.log(error.message);
 });
 
-alert(username + "   " + pix + "   " + city + "    " + name);
 
 usernameRef.once('value').then((snapshot) => {
   const username = snapshot.val();
@@ -154,6 +153,7 @@ usernameRef.once('value').then((snapshot) => {
 }).catch((error) => {
   console.log(error.message);
 });
+alert(username + "   " + pix + "   " + city + "    " + name);
 
         userRef.set({
           valor: parseFloat(valorInput).toFixed(2)
