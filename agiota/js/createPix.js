@@ -58,4 +58,3 @@ var chavePix = pix;
         return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
       }
 
-export { generatePixCode };
