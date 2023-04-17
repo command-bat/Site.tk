@@ -220,6 +220,14 @@ var usersRef = firebase.database().ref('users');
     });
   }
 });
+const emprestimoLista = document.querySelectorAll('#emprestimo li');
+
+emprestimoLista.forEach(item => {
+  item.addEventListener('click', () => {
+    toggleMenu();
+  });
+});
+
 		function toggleMenu() {
 			var menu = document.getElementById("menu");
 			menu.classList.toggle("menu-hidden");
