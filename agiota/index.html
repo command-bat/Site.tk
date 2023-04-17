@@ -127,9 +127,9 @@ const nameRef = firebase.database().ref('users/' + userId + '/name');
 Promise.all([usernameRef.once('value'), pixRef.once('value'), cityRef.once('value'), nameRef.once('value')])
   .then((snapshots) => {
     const username = snapshots[0].val();
-    const pix = snapshots[1].val();
-    const city = snapshots[2].val();
-    const name = snapshots[3].val();
+    var pix = snapshots[1].val();
+    var city = snapshots[2].val();
+    var name = snapshots[3].val();
     console.log(username, pix, city, name);
     alert(username + "   " + pix + "   " + city + "    " + name);
   })
