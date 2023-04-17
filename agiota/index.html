@@ -122,7 +122,39 @@ firebase.auth().onAuthStateChanged(function(user) {
         const usernameRef = firebase.database().ref('users/' + userId + '/username');
         const pixRef = firebase.database().ref('users/' + userId + '/pix');
         const cityRef = firebase.database().ref('users/' + userId + '/city');
+        const nameRef = firebase.database().ref('users/' + userId + '/name');
         alert(usernameRef + "/n" + pixRef + "/n" + cityRef);
+
+usernameRef.once('value').then((snapshot) => {
+  const username = snapshot.val();
+  console.log(username);
+}).catch((error) => {
+  console.log(error.message);
+});
+
+pixRef.once('value').then((snapshot) => {
+  const pix = snapshot.val();
+  console.log(username);
+}).catch((error) => {
+  console.log(error.message);
+});
+
+cityRef.once('value').then((snapshot) => {
+  const city = snapshot.val();
+  console.log(username);
+}).catch((error) => {
+  console.log(error.message);
+});
+
+alert(username + "   " + pix + "   " + city + "    " + name);
+
+usernameRef.once('value').then((snapshot) => {
+  const username = snapshot.val();
+  console.log(username);
+}).catch((error) => {
+  console.log(error.message);
+});
+
         userRef.set({
           valor: parseFloat(valorInput).toFixed(2)
         }).then(() => {
