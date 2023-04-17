@@ -157,6 +157,8 @@ var usersRef = firebase.database().ref('users');
         if (!aceita) {
         var listItem = document.createElement("li");
         listItem.innerHTML = username + "|" + recVal;
+        // Adicione o atributo onclick="toggleMenu()" dentro do elemento <li>
+        listItem.setAttribute('onclick', 'toggleMenu()');
         listItem.addEventListener('click', function() {
           firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
