@@ -119,9 +119,9 @@ firebase.auth().onAuthStateChanged(function(user) {
         const user = firebase.auth().currentUser;
         const userId = user.uid;
         const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
-        const usernameRef = firebase.database().ref('users/' + userId + '/username);
-        const pixRef = firebase.database().ref('users/' + userId + '/pix);
-        const cityRef = firebase.database().ref('users/' + userId + '/city);
+        const usernameRef = firebase.database().ref('users/' + userId + '/username');
+        const pixRef = firebase.database().ref('users/' + userId + '/pix');
+        const cityRef = firebase.database().ref('users/' + userId + '/city');
         alert(usernameRef + "/n" + pixRef + "/n" + cityRef);
         userRef.set({
           valor: parseFloat(valorInput).toFixed(2)
