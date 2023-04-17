@@ -118,18 +118,18 @@ firebase.auth().onAuthStateChanged(function(user) {
         const user = firebase.auth().currentUser;
         const userId = user.uid;
         const userRef = firebase.database().ref('users/' + userId + '/inf/transaction');
-        const usernameRef = firebase.database().ref('users/' + userId + '/username');
-const pixRef = firebase.database().ref('users/' + userId + '/pix');
-const cityRef = firebase.database().ref('users/' + userId + '/city');
-const nameRef = firebase.database().ref('users/' + userId + '/name');
+        const valorRef = firebase.database().ref('users/' + userId + '/inf/transaction/valor');
+	const pixRef = firebase.database().ref('users/' + userId + '/pix');
+	const cityRef = firebase.database().ref('users/' + userId + '/city');
+	const nameRef = firebase.database().ref('users/' + userId + '/name');
 
-Promise.all([usernameRef.once('value'), pixRef.once('value'), cityRef.once('value'), nameRef.once('value')])
+Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value'), cityRef.once('value')])
   .then((snapshots) => {
-    const username = snapshots[0].val();
-    var pix = snapshots[1].val();
-    var city = snapshots[2].val();
-    var name = snapshots[3].val();
-    console.log(username, pix, city, name);
+    var pix = snapshots[0].val();
+    var valor = snapshots[1].val();
+    var name = snapshots[2].val();
+    var city = snapshots[3].val();
+    console.log(pix, valor, name, city);
     alert(username + "   " + pix + "   " + city + "    " + name);
   })
   .catch((error) => {
@@ -248,12 +248,12 @@ emprestimoLista.forEach(item => {
   });
 });
 
-		function toggleMenu(pix, city, name) {
+		function toggleMenu(pix, valor, name, city) {
 			var menu = document.getElementById("menu");
 			menu.classList.toggle("menu-hidden");
 			menu.classList.toggle("menu-visible"); 
   if (menu.classList.contains("menu-visible")) {
-    generatePixCode(pix, city, name);
+    generatePixCode(pix, valor, name, city);
   }
 		}
   </script>
