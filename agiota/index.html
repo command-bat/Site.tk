@@ -131,6 +131,14 @@ Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value')
     var city = snapshots[3].val();
     console.log(pix, valor, name, city);
     alert(username + "   " + pix + "   " + city + "    " + name);
+	function toggleMenu(pix, valor, name, city) {
+		var menu = document.getElementById("menu");
+		menu.classList.toggle("menu-hidden");
+		menu.classList.toggle("menu-visible"); 
+  			if (menu.classList.contains("menu-visible")) {
+    				generatePixCode(pix, valor, name, city);
+  			}
+	}
   })
   .catch((error) => {
     console.log(error.message);
@@ -248,14 +256,6 @@ emprestimoLista.forEach(item => {
   });
 });
 
-		function toggleMenu(pix, valor, name, city) {
-			var menu = document.getElementById("menu");
-			menu.classList.toggle("menu-hidden");
-			menu.classList.toggle("menu-visible"); 
-  if (menu.classList.contains("menu-visible")) {
-    generatePixCode(pix, valor, name, city);
-  }
-		}
   </script>
 </body>
 </html>
