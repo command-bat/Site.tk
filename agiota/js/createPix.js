@@ -1,4 +1,4 @@
-generatePixCode(pix, city, name) {
+function generatePixCode(pix, city, name) {
        
 var chavePix = pix;
         var valorTransacao = pixForm.valor.value;
