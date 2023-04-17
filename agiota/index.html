@@ -79,7 +79,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     var userId = user.uid;
     var userRef = firebase.database().ref('users/' + userId);
 
-    userRef.on('value').then(function(snapshot) {
+    userRef.once('value').then(function(snapshot) {
       var username = snapshot.val().username;
       var transaction = snapshot.child('inf/transaction').val();
       
