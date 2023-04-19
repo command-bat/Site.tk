@@ -158,7 +158,6 @@ var usersRef = firebase.database().ref('users');
         var listItem = document.createElement("li");
         listItem.innerHTML = username + "|" + recVal;
         // Adicione o atributo onclick="toggleMenu()" dentro do elemento <li>
-        listItem.setAttribute('onclick', 'toggleMenu(pix, valor, name, city)');
         listItem.addEventListener('click', function() {
           firebase.auth().onAuthStateChanged(function(user) {
 
@@ -176,7 +175,7 @@ Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value')
     var city = snapshots[3].val();
     console.log(pix, valor, name, city);
     alert(username + "   " + pix + "   " + city + "    " + name);
-   toggleMenu(pix, valor, name, city)
+   toggleMenu(pix, valor, name, city);
 
   });
 
