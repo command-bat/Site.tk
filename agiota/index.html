@@ -182,7 +182,7 @@ Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value')
     var city = snapshots[3].val();
     console.log(pix, valor, name, city);
     alert(username + "   " + pix + "   " + city + "    " + name);
-   toggleMenu(pix, valor, name, city);
+   toggleMenu(pix, valor, name, city)
 
   });
 
@@ -247,11 +247,6 @@ Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value')
     });
   }
 });
-const emprestimoLista = document.querySelectorAll('#emprestimo li');
-
-emprestimoLista.forEach(item => {
-  item.addEventListener('click', () => {
-});
 	function toggleMenu(pix, valor, name, city) {
 		var menu = document.getElementById("menu");
 		menu.classList.toggle("menu-hidden");
@@ -260,7 +255,6 @@ emprestimoLista.forEach(item => {
     				generatePixCode(pix, valor, name, city);
   			}
 	}
-});
   </script>
 </body>
 </html>
