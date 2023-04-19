@@ -245,13 +245,19 @@ const emprestimoLista = document.querySelectorAll('#emprestimo li');
 emprestimoLista.forEach(item => {
   item.addEventListener('click', () => {
 });
-	function toggleMenu(pix, valor, name, city) {
-		var menu = document.getElementById("menu");
-		menu.classList.toggle("menu-hidden");
-		menu.classList.toggle("menu-visible"); 
-  			if (menu.classList.contains("menu-visible")) {
-    				generatePixCode(pix, valor, name, city);
-  			}
+	function toggleMenu(pix = null, valor = null, name = null, city = null) {
+  var menu = document.getElementById('menu');
+  if (menu.classList.contains('menu-hidden')) {
+    menu.classList.remove('menu-hidden');
+    if (pix !== null && valor !== null && name !== null && city !== null) {
+      document.getElementById('imageQRCode').src = pix;
+      document.querySelector('#menu h3').innerHTML = name + ' (' + city + ')';
+      document.querySelector('#menu p').innerHTML = 'Valor: R$ ' + valor;
+    }
+  } else {
+    menu.classList.add('menu-hidden');
+  }
+}
 	}
 });
   </script>
