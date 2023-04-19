@@ -29,6 +29,9 @@ $('#imageQRCode').attr('src', imagemQRCode);
 var imgQRcode = document.getElementById('imageQRCode');
 imgQRcode.style.display = 'block';
 
+const keyPix = document.getElementById('chave-pix');
+
+    keyPix.addEventListener('click', () => {
 
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
@@ -44,6 +47,7 @@ imgQRcode.style.display = 'block';
                 type="copia/javascript";
                 alert("Copiado para a area de transferencia")
 }
+    });
 
       function crc16ccitt(data) {
         var crc = 0xFFFF;
