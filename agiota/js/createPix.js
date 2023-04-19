@@ -29,9 +29,12 @@ $('#imageQRCode').attr('src', imagemQRCode);
 var imgQRcode = document.getElementById('imageQRCode');
 imgQRcode.style.display = 'block';
 
-const keyPix = document.getElementById('chave-pix');
+const codePixBt = document.getElementById('code-pix-bt');
+const codePixTx = document.getElementById('code-pix-tx');
 
-    keyPix.addEventListener('click', () => {
+codePixTx.innerHTML = pixData
+
+    codePixBt.addEventListener('click', () => {
 
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
