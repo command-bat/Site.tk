@@ -46,8 +46,8 @@ const keyPix = document.getElementById('chave-pix');
                 document.body.removeChild(inputTest);
                 type="copia/javascript";
                 alert("Copiado para a area de transferencia")
-}
     });
+}
 
       function crc16ccitt(data) {
         var crc = 0xFFFF;
