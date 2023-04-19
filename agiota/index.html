@@ -75,7 +75,14 @@ firebase.auth().onAuthStateChanged(function(user) {
     divDeslogado.style.display = 'none';
     divLogado.style.display = 'block';
 
-    
+    const emprestimoItems = document.querySelectorAll('#emprestimo li');
+for (let i = 0; i < emprestimoItems.length; i++) {
+  emprestimoItems[i].onclick = function() {
+    toggleMenu();
+  };
+}
+
+
     var userId = user.uid;
     var userRef = firebase.database().ref('users/' + userId);
 
