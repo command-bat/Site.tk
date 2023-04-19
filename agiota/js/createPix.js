@@ -22,11 +22,13 @@ var chavePix = pix;
         pixData += crc16;
 	    
 	        var conteudo = pixData;
-  		var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
-  		var imagemQRCode = GoogleCharts + conteudo;
-  		$('#imageQRCode').attr('src', imagemQRCode);
-    		var imgQRcode = document.getElementById('imageQRCode');
-                imgQRcode.style.display = 'block';
+var GoogleCharts = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=';
+var encodedConteudo = encodeURIComponent(conteudo);
+var imagemQRCode = GoogleCharts + encodedConteudo;
+$('#imageQRCode').attr('src', imagemQRCode);
+var imgQRcode = document.getElementById('imageQRCode');
+imgQRcode.style.display = 'block';
+
 
                 let inputTest = document.createElement("input");
                 inputTest.value = pixData;
