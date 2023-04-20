@@ -240,6 +240,27 @@ Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value')
               var listItem = document.createElement("li");
               listItem.innerHTML = username + " | " + valor; // Adiciona o valor ao elemento da lista
               toDevendoList.appendChild(listItem);
+
+	  listItem.addEventListener('click', function() {
+          firebase.auth().onAuthStateChanged(function(user) {
+
+        const userRef = firebase.database().ref('users/' + uid + '/inf/transaction');
+        const valorRef = firebase.database().ref('users/' + uid + '/inf/transaction/valor');
+	const pixRef = firebase.database().ref('users/' + uid + '/pix');
+	const cityRef = firebase.database().ref('users/' + uid + '/city');
+	const nameRef = firebase.database().ref('users/' + uid + '/name');
+
+Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value'), cityRef.once('value')])
+  .then((snapshots) => {
+    var pix = snapshots[0].val();
+    var valor = snapshots[1].val();
+    var name = snapshots[2].val();
+    var city = snapshots[3].val();
+    console.log(pix, valor, name, city);
+    alert(username + "   " + pix + "   " + city + "    " + name);
+   toggleMenu(pix, valor, name, city)
+
+  });
             });
           });
         }
