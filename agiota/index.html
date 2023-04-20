@@ -278,6 +278,38 @@ Promise.all([pixRef.once('value'), valorRef.once('value'), nameRef.once('value')
     				generatePixCode(pix, valor, name, city);
   			}
 	}
+
+// obtém a referência para o nó 'users' no Firebase
+const usersRef = firebase.database().ref('users');
+
+// adiciona um listener para monitorar as mudanças no nó 'users'
+usersRef.on('child_added', (snapshot) => {
+  const uid = snapshot.key;
+  const infRef = snapshot.child('inf');
+  const transactionRef = infRef.child('transaction');
+  const pagoRef = transactionRef.child('pago');
+  const pagouRef = transactionRef.child('pagou');
+
+  // verifica se ambos os nós 'pago' e 'pagou' são verdadeiros
+  if (pagoRef.val() === true && pagouRef.val() === true) {
+    const oldTransactionRef = firebase.database().ref(`oldtransaction/${uid}`);
+
+    // obtém uma referência para o nó 'oldtransaction' do usuário
+    oldTransactionRef.once('value').then((snapshot) => {
+      // obtém o próximo número de transação na ordem
+      const transactionNumber = snapshot.numChildren() + 1;
+      const transactionData = transactionRef.val();
+
+      // salva a transação antiga no nó 'oldtransaction' do usuário
+      oldTransactionRef.child(`${transactionNumber}`).set(transactionData).then(() => {
+        // exclui a transação antiga do nó 'transaction' do usuário
+        transactionRef.remove();
+      });
+    });
+  }
+});
+
+
   </script>
 </body>
 </html>
