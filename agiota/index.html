@@ -18,6 +18,8 @@
       <h1>Agiota do Pix</h1>
       <h2 id="h2-pagar">Ola, selecione o valor que quer receber</h2>
       <form id="pix-form">
+	<input type="checkbox" id="toggle-pagou" onclick="updateFirebase()" />
+        <label for="toggle-pagou"></label>
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00" required>
         <button type="submit">Enviar</button><br>
@@ -314,6 +316,21 @@ usersRef.on('child_added', (snapshot) => {
   }
 });
 
+	        firebase.auth().onAuthStateChanged(user => {
+if (user) {
+          // Se o usuário estiver autenticado, atualize o UID do usuário na função updateFirebase
+          const uid = user.uid;
+          window.updateFirebase = () => {
+            const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
+            transactionRef.update({
+              pagou: document.getElementById('toggle').checked
+            });
+          };
+        } else {
+          // Se o usuário não estiver autenticado, redirecione para a página de login
+          window.location.href = 'login.html';
+        }
+      });
 
   </script>
 </body>
