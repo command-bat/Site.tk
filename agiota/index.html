@@ -132,6 +132,7 @@ pixForm.addEventListener('submit', function(event) {
     userRef.set({
       valor: parseFloat(valorInput).toFixed(2)
     }).then(() => {
+      document.querySelector('toggle-pagou').style.display = 'block';
       document.querySelector('#valor').style.display = 'none';
       document.querySelector('button[type="submit"]').style.display = 'none';
       document.querySelector('#valor').disabled = true;
