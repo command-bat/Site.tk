@@ -288,11 +288,10 @@ usersRef.on('child_added', (snapshot) => {
   const transactionRef = infRef.child('transaction');
   const pagoRef = transactionRef.child('pago');
   const pagouRef = transactionRef.child('pagou');
+  const oldTransactionRef = firebase.database().ref(`oldtransaction/${uid}`);
 
   // verifica se ambos os nós 'pago' e 'pagou' são verdadeiros
   if (pagoRef.val() === true && pagouRef.val() === true) {
-    const oldTransactionRef = firebase.database().ref(`oldtransaction/${uid}`);
-
     // obtém uma referência para o nó 'oldtransaction' do usuário
     oldTransactionRef.once('value').then((snapshot) => {
       // obtém o próximo número de transação na ordem
@@ -302,13 +301,19 @@ usersRef.on('child_added', (snapshot) => {
       // salva a transação antiga no nó 'oldtransaction' do usuário
       oldTransactionRef.child(`${transactionNumber}`).set(transactionData).then(() => {
         // exclui a transação antiga do nó 'transaction' do usuário
-transactionRef.once('value').then(function(snapshot) {
-  if (snapshot.exists()) {
-    transactionRef.remove();
+        const transactionRef = firebase.database().ref('users/' + uid).child('inf/transaction');
+        transactionRef.once('value').then(function(snapshot) {
+          if (snapshot.exists()) {
+            transactionRef.remove();
+          }
+        }).catch(function(error) {
+          console.log(error);
+        });
+      });
+    });
   }
-}).catch(function(error) {
-  console.log(error);
 });
+
 
       });
     });
