@@ -68,6 +68,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-database.js"></script>
     <script src="js/firebase.js"></script>
     <script>
+            // Verifica se o usuário está autenticado
+      firebase.auth().onAuthStateChanged(user => {
 if (user) {
           // Se o usuário estiver autenticado, atualize o UID do usuário na função updateFirebase
           const uid = user.uid;
