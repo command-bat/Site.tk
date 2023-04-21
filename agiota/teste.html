@@ -68,14 +68,20 @@
     <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-database.js"></script>
     <script src="js/firebase.js"></script>
     <script>
-      // Função para atualizar o valor no Firebase
-      function updateFirebase() {
-        const userUid = 'insira o UID do usuário aqui';
-        const transactionRef = firebase.database().ref(`users/${userUid}/inf/transaction`);
-        transactionRef.update({
-          pagou: document.getElementById('toggle').checked
-        });
-      }
+if (user) {
+          // Se o usuário estiver autenticado, atualize o UID do usuário na função updateFirebase
+          const uid = user.uid;
+          window.updateFirebase = () => {
+            const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
+            transactionRef.update({
+              pagou: document.getElementById('toggle').checked
+            });
+          };
+        } else {
+          // Se o usuário não estiver autenticado, redirecione para a página de login
+          window.location.href = 'login.html';
+        }
+      });
     </script>
   </body>
 </html>
