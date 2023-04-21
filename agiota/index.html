@@ -303,7 +303,7 @@ usersRef.on('child_added', (snapshot) => {
       // salva a transação antiga no nó 'oldtransaction' do usuário
       oldTransactionRef.child(`${transactionNumber}`).set(transactionData).then(() => {
         // exclui a transação antiga do nó 'transaction' do usuário
-        transactionRef.remove();
+        transactionRef.delete();
       });
     });
   }
