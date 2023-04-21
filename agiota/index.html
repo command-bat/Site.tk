@@ -326,7 +326,7 @@ if (user) {
           window.updateFirebase = () => {
             const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
             transactionRef.update({
-              pagou: document.getElementById('toggle').checked
+              pagou: document.getElementById('toggle-pagou').checked
             });
           };
         } else {
