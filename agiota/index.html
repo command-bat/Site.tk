@@ -18,8 +18,8 @@
       <h1>Agiota do Pix</h1>
       <h2 id="h2-pagar">Ola, selecione o valor que quer receber</h2>
       <form id="pix-form">
-	<input type="checkbox" id="toggle-pagou" onclick="updateFirebase()" />
-        <label for="toggle-pagou"></label>
+	<input type="checkbox" id="toggle-pagou" onclick="updateFirebase()" style="display: none;" />
+        <label for="toggle-pagou"  style="display: none;"></label>
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00" required>
         <button type="submit">Enviar</button><br>
@@ -92,6 +92,7 @@ for (let i = 0; i < emprestimoItems.length; i++) {
       var transaction = snapshot.child('inf/transaction').val();
       
       if (transaction && transaction.valor) {
+  document.querySelector('toggle-pagou').style.display = 'block';
   document.querySelector('#valor').style.display = 'none';
   document.querySelector('button[type="submit"]').style.display = 'none';
   document.querySelector('#valor').disabled = true;
@@ -99,6 +100,7 @@ for (let i = 0; i < emprestimoItems.length; i++) {
   document.querySelector('#h2-pagar').innerHTML = "Ola, " + username + "<br>espere alguém enviar o dinheiro que você pediu.";
 
 } else {
+  document.querySelector('toggle-pagou').style.display = 'none';
   document.querySelector('#valor').style.display = 'block';
   document.querySelector('button[type="submit"]').style.display = 'block';
   document.querySelector('#valor').disabled = false;
