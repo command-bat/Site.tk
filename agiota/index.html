@@ -20,6 +20,7 @@
       <form id="pix-form">
 	<input type="checkbox" id="toggle-pagou" onclick="updateFirebase()" style="display: none;" />
         <label for="toggle-pagou"  style="display: none;"></label>
+	<p id="countdown" class="loading"></p>
         <label for="valor">Valor:</label>
         <input type="text" id="valor" name="valor" placeholder="Insira o valor   |   Ex: 10 ou 1.50 ou 10.00" required>
         <button type="submit">Enviar</button><br>
@@ -325,24 +326,27 @@ if (user) {
           const uid = user.uid;
           window.updateFirebase = () => {
             const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
-		    var count = 3;
+		    var count = 5;
+		    var countdownElem = document.getElementById("countdown");
                     var countdownInterval = setInterval(function() {
                       count--;
-                      if (count == 1) {
+		      countdownElem.innerHTML = "Enviando...";
+                      if (count == 2) {
+		     countdownElem.innerHTML = "Enviado";
+		     	transactionRef.update({
+		     		pagou: document.getElementById('toggle-pagou').checked
+		      	});
+		      document.querySelector('#toggle-pagou').style.display = 'none';
+                      }
                       }
                       if (count == 0) {
                         clearInterval(countdownInterval);
-                        // Redirecionar para a página principal
-			                  transactionRef.update({
-		      pagou: document.getElementById('toggle-pagou').checked
-					  });
-		      document.querySelector('#toggle-pagou').style.display = 'none';
-                      }
+                        countdownElem.innerHTML = "";
+			document.getElementById("countdown").style.display = 'none';
+                        
+
                     }, 1000);
           };
-        } else {
-          // Se o usuário não estiver autenticado, redirecione para a página de login
-          window.location.href = 'login.html';
         }
       });
 
