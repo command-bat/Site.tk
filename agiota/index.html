@@ -325,9 +325,7 @@ if (user) {
           const uid = user.uid;
           window.updateFirebase = () => {
             const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
-            transactionRef.update({
-
-		 var count = 3;
+		    var count = 3;
                     var countdownInterval = setInterval(function() {
                       count--;
                       if (count == 1) {
@@ -335,15 +333,12 @@ if (user) {
                       if (count == 0) {
                         clearInterval(countdownInterval);
                         // Redirecionar para a página principal
+			                  transactionRef.update({
 		      pagou: document.getElementById('toggle-pagou').checked
+					  });
 		      document.querySelector('#toggle-pagou').style.display = 'none';
                       }
                     }, 1000);
-		    
-
-		    
-		}
-            });
           };
         } else {
           // Se o usuário não estiver autenticado, redirecione para a página de login
