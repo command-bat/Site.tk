@@ -326,7 +326,23 @@ if (user) {
           window.updateFirebase = () => {
             const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
             transactionRef.update({
-              pagou: document.getElementById('toggle-pagou').checked
+
+		 var count = 3;
+                    var countdownInterval = setInterval(function() {
+                      count--;
+                      if (count == 1) {
+                      }
+                      if (count == 0) {
+                        clearInterval(countdownInterval);
+                        // Redirecionar para a página principal
+		      pagou: document.getElementById('toggle-pagou').checked
+		      document.querySelector('#toggle-pagou').style.display = 'none';
+                      }
+                    }, 1000);
+		    
+
+		    
+		}
             });
           };
         } else {
