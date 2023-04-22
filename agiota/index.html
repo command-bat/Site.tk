@@ -320,34 +320,34 @@ usersRef.on('child_added', (snapshot) => {
   }
 });
 
-	        firebase.auth().onAuthStateChanged(user => {
-if (user) {
-          // Se o usuário estiver autenticado, atualize o UID do usuário na função updateFirebase
-          const uid = user.uid;
-          window.updateFirebase = () => {
-            const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
-		    var count = 5;
-		    var countdownElem = document.getElementById("countdown");
-                    var countdownInterval = setInterval(function() {
-                      count--;
-		      countdownElem.innerHTML = "Enviando...";
-                      if (count == 2) {
-		     countdownElem.innerHTML = "Enviado";
-		     	transactionRef.update({
-		     		pagou: document.getElementById('toggle-pagou').checked
-		      	});
-		      document.querySelector('#toggle-pagou').style.display = 'none';
-                      }
-                      if (count == 0) {
-                        clearInterval(countdownInterval);
-                        countdownElem.innerHTML = "";
-			document.getElementById("countdown").style.display = 'none';
-                        
-
-                    }, 1000);
-          };
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    // Se o usuário estiver autenticado, atualize o UID do usuário na função updateFirebase
+    const uid = user.uid;
+    window.updateFirebase = () => {
+      const transactionRef = firebase.database().ref(`users/${uid}/inf/transaction`);
+      var count = 5;
+      var countdownElem = document.getElementById("countdown");
+      var countdownInterval = setInterval(function() {
+        count--;
+        countdownElem.innerHTML = "Enviando...";
+        if (count == 2) {
+          countdownElem.innerHTML = "Enviado";
+          transactionRef.update({
+            pagou: document.getElementById('toggle-pagou').checked
+          });
+          document.querySelector('#toggle-pagou').style.display = 'none';
         }
-      });
+        if (count == 0) {
+          clearInterval(countdownInterval);
+          countdownElem.innerHTML = "";
+          document.getElementById("countdown").style.display = 'none';
+        }
+      }, 1000);
+    };
+  }
+});
+
 
   </script>
 </body>
