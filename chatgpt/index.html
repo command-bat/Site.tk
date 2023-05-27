@@ -82,13 +82,19 @@
 
       var formData = new FormData();
 
-      formData.append('image', file);
+      formData.append('image_file', file);
 
       
 
-      fetch('https://api.unscreen.com/v1.0/remove?access_token=EEHUVEbvRzrvbTxCTHAtn4Eh', {
+      fetch('https://api.remove.bg/v1.0/removebg', {
 
         method: 'POST',
+
+        headers: {
+
+          'X-Api-Key': 'MNGCw8uU4VCEdJ3WoWMxD1B9'
+
+        },
 
         body: formData
 
@@ -96,11 +102,11 @@
 
       .then(function(response) {
 
-        return response.json();
+        return response.blob();
 
       })
 
-      .then(function(data) {
+      .then(function(blob) {
 
         var resultImage = document.getElementById('result-image');
 
@@ -110,13 +116,13 @@
 
         // Exibir a imagem resultante
 
-        resultImage.src = data.image;
+        resultImage.src = URL.createObjectURL(blob);
 
         
 
         // Ativar o botão de download
 
-        downloadButton.href = data.image;
+        downloadButton.href = resultImage.src;
 
       });
 
