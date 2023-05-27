@@ -1,109 +1,130 @@
-
 <!DOCTYPE html>
 
 <html>
 
-  <head>
+<head>
 
-    <meta charset="UTF-8">
+  <title>Remoção de Fundo</title>
 
-    <title>Command Bat</title>
+  <style>
 
-    <link rel="stylesheet" href="./css/style.css">
+    /* Estilos para o layout do site */
 
-  </head>
+    body {
 
-  <body>
+      text-align: center;
 
-    <!-- Conteúdo do site -->
+      padding: 20px;
 
-    <header>
+    }
 
-      <h1>Command Bat</h1>
+    #result-image {
 
-    </header>
+      margin-top: 20px;
 
-    
+    }
 
-    <nav>
+    #download-button {
 
-      <ul>
+      margin-top: 20px;
 
-        <li><a href="#">Home</a></li>
+    }
 
-        <li><a href="#">Comandos</a></li>
+  </style>
 
-        <li><a href="#">Sobre</a></li>
+</head>
 
-      </ul>
+<body>
 
-    </nav>
+  <h1>Remoção de Fundo de Imagem</h1>
 
-    
+  
 
-    <main>
+  <!-- Formulário para envio de imagem -->
 
-      <h2>Comandos do Windows</h2>
+  <form id="image-form">
 
-      <table>
+    <input type="file" id="image-input" accept="image/*" />
 
-        <thead>
+    <input type="submit" value="Enviar" />
 
-          <tr>
+  </form>
 
-            <th>Comando</th>
+  
 
-            <th>Descrição</th>
+  <!-- Exibição do resultado -->
 
-          </tr>
+  <div id="result">
 
-        </thead>
+    <img id="result-image" src="" alt="Resultado" />
 
-        <tbody>
+    <a id="download-button" href="#" download="resultado.png">Download</a>
 
-          <tr>
+  </div>
 
-            <td>ipconfig</td>
+  
 
-            <td>Exibe informações sobre os adaptadores de rede do computador.</td>
+  <!-- Script JavaScript para interação com a API -->
 
-          </tr>
+  <script>
 
-          <tr>
+    document.getElementById('image-form').addEventListener('submit', function(e) {
 
-            <td>ping</td>
-
-            <td>Verifica a conectividade entre o computador e outro dispositivo de rede.</td>
-
-          </tr>
-
-          <tr>
-
-            <td>netstat</td>
-
-            <td>Exibe informações sobre as conexões de rede ativas do computador.</td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
+      e.preventDefault();
 
       
 
-      <a href="#" class="button">Mais comandos</a>
+      var imageInput = document.getElementById('image-input');
 
-    </main>
+      var file = imageInput.files[0];
 
-    
+      
 
-    <footer>
+      var formData = new FormData();
 
-      <p>&copy; 2023 Command Bat</p>
+      formData.append('image', file);
 
-    </footer>
+      
 
-  </body>
+      fetch('https://api.unscreen.com/v1.0/remove?access_token=EEHUVEbvRzrvbTxCTHAtn4Eh', {
 
-</
+        method: 'POST',
+
+        body: formData
+
+      })
+
+      .then(function(response) {
+
+        return response.json();
+
+      })
+
+      .then(function(data) {
+
+        var resultImage = document.getElementById('result-image');
+
+        var downloadButton = document.getElementById('download-button');
+
+        
+
+        // Exibir a imagem resultante
+
+        resultImage.src = data.image;
+
+        
+
+        // Ativar o botão de download
+
+        downloadButton.href = data.image;
+
+      });
+
+    });
+
+  </script>
+
+</body>
+
+</html>
 
