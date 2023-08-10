@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+<!-- Importar as bibliotecas do Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+  <script src="firebase.js"></script>
+
+<style>
+/* Estilo para o body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+}
+
+/* Estilo para o cabeçalho h1 */
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+p {
+  text-align: center;
+}
+
+/* Estilo para o formulário */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para os rótulos */
+label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+/* Estilo para os campos de entrada */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+
+/* Estilo para o botão de envio */
+button[type="submit"] {
+  display: block;
+  background-color: #0077cc;
+  color: #fff;
+  padding: 0.5em;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+</style>
+
+</head>
+<body>
+  <h1>Registro</h1>
+  <form id="register-form">
+    
+    <label for="name">Seu nome:</label>
+    <input type="text" id="name" name="name" required><br>
+    
+    <label for="username">Nome de usuário:</label>
+    <input type="text" id="username" name="username" required><br>
+        
+    <label for="foto">Sua foto de perfil:</label>
+    <input type="file" id="foto" name="foto" accept="image/*" required><br><br>    
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="submit" onclick="startCountdown()">Registrar</button>
+    <p id="countdown" class="loading"></p>
+  </form>
+
+  <script>
+    var registerForm = document.querySelector('#register-form');
+    registerForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var name = registerForm.name.value;
+      var username = registerForm.username.value;
+      var fotoFile = registerForm.foto.files[0]; // Get the selected image file
+      var email = registerForm.email.value;
+      var password = registerForm.password.value;
+  
+      firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
+        .then(function(snapshot) {
+          if (snapshot.exists()) {
+            alert("Erro: O nome de usuário já está sendo usado!");
+          } else {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+              .then(function(user) {
+                // Upload the image to Firebase Storage
+                var storageRef = firebase.storage().ref(user.user.uid + '/avatar.png');
+                var uploadTask = storageRef.put(fotoFile);
+                uploadTask.on('state_changed',
+                  function(snapshot) {
+                    // Observe o progresso do upload, se necessário
+                  },
+                  function(error) {
+                    alert("Erro ao fazer o upload da imagem: " + error.message);
+                  },
+                  function() {
+                    // Upload bem-sucedido, obter URL da imagem
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                      // Salvar dados do usuário com URL da imagem no banco de dados
+                      firebase.database().ref('users/' + user.user.uid).set({
+                        name: name,
+                        username: username,
+                        foto: downloadURL, // Save the image URL
+                        email: email
+                      }).then(function() {
+                        var count = 3;
+                        var countdownElem = document.getElementById("countdown");
+                        var countdownInterval = setInterval(function() {
+                          count--;
+                          countdownElem.innerHTML = "Carregando";
+                          if (count == 1) {
+                            countdownElem.innerHTML = "Registro Feito!";
+                          }
+                          if (count == 0) {
+                            clearInterval(countdownInterval);
+                            countdownElem.innerHTML = "Redirecionando";
+                            window.location.href = 'file:///C:/Users/tiago/OneDrive/%C3%81rea%20de%20Trabalho/projetos/twitter/index.html';
+                          }
+                        }, 1000);
+                      }).catch(function(error) {
+                        alert("Erro ao salvar os dados no banco de dados: " + error.message);
+                      });
+                    });
+                  }
+                );
+              })
+              .catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(errorCode + ': ' + errorMessage);
+              });
+          }
+        })
+        .catch(function(error) {
+          alert("Erro ao acessar o banco de dados: " + error.message);
+        });
+
+      // Certifique-se de ter a função "startCountdown" definida
+      function startCountdown() {
+        // Lógica do countdown
+      }
+    });
+    
+  </script>
+   
+  
+
+</body>
+</html>

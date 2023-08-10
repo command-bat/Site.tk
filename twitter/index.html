@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="firebase.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitter Timeline</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+  <div id="logado" style="display: none;">
+    <h1>Twitter.BAT</h1>
+    <div class="input-container">
+      <input type="text" id="tweetInput" placeholder="Compose your tweet...">
+      <button onclick="postTweet()">Tweet</button>
+    </div>
+    <div class="timeline" id="timeline">
+      <!-- Timeline content will be added dynamically using JavaScript -->
+    </div>
+  </div>
+    <div id="deslogado" style="display: none;">
+      <p>Para utilizar o site, você precisa estar logado.</p>
+      <button id="registro">Registrar</button>
+      <button id="login">login</button>
+    </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>

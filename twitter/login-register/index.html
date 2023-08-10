@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="firebase.js"></script>
+
+  <style>
+/* Estilo para o body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+}
+
+/* Estilo para o cabeçalho h1 */
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  color: #0077cc;
+}
+
+/* Estilo para o formulário */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para os rótulos */
+label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+/* Estilo para os campos de entrada */
+input[type="email"],
+input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+
+/* Estilo para o botão de envio */
+button[type="submit"] {
+  display: block;
+  background-color: #0077cc;
+  color: #fff;
+  padding: 0.5em;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 1em;
+}
+#forgot-password-link {
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+</style>
+
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="login-form">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required><br>
+    <a id="forgot-password-link" href="#">Esqueci a senha</a>
+
+    <button type="submit">Entrar</button>
+  </form>
+
+  <form id="forgot-password-form" style="display:none;">
+    <label for="forgot-password-email">Digite seu email:</label>
+    <input type="email" id="forgot-password-email" name="forgot-password-email" required><br>
+    <button type="submit">Enviar email de redefinição de senha</button>
+    <a href="#" id="back-to-login-link">Voltar</a>
+
+  </form>
+
+  <script>
+    // Processar o formulário de login
+    var loginForm = document.querySelector('#login-form');
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var email = loginForm.email.value;
+      var password = loginForm.password.value;
+
+      // Autenticar o usuário com o Firebase
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(function(user) {
+          // Login bem-sucedido
+          alert('Login bem-sucedido!');
+          // Redirecionar para a página após o login bem-sucedido
+          window.location.href = 'file:///C:/Users/tiago/OneDrive/%C3%81rea%20de%20Trabalho/projetos/twitter/index.html';
+        })
+        .catch(function(error) {
+          // Lidar com erros de login
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorCode + ': ' + errorMessage);
+        });
+    });
+
+    // Mostrar formulário de redefinição de senha quando clicar no link "Esqueci a senha"
+    var forgotPasswordLink = document.querySelector('#forgot-password-link');
+    forgotPasswordLink.addEventListener('click', function() {
+      document.querySelector('#login-form').style.display = 'none';
+      document.querySelector('#forgot-password-form').style.display = 'block';
+    });
+// Voltar para o formulário de login quando clicar no link "Voltar para o formulário de login"
+    var backToLoginLink = document.querySelector('#back-to-login-link');
+    backToLoginLink.addEventListener('click', function() {
+      document.querySelector('#forgot-password-form').style.display = 'none';
+      document.querySelector('#login-form').style.display = 'block';
+    });
+
+  </script>
+
+</body>
+</html>

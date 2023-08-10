@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Image Display</title>
+</head>
+<body>
+    <h1>Firebase Image Display</h1>
+    <img id="userImage" src="" alt="User Image">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-storage.js"></script>
+    <script src="firebase.js"></script>
+    <script>
+
+
+// Assuming you have a function to get the user's ID
+const userId = "USER_ID"; // Replace with the actual user ID
+const imageName = "ANY_IMAGE_NAME"; // Replace with the image name you want to retrieve
+
+// Reference to the image
+const imageRef = storage.ref(`${userId}/${imageName}`);
+
+// Get the download URL of the image
+imageRef.getDownloadURL()
+  .then((url) => {
+    const imgElement = document.getElementById("userImage");
+    imgElement.src = url;
+  })
+  .catch((error) => {
+    console.error("Error getting image URL:", error);
+  });
+
+    </script>
+</body>
+</html>
