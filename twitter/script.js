@@ -47,14 +47,14 @@ function displayAllUserPosts() {
 
       postsRef.orderByChild('timestamp').on('child_added', function(postSnapshot) {
         const post = postSnapshot.val();
-        const userPhotoUrl = "https://firebasestorage.googleapis.com/v0/b/twitter-ee749.appspot.com/o/" + userId + "%2Favatar.png?alt=media";
-        allPosts.push({ post, userPhotoUrl });
+        const userAvatarUrl = "https://firebasestorage.googleapis.com/v0/b/twitter-ee749.appspot.com/o/" + userId + "%2Favatar.png?alt=media";
+        allPosts.push({ post, userAvatarUrl });
         // After each post is added, sort the timeline for this user
         allPosts.sort((a, b) => b.post.timestamp - a.post.timestamp);
         // Display the sorted posts in the timeline
         timeline.innerHTML = ''; // Clear the timeline
-        allPosts.forEach(({ post, userPhotoUrl }) => {
-          const tweetItem = createTweetItem(post, userPhotoUrl);
+        allPosts.forEach(({ post, userAvatarUrl }) => {
+          const tweetItem = createTweetItem(post, userAvatarUrl);
           timeline.appendChild(tweetItem);
         });
       });
@@ -98,12 +98,12 @@ function postTweet() {
   tweetInput.value = "";
 }
 
-function createTweetItem(post, userPhotoUrl) {
+function createTweetItem(post, userAvatarUrl) {
   const tweetItem = document.createElement("div");
   tweetItem.classList.add("timeline-item");
 
   const userPhoto = document.createElement("img");
-  userPhoto.src = userPhotoUrl;
+  userPhoto.src = userAvatarUrl;
   userPhoto.alt = "User Photo";
   userPhoto.classList.add("small-user-photo");
   tweetItem.appendChild(userPhoto);
