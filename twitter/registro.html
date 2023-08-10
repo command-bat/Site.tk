@@ -131,7 +131,6 @@ button[type="submit"] {
                       firebase.database().ref('users/' + user.user.uid).set({
                         name: name,
                         username: username,
-                        foto: downloadURL, // Save the image URL
                         email: email
                       }).then(function() {
                         var count = 3;
