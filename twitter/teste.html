@@ -16,12 +16,11 @@
     <label for="name">Seu nome:</label>
     <input type="text" id="name" name="name" required><br>
 
-    <!-- Remove the username and foto fields for Google registration -->
-    <!-- <label for="username">Nome de usuário:</label>
+    <label for="username">Nome de usuário:</label>
     <input type="text" id="username" name="username" required><br>
 
     <label for="foto">Sua foto de perfil:</label>
-    <input type="file" id="foto" name="foto" accept="image/*" required><br><br> -->
+    <input type="file" id="foto" name="foto" accept="image/*"><br><br>
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required><br>
@@ -29,7 +28,7 @@
     <label for="password">Senha:</label>
     <input type="password" id="password" name="password" required><br>
 
-    <button type="submit" onclick="startCountdown()">Registrar</button>
+    <button type="submit">Registrar</button>
     <p id="countdown" class="loading"></p>
   </form>
 
@@ -38,96 +37,88 @@
     registerForm.addEventListener('submit', function(event) {
       event.preventDefault();
       var name = registerForm.name.value;
+      var username = registerForm.username.value;
+      var fotoFile = registerForm.foto.files[0]; // Get the selected image file
       var email = registerForm.email.value;
       var password = registerForm.password.value;
 
-      // Check if the user is using Google for registration
-      var googleUser = firebase.auth().currentUser;
-      if (googleUser) {
-        // User is signing up with Google
-        var uid = googleUser.uid;
-        var username = googleUser.displayName;
-        var avatarURL = googleUser.photoURL;
-
-        // Save user data to the database
-        firebase.database().ref('users/' + uid).set({
-          name: name,
-          username: username,
-          email: email,
-          avatarURL: avatarURL
-        }).then(function() {
-          // Redirect the user
-          redirectToTwitter();
-        }).catch(function(error) {
-          alert("Erro ao salvar os dados no banco de dados: " + error.message);
-        });
-      } else {
-        // User is signing up with email and password
-        var username = registerForm.username.value;
-        var fotoFile = registerForm.foto.files[0]; // Get the selected image file
-
-        firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
-          .then(function(snapshot) {
-            if (snapshot.exists()) {
-              alert("Erro: O nome de usuário já está sendo usado!");
-            } else {
-              firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(function(user) {
-                  // Upload the image to Firebase Storage
-                  var storageRef = firebase.storage().ref(user.user.uid + '/avatar.png');
-                  var uploadTask = storageRef.put(fotoFile);
-                  uploadTask.on('state_changed',
-                    function(snapshot) {
-                      // Observe o progresso do upload, se necessário
-                    },
-                    function(error) {
-                      alert("Erro ao fazer o upload da imagem: " + error.message);
-                    },
-                    function() {
-                      // Upload bem-sucedido, obter URL da imagem
-                      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                        // Salvar dados do usuário com URL da imagem no banco de dados
-                        firebase.database().ref('users/' + user.user.uid).set({
-                          name: name,
-                          username: username,
-                          email: email,
-                          avatarURL: downloadURL
-                        }).then(function() {
-                          redirectToTwitter();
-                        }).catch(function(error) {
-                          alert("Erro ao salvar os dados no banco de dados: " + error.message);
-                        });
-                      });
-                    }
-                  );
-                })
-                .catch(function(error) {
-                  var errorCode = error.code;
-                  var errorMessage = error.message;
-                  alert(errorCode + ': ' + errorMessage);
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(function(user) {
+          // Upload the image to Firebase Storage if a file is selected
+          if (fotoFile) {
+            var storageRef = firebase.storage().ref(user.user.uid + '/avatar.png');
+            var uploadTask = storageRef.put(fotoFile);
+            uploadTask.on('state_changed',
+              function(snapshot) {
+                // Observe o progresso do upload, se necessário
+              },
+              function(error) {
+                alert("Erro ao fazer o upload da imagem: " + error.message);
+              },
+              function() {
+                // Upload bem-sucedido, obter URL da imagem
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                  // Salvar dados do usuário com URL da imagem no banco de dados
+                  firebase.database().ref('users/' + user.user.uid).set({
+                    name: name,
+                    username: username,
+                    email: email,
+                    avatar: downloadURL
+                  }).then(function() {
+                    var count = 3;
+                    var countdownElem = document.getElementById("countdown");
+                    var countdownInterval = setInterval(function() {
+                      count--;
+                      countdownElem.innerHTML = "Carregando";
+                      if (count == 1) {
+                        countdownElem.innerHTML = "Registro Feito!";
+                      }
+                      if (count == 0) {
+                        clearInterval(countdownInterval);
+                        countdownElem.innerHTML = "Redirecionando";
+                        window.location.href = '/twitter';
+                      }
+                    }, 1000);
+                  }).catch(function(error) {
+                    alert("Erro ao salvar os dados no banco de dados: " + error.message);
+                  });
                 });
-            }
-          })
-          .catch(function(error) {
-            alert("Erro ao acessar o banco de dados: " + error.message);
-          });
-      }
+              }
+            );
+          } else {
+            // Salvar dados do usuário no banco de dados sem a imagem
+            firebase.database().ref('users/' + user.user.uid).set({
+              name: name,
+              username: username,
+              email: email
+            }).then(function() {
+              var count = 3;
+              var countdownElem = document.getElementById("countdown");
+              var countdownInterval = setInterval(function() {
+                count--;
+                countdownElem.innerHTML = "Carregando";
+                if (count == 1) {
+                  countdownElem.innerHTML = "Registro Feito!";
+                }
+                if (count == 0) {
+                  clearInterval(countdownInterval);
+                  countdownElem.innerHTML = "Redirecionando";
+                  window.location.href = '/twitter';
+                }
+              }, 1000);
+            }).catch(function(error) {
+              alert("Erro ao salvar os dados no banco de dados: " + error.message);
+            });
+          }
+        })
+        .catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorCode + ': ' + errorMessage);
+        });
 
-      function redirectToTwitter() {
-        var count = 3;
-        var countdownElem = document.getElementById("countdown");
-        var countdownInterval = setInterval(function() {
-          count--;
-          countdownElem.innerHTML = "Carregando";
-          if (count == 1) {
-            countdownElem.innerHTML = "Registro Feito!";
-          }
-          if (count == 0) {
-            clearInterval(countdownInterval);
-            countdownElem.innerHTML = "Redirecionando";
-            window.location.href = '/twitter';
-          }
-        }, 1000);
+      function startCountdown() {
+        // Lógica do countdown
       }
     });
 
