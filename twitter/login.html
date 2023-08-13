@@ -97,6 +97,26 @@ button[type="submit"] {
   </form>
 
   <script>
+        // Autenticação com o Google
+        var googleLoginButton = document.querySelector('#google-login-button');
+    googleLoginButton.addEventListener('click', function() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase.auth().signInWithPopup(provider)
+        .then(function(result) {
+          // Login bem-sucedido
+          var user = result.user;
+          alert('Login com Google bem-sucedido!');
+          // Redirecionar ou executar outras ações após o login bem-sucedido
+        })
+        .catch(function(error) {
+          // Lidar com erros de login
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorCode + ': ' + errorMessage);
+        });
+    });
+    
     // Processar o formulário de login
     var loginForm = document.querySelector('#login-form');
     loginForm.addEventListener('submit', function(event) {
