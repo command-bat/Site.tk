@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>Registro</title>
   <!-- Importar as bibliotecas do Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
   <script src="firebase.js"></script>
 </head>
 <body>
@@ -15,128 +15,140 @@
   <form id="register-form">
     <label for="name">Seu nome:</label>
     <input type="text" id="name" name="name" required><br>
-
-    <label for="username">Nome de usuário:</label>
-    <input type="text" id="username" name="username" required><br>
     
-    <div id="google-registration">
-      <!-- Botão para registro com Google -->
-      <button type="button" id="google-register-button">Registrar com Google</button>
+    <div id="username-div">
+      <label for="username">Nome de usuário:</label>
+      <input type="text" id="username" name="username" required><br>
     </div>
-    
-    <div id="avatar-section">
+
+    <div id="foto-div">
       <label for="foto">Sua foto de perfil:</label>
       <input type="file" id="foto" name="foto" accept="image/*" required><br><br>
     </div>
-    
+
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required><br>
 
     <label for="password">Senha:</label>
     <input type="password" id="password" name="password" required><br>
 
-    <button type="submit">Registrar</button>
+    <button type="button" id="google-register">Registrar com Google</button>
+    <button type="submit" id="manual-register">Registrar</button>
     <p id="countdown" class="loading"></p>
   </form>
 
   <script>
     var registerForm = document.querySelector('#register-form');
-    var googleRegisterButton = document.querySelector('#google-register-button');
-    var avatarSection = document.querySelector('#avatar-section');
+    var usernameDiv = document.getElementById('username-div');
+    var fotoDiv = document.getElementById('foto-div');
 
-    googleRegisterButton.addEventListener('click', function() {
-      // Hide avatar section for Google registration
-      avatarSection.style.display = 'none';
-    });
+    document.addEventListener('DOMContentLoaded', function() {
+      var googleRegisterButton = document.getElementById('google-register');
+      var manualRegisterButton = document.getElementById('manual-register');
 
-    registerForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var name = registerForm.name.value;
-      var username = registerForm.username.value;
-      var fotoFile = registerForm.foto.files[0];
-      var email = registerForm.email.value;
-      var password = registerForm.password.value;
-      
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(user) {
-          // Upload the image to Firebase Storage if a file is selected
-          if (fotoFile) {
-            var storageRef = firebase.storage().ref(user.user.uid + '/avatar.png');
-            var uploadTask = storageRef.put(fotoFile);
-            uploadTask.on('state_changed',
-              function(snapshot) {
-                // Observe o progresso do upload, se necessário
-              },
-              function(error) {
-                alert("Erro ao fazer o upload da imagem: " + error.message);
-              },
-              function() {
-                // Upload bem-sucedido, obter URL da imagem
-                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                  // Salvar dados do usuário com URL da imagem no banco de dados
-                  firebase.database().ref('users/' + user.user.uid).set({
-                    name: name,
-                    username: username,
-                    email: email,
-                    avatar: downloadURL
-                  }).then(function() {
-                    var count = 3;
-                    var countdownElem = document.getElementById("countdown");
-                    var countdownInterval = setInterval(function() {
-                      count--;
-                      countdownElem.innerHTML = "Carregando";
-                      if (count == 1) {
-                        countdownElem.innerHTML = "Registro Feito!";
-                      }
-                      if (count == 0) {
-                        clearInterval(countdownInterval);
-                        countdownElem.innerHTML = "Redirecionando";
-                        window.location.href = '/twitter';
-                      }
-                    }, 1000);
-                  }).catch(function(error) {
-                    alert("Erro ao salvar os dados no banco de dados: " + error.message);
-                  });
+      // Registrar com Google
+      googleRegisterButton.addEventListener('click', function() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+          .then(function(result) {
+            // Lidar com o registro bem-sucedido com Google, se necessário
+          })
+          .catch(function(error) {
+            console.error("Erro ao registrar com Google:", error);
+          });
+      });
+
+      // Controlar a visibilidade dos campos de nome de usuário e foto de avatar
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // Registro com Google, esconder campos
+          usernameDiv.style.display = 'none';
+          fotoDiv.style.display = 'none';
+        } else {
+          // Registro manual, mostrar campos
+          usernameDiv.style.display = 'block';
+          fotoDiv.style.display = 'block';
+        }
+      });
+
+      // Registrar manualmente
+      registerForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var name = registerForm.name.value;
+        var username = registerForm.username.value;
+        var fotoFile = registerForm.foto.files[0]; // Get the selected image file
+        var email = registerForm.email.value;
+        var password = registerForm.password.value;
+
+        firebase.database().ref('users').orderByChild('username').equalTo(username).once('value')
+          .then(function(snapshot) {
+            if (snapshot.exists()) {
+              alert("Erro: O nome de usuário já está sendo usado!");
+            } else {
+              firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(function(user) {
+                  // Upload the image to Firebase Storage
+                  var storageRef = firebase.storage().ref(user.user.uid + '/avatar.png');
+                  var uploadTask = storageRef.put(fotoFile);
+                  uploadTask.on('state_changed',
+                    function(snapshot) {
+                      // Observe o progresso do upload, se necessário
+                    },
+                    function(error) {
+                      alert("Erro ao fazer o upload da imagem: " + error.message);
+                    },
+                    function() {
+                      // Upload bem-sucedido, obter URL da imagem
+                      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        // Salvar dados do usuário com URL da imagem no banco de dados
+                        firebase.database().ref('users/' + user.user.uid).set({
+                          name: name,
+                          username: username,
+                          email: email
+                        }).then(function() {
+                          var count = 3;
+                          var countdownElem = document.getElementById("countdown");
+                          var countdownInterval = setInterval(function() {
+                            count--;
+                            countdownElem.innerHTML = "Carregando";
+                            if (count == 1) {
+                              countdownElem.innerHTML = "Registro Feito!";
+                            }
+                            if (count == 0) {
+                              clearInterval(countdownInterval);
+                              countdownElem.innerHTML = "Redirecionando";
+                              window.location.href = '/twitter';
+                            }
+                          }, 1000);
+                        }).catch(function(error) {
+                          alert("Erro ao salvar os dados no banco de dados: " + error.message);
+                        });
+                      });
+                    }
+                  );
+                })
+                .catch(function(error) {
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  alert(errorCode + ': ' + errorMessage);
                 });
-              }
-            );
-          } else {
-            // Salvar dados do usuário no banco de dados sem a imagem
-            firebase.database().ref('users/' + user.user.uid).set({
-              name: name,
-              username: username,
-              email: email
-            }).then(function() {
-              var count = 3;
-              var countdownElem = document.getElementById("countdown");
-              var countdownInterval = setInterval(function() {
-                count--;
-                countdownElem.innerHTML = "Carregando";
-                if (count == 1) {
-                  countdownElem.innerHTML = "Registro Feito!";
-                }
-                if (count == 0) {
-                  clearInterval(countdownInterval);
-                  countdownElem.innerHTML = "Redirecionando";
-                  window.location.href = '/twitter';
-                }
-              }, 1000);
-            }).catch(function(error) {
-              alert("Erro ao salvar os dados no banco de dados: " + error.message);
-            });
-          }
-        })
-        .catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(errorCode + ': ' + errorMessage);
-        });
+            }
+          })
+          .catch(function(error) {
+            alert("Erro ao acessar o banco de dados: " + error.message);
+          });
 
+        // Certifique-se de ter a função "startCountdown" definida
+        function startCountdown() {
+          // Lógica do countdown
+        }
+      });
+
+      // Certifique-se de ter a função "startCountdown" definida
       function startCountdown() {
         // Lógica do countdown
       }
     });
-
   </script>
 </body>
 </html>
