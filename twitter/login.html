@@ -108,6 +108,7 @@ button[type="submit"] {
           var user = result.user;
           alert('Login com Google bem-sucedido!');
           // Redirecionar ou executar outras ações após o login bem-sucedido
+          window.location.href = '/twitter';
         })
         .catch(function(error) {
           // Lidar com erros de login
@@ -116,7 +117,7 @@ button[type="submit"] {
           alert(errorCode + ': ' + errorMessage);
         });
     });
-    
+
     // Processar o formulário de login
     var loginForm = document.querySelector('#login-form');
     loginForm.addEventListener('submit', function(event) {
