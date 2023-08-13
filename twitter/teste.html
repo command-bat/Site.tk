@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro</title>
-  <!-- Importar as bibliotecas do Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
-  <script src="firebase.js"></script>
+  <script src="js/firebase.js"></script>
 </head>
 <body>
   <h1>Registro</h1>
@@ -137,11 +136,6 @@
           .catch(function(error) {
             alert("Erro ao acessar o banco de dados: " + error.message);
           });
-
-        // Certifique-se de ter a função "startCountdown" definida
-        function startCountdown() {
-          // Lógica do countdown
-        }
       });
 
       // Certifique-se de ter a função "startCountdown" definida
