@@ -187,7 +187,7 @@ function gerarImagem() {
     for (let i = 0; i < valorSPW; i++) {
     setTimeout(function() {
         var img = document.createElement("img");
-        img.src = "/img/bat/bat3.png";
+        img.src = "img/bat/bat3.png";
         img.classList.add("generated-image");
 
         // Define uma altura aleatória
