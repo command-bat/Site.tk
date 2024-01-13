@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="img/icon/icon.jpg" type="image/jpg">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="/js/index.js"></script>
+    <title>commandbat</title>
+</head>
+<body>
+
+    <div class="header">
+        <a id="mnho" onclick="redirectToID('home')">Home</a>
+        <a id="mnin" onclick="redirectToID('infos')">Infos</a>
+        <a id="mnpro" onclick="redirectToID('projects')">projects</a>
+        <div class="language-selector">
+            <img src="/img/flag/english-flag.png" alt="English" class = "flag English" onclick="changeLanguage('en')">
+            <img src="/img/flag/portuguese-flag.png" alt="Português" class = "flag Portugues" onclick="changeLanguage('pt')">
+        </div>
+        <div class="menu"></div>
+</div>
+
+        <div class="home" id="home">
+            <div class="image-bats" id="imageBats"></div>
+            <h1 id="typingtext" class="name">commandbat</h1>
+            <div class="socialNetwork">
+                <button type="button" onclick="copy('commandbat')" class="SNicon Discord">
+                    <img class="imgDiscord" src="https://img.shields.io/badge/-0e0f12?style=for-the-badge&amp;logo=discord&amp;logoColor=white ">
+                </button>
+                <button onclick="window.open('https://discord.com/channels/@me/385478022670843904', '_blank')">
+                    <img class="imgExtraDiscord" src="">
+                </button>
+            
+                <button type="button" onclick="window.open('https://twitter.com/vlaucio', '_blank')" class="SNicon Twitter">
+                    <img class="imgTwitter" src="https://img.shields.io/badge/-0e0f12?style=for-the-badge&amp;logo=x&amp;logoColor=white">
+                </button>
+            
+                <button type="button" onclick="window.open('https://www.twitch.tv/commandbat', '_blank')" class="SNicon Twitch">
+                    <img class="imgTwitch" src="https://img.shields.io/badge/-0e0f12?style=for-the-badge&amp;logo=twitch&amp;logoColor=white">
+                </button>
+            
+                <button type="button" onclick="window.open('https://github.com/command-bat', '_blank')" class="SNicon Github">
+                    <img class="imgGithub" src="https://img.shields.io/badge/-0e0f12?style=for-the-badge&amp;logo=github&amp;logoColor=white">
+                </button>
+            
+                <button type="button" onclick="window.open('https://s.team/p/fgkh-vrkw/brbjrjtd', '_blank')" class="SNicon Steam">
+                    <img class="imgSteam" src="https://img.shields.io/badge/-0e0f12?style=for-the-badge&amp;logo=steam&amp;logoColor=white">
+                </button>
+            </div>
+    </div>       
+
+    <div id="infos" class="infos">
+        <div class="personalInformation paragraph">
+            <p id="greetingPeIn" class="greeting">Oi, eu sou o commandbat.</p>
+            <p id="aboutPeIn" class="about">Olá, meu nome é Tiago e tenho 17 anos. <br> Eu sou do estado de São Paulo, Brasil.</p>
+        </div>
+
+        <div class="programmingInformation paragraph">
+            <p id="greetingPrIn" class="greeting">Programação.</p>
+            <p id="aboutPrIn" class="about">Conheço algumas linguagens de programação como Javascript.<br>Criei alguns sites e também alguns datapacks para o Minecraft.</p>
+        </div>
+
+        <div class="project paragraph">
+            <p id="greetingPjs" class="greeting">Projetos.</p>
+            <p id="aboutPjs" class="about">Tenho alguns projetos que você pode conferir! Se desejar, você pode rolar até a seção de projetos.</p>
+        </div>
+    </div>
+
+    <div id="projects" class="projects">
+        <p id="projectTitle">Meus Projetos</p>
+
+        <div class="projectscard">
+        <div class="projectcard 1"><a href="/project/?v=1">
+            <div class="projectcardInfos">
+                <img src="/img/projects/imgproject1.png">
+                <div class="projectcardTexts">
+                    <h class="projectcardTitle" id="prti1">Palpites</h>
+                    <p class="projectcardText" id="prte1">Um site baseado no site de palpites do GE, porem feito para eu e meus amigos votarmos.</p>
+                    <button id="projectBtnVM1">View More</button>
+                </div>
+            </div>
+            
+        </a></div>
+
+        <div class="projectcard 2"><a href="/">
+            <div class="projectcardInfos">
+                <img src="/img/projects/imgproject2.png">
+                <div class="projectcardTexts">
+                    <h class="projectcardTitle" id="prti2">Portfólio</h>
+                    <p class="projectcardText" id="prte2">Um site para meu portfólio, apenas para testar meu nivel de html e css</p>
+                    <button id="projectBtnVM2">View More</button>
+                </div>
+            </div>
+        </a></div>
+    </div>
+    </div>
+
+    <div class="footer">
+        <p id="footer">Desenvolvido por commandbat</p>
+    </div>
+
+</body>
+</html>
