@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (setName !== "Atual") {
                                 placarSTR += `\n${setName}: ${homeScore} x ${awayScore}`;
                             } else {
-                                if (homeScore > awayScore) {
+                                if (homeScore > awayScore && ended) {
                                     placarSTR += `\n\nGanhador: ${homeTeam}`;
-                                } else if (homeScore < awayScore) {
+                                } else if (homeScore < awayScore && ended) {
                                     placarSTR += `\n\nGanhador: ${awayTeam}`;
                                 }
                             }
