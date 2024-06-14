@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const live = stage.isLive || false;
                     const ended = stage.isEnded || false;
 
-                    if (statsTxt === 'Fim' || statsTxt === 'Just Ended' || statsTxt..endsWith('set')) {
+                    if (statsTxt === 'Fim' || statsTxt === 'Just Ended' || statsTxt.endsWith('set')) {
                         if (homeScore !== -1 && awayScore !== -1) {
                             if (live && !show) {
                                 placarSTR += "\nPlacar ao-vivo:";
