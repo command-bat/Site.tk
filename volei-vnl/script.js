@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch(`https://webws.365scores.com/web/game/?langId=31&gameId=${gameID}`);
                 const gameData = await response.json();
 
-                let placarSTR = `Jogo: ${homeTeam} x ${awayTeam} | ID: ${gameID}\nResultado:`;
+                let placarSTR = `Jogo: ${homeTeam} x ${awayTeam} | ID: ${gameID}\n\nResultado:`;
                 let show = false;
 
                 gameData.game.stages.forEach(stage => {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (statsTxt === 'Fim' || statsTxt === 'Just Ended' || statsTxt.endsWith('set')) {
                         if (homeScore !== -1 && awayScore !== -1) {
                             if (live && !show) {
-                                placarSTR += "\nPlacar ao-vivo:";
+                                placarSTR += "\n\nPlacar ao-vivo:";
                                 show = true;
                             }
                             if (setName !== "Atual") {
