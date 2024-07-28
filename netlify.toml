@@ -1,8 +1,0 @@
-[build]
-  publish = "public"
-  command = "npm install && node server.js"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
