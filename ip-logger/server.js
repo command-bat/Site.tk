@@ -32,6 +32,7 @@ function broadcastIPList() {
 
 app.use(express.static('public'));
 
-server.listen(process.env.PORT || 8080, () => {
-    console.log(`Server started on port ${server.address().port}`);
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
