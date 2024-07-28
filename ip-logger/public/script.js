@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://your-server-url');
+const ws = new WebSocket('wss://ip-logger-rho.vercel.app/');
 
 ws.onmessage = (event) => {
     const ipList = JSON.parse(event.data);
