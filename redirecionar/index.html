@@ -21,7 +21,7 @@
 
             // Se a URL existir no mapeamento, redirecionar
             if (redirecionamentos[path]) {
-                window.location.href = redirecionamentos[path.toLowerCase];
+                window.location.href = redirecionamentos[path];
             } else {
                 // Se não houver correspondência, exibir uma mensagem ou redirecionar para uma página padrão
                 document.body.innerHTML = "<h1>Página '"+path+"' não encontrada</h1>";
