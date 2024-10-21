@@ -8,7 +8,7 @@
         // Função de redirecionamento
         function redirecionar() {
             // Obter a URL após "/redirecionar/"
-            const path = window.location.pathname.split("/redirecionar/")[1];
+            const path = window.location.pathname.split("/redirecionar/")[1]?.toLowerCase();
             
             // Mapear os destinos de redirecionamento
             const redirecionamentos = {
