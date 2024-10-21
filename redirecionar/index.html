@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionar</title>
+    <script>
+        // Função de redirecionamento
+        function redirecionar() {
+            // Obter a URL após "/redirecionar/"
+            const path = window.location.pathname.split("/redirecionar/")[1];
+            
+            // Mapear os destinos de redirecionamento
+            const redirecionamentos = {
+                "planilha": "https://1drv.ms/x/c/7ea9913c19e26851/Eed19E-3jL9EvpwEcFjawTYBTAXrKtn3us4NMUPde1oPjw?e=Xlt4ws",
+                "teste": "https://commandbat.netlify.app"
+                // Adicione mais redirecionamentos aqui
+            };
+
+            // Se a URL existir no mapeamento, redirecionar
+            if (redirecionamentos[path]) {
+                window.location.href = redirecionamentos[path];
+            } else {
+                // Se não houver correspondência, exibir uma mensagem ou redirecionar para uma página padrão
+                document.body.innerHTML = "<h1>Página '"+path+"' não encontrada</h1>";
+            }
+        }
+    </script>
+</head>
+<body onload="redirecionar()">
+    <h1>Redirecionando...</h1>
+</body>
+</html>
