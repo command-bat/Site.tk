@@ -13,13 +13,15 @@
             // Mapear os destinos de redirecionamento
             const redirecionamentos = {
                 "planilha": "https://1drv.ms/x/c/7ea9913c19e26851/Eed19E-3jL9EvpwEcFjawTYBTAXrKtn3us4NMUPde1oPjw?e=Xlt4ws",
-                "teste": "https://commandbat.netlify.app"
+                "teste": "https://commandbat.netlify.app",
+                "nt": "https://nemtudo.me/",
+                "nemtudo": "https://nemtudo.me/"
                 // Adicione mais redirecionamentos aqui
             };
 
             // Se a URL existir no mapeamento, redirecionar
             if (redirecionamentos[path]) {
-                window.location.href = redirecionamentos[path];
+                window.location.href = redirecionamentos[path.toLowerCase];
             } else {
                 // Se não houver correspondência, exibir uma mensagem ou redirecionar para uma página padrão
                 document.body.innerHTML = "<h1>Página '"+path+"' não encontrada</h1>";
