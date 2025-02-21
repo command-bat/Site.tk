@@ -162,7 +162,11 @@ var languageTexts = {
         'prte1': "A site based on the GE prediction site, but made for me and my friends to vote for.",
         'prti2': "Portfolio",
         'prte2': "A site for my portfolio, just to test my html and css level.",
-
+        'prti3': "Jegue Quiz",
+        'prte3': "A game inspired by the \"Genius Quiz\" game, made for the youtuber Jazzghost.",
+        
+        'prtisoon': "Coming Soon",
+        'prtesoon': "Coming Soon",
         'greeting': "",
         'about': "",
         // Adicione mais textos conforme necessário
@@ -185,7 +189,11 @@ var languageTexts = {
         'prte1': "Um site baseado no site de palpites do GE, porem feito para eu e meus amigos votarmos.",
         'prti2': "Portifolio",
         'prte2': "Um site para meu portfólio, apenas para testar meu nivel de html e css.",
-
+        'prti3': "Jegue Quiz",
+        'prte3': "Um jogo inspirado no jogo \"Gênio Quiz\", feito para o youtuber Jazzghost.",
+        
+        'prtisoon': "Em Breve",
+        'prtesoon': "Em Breve",
         'greeting': "",
         'about': "",
         // Adicione mais textos conforme necessário
