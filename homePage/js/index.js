@@ -161,12 +161,12 @@ var languageTexts = {
         'prti1': "Guesses",
         'prte1': "A site based on the GE prediction site, but made for me and my friends to vote for.",
         'prti2': "Portfolio",
-        'prte2': "A site for my portfolio, just to test my html and css level.",
+        'prte2': "\nA site for my portfolio, just to test my html and css level.\n",
         'prti3': "Jegue Quiz",
         'prte3': "A game inspired by the \"Genius Quiz\" game, made for the youtuber Jazzghost.",
         
         'prtisoon': "Coming Soon",
-        'prtesoon': "Coming Soon \n",
+        'prtesoon': "\nComing Soon \n",
         'greeting': "",
         'about': "",
         // Adicione mais textos conforme necessário
