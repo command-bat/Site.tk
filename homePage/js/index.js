@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Get all buttons with class 'SNicon'
-        var buttons = document.querySelectorAll('.SNicon');
+        var buttons = document.querySelectorAll('.SNicon2');
 
         // Iterate through each button
         buttons.forEach(function (button) {
