@@ -188,12 +188,12 @@ var languageTexts = {
         'prti1': "Palpites",
         'prte1': "Um site baseado no site de palpites do GE, porem feito para eu e meus amigos votarmos.",
         'prti2': "Portifolio",
-        'prte2': "Um site para meu portfólio, apenas para testar meu nivel de html e css.",
+        'prte2': "\nUm site para meu portfólio, apenas para testar meu nivel de html e css.\n",
         'prti3': "Jegue Quiz",
         'prte3': "Um jogo inspirado no jogo \"Gênio Quiz\", feito para o youtuber Jazzghost.",
         
         'prtisoon': "Em Breve",
-        'prtesoon': "Em Breve \n",
+        'prtesoon': "\nEm Breve \n",
         'greeting': "",
         'about': "",
         // Adicione mais textos conforme necessário

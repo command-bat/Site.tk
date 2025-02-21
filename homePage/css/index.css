@@ -301,6 +301,7 @@ a:-webkit-any-link {
     font-size: 16px;
     color: #ffffff9f;
     text-decoration: none;
+    width: inherit;
 }
 
 .projectcard button{
