@@ -166,7 +166,7 @@ var languageTexts = {
         'prte3': "A game inspired by the \"Genius Quiz\" game, made for the youtuber Jazzghost.",
         
         'prtisoon': "Coming Soon",
-        'prtesoon': "Coming Soon",
+        'prtesoon': "Coming Soon \n",
         'greeting': "",
         'about': "",
         // Adicione mais textos conforme necessário
@@ -193,7 +193,7 @@ var languageTexts = {
         'prte3': "Um jogo inspirado no jogo \"Gênio Quiz\", feito para o youtuber Jazzghost.",
         
         'prtisoon': "Em Breve",
-        'prtesoon': "Em Breve",
+        'prtesoon': "Em Breve \n",
         'greeting': "",
         'about': "",
         // Adicione mais textos conforme necessário
