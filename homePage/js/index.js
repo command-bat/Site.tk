@@ -31,6 +31,31 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
+
+        // Get all buttons with class 'SNicon'
+        var buttons = document.querySelectorAll('.SNicon');
+
+        // Iterate through each button
+        buttons.forEach(function (button) {
+            // Get the corresponding image and original source
+            var image = button.querySelector('img');
+            var originalSrc = image.src;
+
+            // Extract the logo color from the original source
+            var logoColor = originalSrc.match(/-([A-Fa-f0-9]{6})/);
+            logoColor = logoColor ? logoColor[1] : '000000'; // Default to black if not found
+
+            // Update the image source on mouseover
+            button.addEventListener('mouseover', function () {
+                image.src = `https://custom-icon-badges.demolab.com/badge/${button.classList[1]}-${logoColor}?style=for-the-badge&logo=linkedin-white&logoColor=white`;
+            });
+
+            // Restore the original image source on mouseout
+            button.addEventListener('mouseout', function () {
+                image.src = originalSrc;
+            });
+        });
+
         class TxtType {
             constructor(el, toRotate, period, pause) {
                 this.toRotate = toRotate;
