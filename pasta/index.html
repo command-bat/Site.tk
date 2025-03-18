@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://commandbat.netlify.app/favicon/favicon-32x32.png">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #383838;
+            overflow: hidden;
+            touch-action: pan-y;
+            overscroll-behavior-y: contain;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Remova a borda do iframe, se necessário */
+        }
+
+        
+    </style>
+</head>
+<body>
+  <script>
+    // Cria o iframe com o link selecionado
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://v5rvz2tpx.localto.net/";
+    iframe.frameBorder = "0";
+
+    // Adiciona o iframe ao corpo do documento
+    document.body.appendChild(iframe);
+</script>
+</body>
+</html>
